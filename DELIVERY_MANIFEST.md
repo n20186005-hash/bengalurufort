@@ -65,3 +65,7 @@ Automated audit rebuilt from the compliance checklist plus pending items. Machin
 - **Residual scan**: no `adsbygoogle`/`ca-pub-`/placeholder/loremflickr/TODO/`example.com`/`chrome-extension://` in source; the only `localhost` hits are the intentional SW guard (`BaseLayout:99`) and dev docs.
 - **Sitemap/robots**: `SITE = https://bengalurufort.com` with sitemap integration enabled; `robots.txt.ts` emits `Sitemap: …/sitemap-index.xml` only when `site` is present.
 - **Pending (cannot run offline)**: full `pnpm install && pnpm build` still needs a networked machine; `verify-build.mjs` will then check `dist/` images, sitemap-0.xml URL origin and the “no invented lastmod” rule. Pre-existing hero-`fetchpriority` TS typing notes on the two home pages remain (cosmetic, no build impact).
+
+## 2026-09-03 CI 构建修复（pnpm 11 ignored-builds）
+
+First CI build failed at the dependency step with `[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: esbuild@0.28.2` — pnpm 11 by default refuses postinstall scripts and the build platform treated that state as a fatal install error. Fix: approved esbuild via `package.json` → `"pnpm": { "onlyBuiltDependencies": ["esbuild"] }`, and mirrored the same value into `pnpm-lock.yaml` → `settings.onlyBuiltDependencies` so the platform’s `pnpm install --frozen-lockfile` stays in sync (no resolution change, lockfile importers untouched). Verified `package.json` parses and the field is present. Next step: re-trigger the CI build.
