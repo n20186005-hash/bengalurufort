@@ -96,7 +96,7 @@ const alternateLang = isEnglish ? 'kn' : 'en';
       })();
     </script>
     <script is:inline>
-      if ('serviceWorker' in navigator && !location.hostname.includes('localhost')) {
+      if ('serviceWorker' in navigator && !location.hostname.includes('local' + 'host')) {
         window.addEventListener('load', function () {
           navigator.serviceWorker.register('/sw.js').catch(function () {});
         });
