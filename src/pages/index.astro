@@ -7,16 +7,21 @@ export const prerender = true;
 
 const siteUrl = Astro.site?.href;
 const pageUrl = siteUrl ? new URL('/', Astro.site).href : undefined;
+const attractionId = siteUrl ? new URL('#attraction', Astro.site).href : undefined;
+const mapsUrl = 'https://maps.app.goo.gl/YQMDNDs39ST6udZd6';
 const imageUrl = siteUrl ? new URL('/images/bengaluru-fort-courtyard.jpg', Astro.site).href : '/images/bengaluru-fort-courtyard.jpg';
 
 const attraction = {
   '@context': 'https://schema.org',
   '@type': 'TouristAttraction',
-  name: 'ಬೆಂಗಳೂರು ಕೋಟೆ',
-  alternateName: ['Bengaluru Fort', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
-  description: 'ಬೆಂಗಳೂರು ನಗರದ ಹಳೆಯ ಭಾಗದಲ್ಲಿರುವ, ಕೆಂಪೇಗೌಡರ 1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಆರಂಭವಾಗಿ ಹೈದರ್ ಅಲಿ ಕಾಲದಲ್ಲಿ ಕಲ್ಲಿನ ಕೋಟೆಯಾಗಿ ರೂಪಾಂತರಗೊಂಡ ಐತಿಹಾಸಿಕ ಸ್ಮಾರಕ.',
+  '@id': attractionId,
+  name: 'Bengaluru Fort',
+  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
+  description: 'Kempe Gowda-era fort in Bengaluru, Karnataka, India — surviving centrally protected gateway and walls listed by the Archaeological Survey of India as “Old Dungeon Fort and Gates”.',
   ...(pageUrl ? { url: pageUrl } : {}),
   image: [imageUrl],
+  isAccessibleForFree: true,
+  publicAccess: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Krishna Rajendra Rd, New Tharagupet',
@@ -27,9 +32,10 @@ const attraction = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 12.962875,
-    longitude: 77.575956
+    latitude: 12.962802,
+    longitude: 77.573311
   },
+  hasMap: mapsUrl,
   openingHours: 'Mo-Su 08:30-17:30',
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -38,11 +44,10 @@ const attraction = {
     bestRating: '5',
     worstRating: '1'
   },
-  isAccessibleForFree: true,
-  publicAccess: true,
   inLanguage: 'kn-IN',
   sameAs: [
-    'https://maps.app.goo.gl/YQMDNDs39ST6udZd6',
+    mapsUrl,
+    'https://karnatakatourism.org/en/destinations/bengaluru',
     'https://bengaluruurban.nic.in/en/history/',
     'https://asi.nic.in/admin/whatsnew/download/719'
   ]
@@ -66,11 +71,11 @@ const faqSchema = {
 };
 const jsonLd = [attraction, faqSchema];
 
-const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.626518291582!2d77.57331127700142!3d12.962801787351749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e3043a1d57%3A0xb2a4590209bde6d7!2sBengaluru%20Fort!5e1!3m2!1ska!2sin!4v1788419693020!5m2!1ska!2sin';
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.626518291582!2d77.57331127700142!3d12.962801787351749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e3043a1d57%3A0xb2a4590209bde6d7!2sBengaluru%20Fort!5e1!3m2!1skn!2sin!4v1788419693020!5m2!1skn!2sin';
 ---
 <BaseLayout
-  title="ಬೆಂಗಳೂರು ಕೋಟೆ | ಇತಿಹಾಸ, ಭೇಟಿ ಮಾಹಿತಿ, ಸಾರಿಗೆ ಮತ್ತು ನಕ್ಷೆ"
-  description="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಇತಿಹಾಸ ಮತ್ತು ಕಥೆಗಳು, ಕಲ್ಲಿನ ಬಾಗಿಲುಗಳು, ಭೇಟಿ ಸಮಯ, ಶುಲ್ಕ ಪರಿಶೀಲನೆ, ಸುತ್ತಲಿನ ಸೌಲಭ್ಯಗಳು (ಶೌಚಾಲಯ, ಪಾರ್ಕಿಂಗ್, ಊಟ, ವಸತಿ), ಲೈವ್ ಹವಾಮಾನ, ಮೆಟ್ರೋ/ರಸ್ತೆ ಸಾರಿಗೆ ಮತ್ತು ನಕ್ಷೆಯ ಕನ್ನಡ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ."
+  title="ಬೆಂಗಳೂರು ಕೋಟೆ (Bengaluru Fort) | ಇತಿಹಾಸ, ಭೇಟಿ, ನಕ್ಷೆ, ಸಾರಿಗೆ"
+  description="ಕರ್ನಾಟಕದ ಬೆಂಗಳೂರಿನ (560002) ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆಯಲ್ಲಿರುವ ಬೆಂಗಳೂರು ಕೋಟೆಯ ಸ್ವತಂತ್ರ ಕನ್ನಡ ಮಾರ್ಗದರ್ಶಿ: ಕೆಂಪೇಗೌಡರ 1537ರ ಇತಿಹಾಸ, ಉಳಿದ ಕಲ್ಲಿನ ಬಾಗಿಲು, ಭೇಟಿ ಸಮಯ/ಶುಲ್ಕ, ಹತ್ತಿರದ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ ಹಾಗೂ ಕೋಟೆ ವೆಂಕಟರಮಣ ದೇವಾಲಯ, ಸೌಲಭ್ಯಗಳು, ಲೈವ್ ಹವಾಮಾನ, ಮೆಟ್ರೋ/ಬಸ್ ಸಾರಿಗೆ ಮತ್ತು ನಕ್ಷೆ."
   jsonLd={jsonLd}
   alternatePath="/en/"
 >
@@ -80,7 +85,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
     <div class="mx-auto grid min-h-[78vh] max-w-7xl items-end gap-10 px-5 py-16 lg:grid-cols-[1.1fr_.6fr] lg:px-8 lg:py-24">
       <div class="max-w-3xl">
         <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆಯ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ · ಎನ್-ಕೆಎ-ಬಿ1</p>
-        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">ಬೆಂಗಳೂರು ಕೋಟೆ</h1>
+        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">ಬೆಂಗಳೂರು ಕೋಟೆ<span class="mt-3 block text-2xl font-extrabold tracking-wide text-[#e9cda7] sm:text-3xl">ಬೆಂಗಳೂರು · ಕರ್ನಾಟಕ · ಭಾರತ</span></h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಹೈದರ್ ಅಲಿಯ ಕಲ್ಲಿನ ರಕ್ಷಣಾ ಕಟ್ಟಡದವರೆಗೆ—ಬೆಂಗಳೂರು ನಗರದ ಹುಟ್ಟಿನ ಕಥೆಯನ್ನು ಇನ್ನೂ ಹಿಡಿದಿಟ್ಟಿರುವ ಹಳೆಯ ನಗರದ ಕಲ್ಲಿನ ದ್ವಾರ.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">ಭೇಟಿ ಯೋಜಿಸಿ</a>
@@ -96,6 +101,20 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
           <div><span class="block text-white/60">ವಿಮರ್ಶೆಗಳು</span><strong class="text-lg">26,832</strong></div>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="border-y border-fort/10 bg-white/50" aria-label="ಪರಿಚಯ">
+    <div class="mx-auto max-w-7xl px-5 py-7 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-xs font-bold uppercase tracking-wider text-stone-ink/55">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li>ಬೆಂಗಳೂರು ಕೋಟೆ</li><li aria-hidden="true">›</li>
+          <li>ಬೆಂಗಳೂರು</li><li aria-hidden="true">›</li>
+          <li>ಕರ್ನಾಟಕ</li><li aria-hidden="true">›</li>
+          <li>ಭಾರತ</li>
+        </ol>
+      </nav>
+      <p class="mt-3 max-w-4xl leading-8 text-stone-ink/75"><strong>ಬೆಂಗಳೂರು ಕೋಟೆ (Bengaluru Fort)</strong> — ಕೆಂಪೇಗೌಡರು 1537ರಲ್ಲಿ ನಿರ್ಮಿಸಿದ ಕೋಟೆಯ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಉಳಿದ ದ್ವಾರ. ಭಾರತದ ಕರ್ನಾಟಕ ರಾಜ್ಯದ ರಾಜಧಾನಿ ಬೆಂಗಳೂರಿನ ಹೃದಯ ಭಾಗದ ಹಳೆಯ ನಗರದಲ್ಲಿದ್ದು, ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆಯ ಪಟ್ಟಿಯಲ್ಲಿ “ಓಲ್ಡ್ ಡಂಜಿಯನ್ ಫೋರ್ಟ್ ಅಂಡ್ ಗೇಟ್ಸ್” ಎಂದು ದಾಖಲಾಗಿದೆ.</p>
     </div>
   </section>
 
@@ -182,6 +201,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
         <div>
           <p class="section-kicker">ಸುತ್ತಮುತ್ತಲಿನ ಇತಿಹಾಸ</p>
           <h2 class="section-title">ಒಂದೇ ಹಳೆಯ ನಗರ ವಲಯದಲ್ಲಿ ಇನ್ನೇನು ನೋಡಬಹುದು?</h2>
+          <p class="mt-4 leading-8 text-stone-ink/70">ಬೆಂಗಳೂರು ಕೋಟೆಯನ್ನು ಭೇಟಿ ಮಾಡುವಾಗ ಸುತ್ತಮುತ್ತಲಿನ ಐತಿಹಾಸಿಕ ಸ್ಥಳಗಳಾದ <strong>ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ</strong> ಮತ್ತು <strong>ಕೋಟೆ ವೆಂಕಟರಮಣ ಸ್ವಾಮಿ ದೇವಾಲಯ</strong>ಗಳನ್ನು ಸುಲಭವಾಗಿ ಒಟ್ಟಿಗೆ ಅನ್ವೇಷಿಸಬಹುದು—ಇವೆಲ್ಲವೂ ಕೋಟೆಯಿಂದ ಕೆಲವೇ ನಿಮಿಷಗಳ ನಡಿಗೆ/ಸಣ್ಣ ಸವಾರಿಯ ದೂರದಲ್ಲಿವೆ.</p>
           <div class="mt-8 space-y-4">
             <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಮರದ ಸ್ತಂಭಗಳು, ಕಮಾನುಗಳು ಮತ್ತು ಮೈಸೂರು ಆಡಳಿತದ ನಗರ ಇತಿಹಾಸವನ್ನು ಪರಿಚಯಿಸುವ ಹತ್ತಿರದ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ. ಕೋಟೆಯೊಂದಿಗೆ ಗೊಂದಲಪಡಿಸಬೇಡಿ—ಇದು ಪ್ರತ್ಯೇಕ ಸ್ಮಾರಕ.</p></article>
             <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಕೋಟೆ ವೆಂಕಟರಮಣ ಸ್ವಾಮಿ ದೇವಾಲಯ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಹಳೆಯ ಕೋಟೆ ವಲಯದ ಬಳಿ 1689ರಲ್ಲಿ ಚಿಕ್ಕದೇವರಾಜ ಒಡೆಯರ್ ಕಾಲದಲ್ಲಿ ನಿರ್ಮಾಣವಾದ ಐತಿಹಾಸಿಕ ದೇವಾಲಯ; ನಗರದ ಧಾರ್ಮಿಕ ಮತ್ತು ವಾಸ್ತುಶಿಲ್ಪದ ಪದರಗಳನ್ನು ಓದಲು ಉಪಯುಕ್ತ.</p></article>
@@ -204,11 +224,11 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
   </section>
 
   <section id="map" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-    <div class="mb-8 max-w-3xl"><p class="section-kicker">ಸ್ಥಳ ಮತ್ತು ದಿಕ್ಕು</p><h2 class="section-title">ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆಯಲ್ಲಿರುವ ಬೆಂಗಳೂರು ಕೋಟೆ</h2><p class="mt-4 leading-8 text-stone-ink/70">ವಿಳಾಸ: XH7G+49C, ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆ, ನ್ಯೂ ತರಗುಪೇಟೆ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560002, ಭಾರತ.</p></div>
+    <div class="mb-8 max-w-3xl"><p class="section-kicker">ಸ್ಥಳ ಮತ್ತು ದಿಕ್ಕು</p><h2 class="section-title">ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆಯಲ್ಲಿರುವ ಬೆಂಗಳೂರು ಕೋಟೆ</h2><p class="mt-4 leading-8 text-stone-ink/70">ವಿಳಾಸ: XH7G+49C, ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆ, ನ್ಯೂ ತರಗುಪೇಟೆ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560002, ಭಾರತ. ಅಧಿಕೃತ ಪ್ರವಾಸೋದ್ಯಮ ಮತ್ತು ಸ್ಮಾರಕ ಮಾಹಿತಿಗಾಗಿ <a class="font-bold text-fort underline" rel="external noopener" href="https://karnatakatourism.org/en/destinations/bengaluru">ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ – ಬೆಂಗಳೂರು</a> ಹಾಗೂ <a class="font-bold text-fort underline" rel="external noopener" href="https://www.incredibleindia.gov.in/en/karnataka/bengaluru">ಇನ್‌ಕ್ರೆಡಿಬಲ್ ಇಂಡಿಯಾ</a> ಪುಟಗಳನ್ನು ನೋಡಿ.</p></div>
     <div class="overflow-hidden rounded-[2.5rem_2.5rem_1rem_1rem] border border-fort/20 bg-white shadow-xl shadow-fort/5">
       <iframe src={mapSrc} title="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಗೂಗಲ್ ನಕ್ಷೆ" class="h-[520px] w-full" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
     </div>
-    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href="https://maps.app.goo.gl/YQMDNDs39ST6udZd6">ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ</a>
+    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href={mapsUrl}>ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ</a>
   </section>
 
   <section id="faq" class="bg-[#342b24] py-20 text-white lg:py-24">
@@ -223,7 +243,15 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 
   <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
     <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-      <div><p class="section-kicker">ಮೂಲಗಳು ಮತ್ತು ಚಿತ್ರ ಹಕ್ಕು</p><h2 class="section-title">ಸಾಕ್ಷ್ಯಾಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ</h2><p class="mt-4 leading-8 text-stone-ink/70">ಕೋಟೆಯ ಗುರುತು, ಸ್ಥಳ, ಇತಿಹಾಸ ಮತ್ತು ನಗರ ಸಂಬಂಧವನ್ನು ಅಧಿಕೃತ ಸಾರ್ವಜನಿಕ ಮೂಲಗಳೊಂದಿಗೆ ಜೋಡಿಸಲಾಗಿದೆ. ಚಿತ್ರಗಳನ್ನು ವೆಬ್‌ನಲ್ಲಿ ಹಾಟ್‌ಲಿಂಕ್ ಮಾಡಿಲ್ಲ; ಪರವಾನಗಿ ಅನುಮತಿಸುವ ಪ್ರತಿಗಳನ್ನು ಸ್ಥಳೀಯ ಕಡತಗಳಾಗಿ ಬಳಸಲಾಗಿದೆ.</p></div>
+      <div><p class="section-kicker">ಮೂಲಗಳು ಮತ್ತು ಚಿತ್ರ ಹಕ್ಕು</p><h2 class="section-title">ಸಾಕ್ಷ್ಯಾಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ</h2><p class="mt-4 leading-8 text-stone-ink/70">ಕೋಟೆಯ ಗುರುತು, ಸ್ಥಳ, ಇತಿಹಾಸ ಮತ್ತು ನಗರ ಸಂಬಂಧವನ್ನು ಅಧಿಕೃತ ಸಾರ್ವಜನಿಕ ಮೂಲಗಳೊಂದಿಗೆ ಜೋಡಿಸಲಾಗಿದೆ. ಚಿತ್ರಗಳನ್ನು ವೆಬ್‌ನಲ್ಲಿ ಹಾಟ್‌ಲಿಂಕ್ ಮಾಡಿಲ್ಲ; ಪರವಾನಗಿ ಅನುಮತಿಸುವ ಪ್ರತಿಗಳನ್ನು ಸ್ಥಳೀಯ ಕಡತಗಳಾಗಿ ಬಳಸಲಾಗಿದೆ.</p>
+        <h3 class="mt-7 text-sm font-extrabold tracking-wide text-stone-ink">ಪ್ರಾಥಮಿಕ ಅಧಿಕೃತ ಮೂಲಗಳು</h3>
+        <ul class="mt-3 space-y-2.5 text-sm leading-6">
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://bengaluruurban.nic.in/en/history/">ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತ – ಇತಿಹಾಸ</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://karnatakatourism.org/en/destinations/bengaluru">ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ – ಬೆಂಗಳೂರು</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://www.incredibleindia.gov.in/en/karnataka/bengaluru">ಭಾರತ ಸರ್ಕಾರ – ಇನ್‌ಕ್ರೆಡಿಬಲ್ ಇಂಡಿಯಾ</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://asi.nic.in/admin/whatsnew/download/719">ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆ – ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ ಪಟ್ಟಿ</a></li>
+        </ul>
+      </div>
       <div class="space-y-4 text-sm leading-7 text-stone-ink/70">
         <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 1 · ಒಳಾಂಗಣ ಮತ್ತು ಮುಖ್ಯ ಕಮಾನು:</strong> ಪವಿತ್ರಾ, ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Inside_View.JPG">ಮೂಲ</a></div>
         <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 2 · ಕೋಟೆಯ ವಿಶಾಲ ದ್ವಾರ ನೋಟ:</strong> ಪ್ರಧಾನ ವಿ., ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Bangalore_Fort_N-KA-B1.jpg">ಮೂಲ</a></div>

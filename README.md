@@ -23,7 +23,11 @@ The header includes a Kannada ↔ English switch. Stable section anchors are sha
 
 ## Production domain — one configuration point
 
-Set the production origin only in `astro.config.mjs` at `const SITE = ''` and rebuild. When left empty, the project is designed to build without inventing a placeholder domain: absolute canonical/OG URL tags are omitted or gracefully downgraded and the sitemap integration stays disabled. Once a real domain is configured, canonical URLs, Open Graph URLs, JSON-LD URLs, robots sitemap discovery and the generated sitemap derive from `Astro.site`.
+Production origin: **`https://bengalurufort.com`** (set 2026-09-03 in `astro.config.mjs` at `const SITE`). Canonical URLs, Open Graph URLs, JSON-LD URLs, robots sitemap discovery and the generated sitemap all derive from `Astro.site`; the `@astrojs/sitemap` integration is enabled automatically. If the domain ever needs to change, edit only `const SITE` in `astro.config.mjs` and rebuild.
+
+## PWA
+
+The site is installable: `public/manifest.webmanifest` (Kannada default UI, start URL `/`, theme colour `#9c5d36`) + `public/sw.js` (offline-first caching: network-first navigations with a cached-home fallback, stale-while-revalidate for same-origin assets; versioned cache `bengalurufort-v2026-09-03`). Icons live in `public/icons/` (SVG, 16/32 px PNG, apple-touch 180 px, generated 192/512 px and maskable 512 px). The service worker is registered from `BaseLayout.astro` only outside localhost, and the privacy pages explain the browser-side cache.
 
 ## Verification commands
 

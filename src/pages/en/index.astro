@@ -6,16 +6,21 @@ import WeatherSection from '../../components/WeatherSection.astro';
 export const prerender = true;
 
 const pageUrl = Astro.site ? new URL('/en/', Astro.site).href : undefined;
+const attractionId = Astro.site ? new URL('#attraction', Astro.site).href : undefined;
+const mapsUrl = 'https://maps.app.goo.gl/YQMDNDs39ST6udZd6';
 const imageUrl = Astro.site ? new URL('/images/bengaluru-fort-courtyard.jpg', Astro.site).href : '/images/bengaluru-fort-courtyard.jpg';
 
 const attraction = {
   '@context': 'https://schema.org',
   '@type': 'TouristAttraction',
+  '@id': attractionId,
   name: 'Bengaluru Fort',
   alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
-  description: 'A surviving historic fort in old Bengaluru, rooted in Kempe Gowda I’s 1537 mud fort and later strengthened in stone under Hyder Ali.',
+  description: 'Comprehensive visitor guide to Bengaluru Fort in Bengaluru, Karnataka, India — the surviving centrally protected gateway and walls of Kempe Gowda I’s 1537 fort, later rebuilt in stone under Hyder Ali.',
   ...(pageUrl ? { url: pageUrl } : {}),
   image: [imageUrl],
+  isAccessibleForFree: true,
+  publicAccess: true,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Krishna Rajendra Rd, New Tharagupet',
@@ -26,9 +31,10 @@ const attraction = {
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 12.962875,
-    longitude: 77.575956
+    latitude: 12.962802,
+    longitude: 77.573311
   },
+  hasMap: mapsUrl,
   openingHours: 'Mo-Su 08:30-17:30',
   aggregateRating: {
     '@type': 'AggregateRating',
@@ -37,11 +43,10 @@ const attraction = {
     bestRating: '5',
     worstRating: '1'
   },
-  isAccessibleForFree: true,
-  publicAccess: true,
   inLanguage: 'en-IN',
   sameAs: [
-    'https://maps.app.goo.gl/YQMDNDs39ST6udZd6',
+    mapsUrl,
+    'https://karnatakatourism.org/en/destinations/bengaluru',
     'https://bengaluruurban.nic.in/en/history/',
     'https://asi.nic.in/admin/whatsnew/download/719'
   ]
@@ -70,17 +75,17 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 <BaseLayout
   lang="en-IN"
   alternatePath="/"
-  title="Bengaluru Fort | History, Visitor Information, Transport & Map"
-  description="Independent English guide to Bengaluru Fort: history and stories, the surviving stone gateway, visiting hours, entry-fee notes, nearby facilities (toilets, parking, food, lodging), live weather, transport, map and FAQ."
+  title="Bengaluru Fort (Bengaluru, Karnataka) | Visitor Guide, Map & History"
+  description="Independent guide to Bengaluru Fort (ಬೆಂಗಳೂರು ಕೋಟೆ), the surviving gateway of Kempe Gowda's 1537 fort on Krishna Rajendra Road in Bengaluru, Karnataka 560002, India: history, visiting hours, nearby Tipu Sultan's Summer Palace & Kote Venkataramana Temple, facilities, live weather, transport and map."
   jsonLd={jsonLd}
 >
   <section class="relative isolate overflow-hidden bg-[#302820] text-white">
-    <img src="/images/bengaluru-fort-courtyard.jpg" alt="Stone walls, arched gateway and green courtyard inside Bengaluru Fort" class="absolute inset-0 -z-20 h-full w-full object-cover" width="1280" height="850" fetchpriority="high" />
+    <img src="/images/bengaluru-fort-courtyard.jpg" alt="Main view of Bengaluru Fort — surviving stone gateway, arched entrance and green courtyard in Bengaluru, Karnataka, India" class="absolute inset-0 -z-20 h-full w-full object-cover" width="1280" height="850" fetchpriority="high" />
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#241d17]/95 via-[#33261d]/72 to-[#33261d]/30"></div>
     <div class="mx-auto grid min-h-[78vh] max-w-7xl items-end gap-10 px-5 py-16 lg:grid-cols-[1.1fr_.6fr] lg:px-8 lg:py-24">
       <div class="max-w-3xl">
         <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">Centrally protected ASI monument · N-KA-B1</p>
-        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">Bengaluru Fort</h1>
+        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">Bengaluru Fort<span class="mt-3 block text-2xl font-extrabold tracking-wide text-[#e9cda7] sm:text-3xl">in Bengaluru · Karnataka · India</span></h1>
         <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">From Kempe Gowda I’s 1537 mud fort to Hyder Ali’s stone defences, this surviving gateway keeps a physical link to the making of Bengaluru’s old city.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">Plan your visit</a>
@@ -96,6 +101,20 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
           <div><span class="block text-white/60">Reviews</span><strong class="text-lg">26,832</strong></div>
         </div>
       </aside>
+    </div>
+  </section>
+
+  <section class="border-y border-fort/10 bg-white/50" aria-label="Introduction">
+    <div class="mx-auto max-w-7xl px-5 py-7 lg:px-8">
+      <nav aria-label="Breadcrumb" class="text-xs font-bold uppercase tracking-wider text-stone-ink/55">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li>Bengaluru Fort</li><li aria-hidden="true">›</li>
+          <li>Bengaluru</li><li aria-hidden="true">›</li>
+          <li>Karnataka</li><li aria-hidden="true">›</li>
+          <li>India</li>
+        </ol>
+      </nav>
+      <p class="mt-3 max-w-4xl leading-8 text-stone-ink/75"><strong>Bengaluru Fort (ಬೆಂಗಳೂರು ಕೋಟೆ)</strong> is the centrally protected surviving gateway of the fort Kempe Gowda built in 1537, standing in the heart of old <strong>Bengaluru, Karnataka, India</strong> and listed by the Archaeological Survey of India as “Old Dungeon Fort and Gates”.</p>
     </div>
   </section>
 
@@ -168,7 +187,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
   <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
       <div class="grid gap-12 lg:grid-cols-2">
-        <div><p class="section-kicker">NEARBY SIGHTS</p><h2 class="section-title">More history in the same old-city area</h2><div class="mt-8 space-y-4">
+        <div><p class="section-kicker">NEARBY SIGHTS</p><h2 class="section-title">More history in the same old-city area</h2><p class="mt-4 leading-8 text-stone-ink/70">When visiting <strong>Bengaluru Fort</strong>, you can easily explore surrounding historic landmarks, including <strong>Tipu Sultan’s Summer Palace</strong> and the <strong>Kote Venkataramana Swamy Temple</strong> — all within a short walk or ride in the same old-city area.</p><div class="mt-8 space-y-4">
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Tipu Sultan’s Summer Palace</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A separate centrally protected monument with timber columns and arches. Do not confuse the palace with Bengaluru Fort itself.</p></article>
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Kote Venkataramana Swamy Temple</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic temple built in 1689 in the period of Chikkadevaraja Wodeyar, adding a religious and architectural layer to the old fort area.</p></article>
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">K.R. Market</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A busy old Bengaluru market known for flowers, fruit, vegetables and daily trade, especially lively in the morning.</p></article>
@@ -184,9 +203,9 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
   </section>
 
   <section id="map" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-    <div class="mb-8 max-w-3xl"><p class="section-kicker">LOCATION & DIRECTIONS</p><h2 class="section-title">Bengaluru Fort on Krishna Rajendra Road</h2><p class="mt-4 leading-8 text-stone-ink/70">Address: XH7G+49C, Krishna Rajendra Rd, New Tharagupet, Bengaluru, Karnataka 560002, India.</p></div>
+    <div class="mb-8 max-w-3xl"><p class="section-kicker">LOCATION & DIRECTIONS</p><h2 class="section-title">Bengaluru Fort on Krishna Rajendra Road</h2><p class="mt-4 leading-8 text-stone-ink/70">Address: XH7G+49C, Krishna Rajendra Rd, New Tharagupet, Bengaluru, Karnataka 560002, India. For official updates and regional tourism information, visit the <a class="font-bold text-fort underline" rel="external noopener" href="https://karnatakatourism.org/en/destinations/bengaluru">Karnataka Tourism Department – Bengaluru</a> page and the <a class="font-bold text-fort underline" rel="external noopener" href="https://www.incredibleindia.gov.in/en/karnataka/bengaluru">Incredible India – Karnataka</a> page.</p></div>
     <div class="overflow-hidden rounded-[2.5rem_2.5rem_1rem_1rem] border border-fort/20 bg-white shadow-xl shadow-fort/5"><iframe src={mapSrc} title="Google map showing Bengaluru Fort" class="h-[520px] w-full" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href="https://maps.app.goo.gl/YQMDNDs39ST6udZd6">Open in Google Maps</a>
+    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href={mapsUrl}>Open in Google Maps</a>
   </section>
 
   <section id="faq" class="bg-[#342b24] py-20 text-white lg:py-24">
@@ -195,7 +214,15 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 
   <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
     <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
-      <div><p class="section-kicker">SOURCES & IMAGE RIGHTS</p><h2 class="section-title">Evidence-led visitor information</h2><p class="mt-4 leading-8 text-stone-ink/70">The fort’s identity, protected status, location and history are tied to public authority sources. Photographs are stored locally rather than hotlinked at runtime, and photographer/licence credits are retained here.</p></div>
+      <div><p class="section-kicker">SOURCES & IMAGE RIGHTS</p><h2 class="section-title">Evidence-led visitor information</h2><p class="mt-4 leading-8 text-stone-ink/70">The fort’s identity, protected status, location and history are tied to public authority sources. Photographs are stored locally rather than hotlinked at runtime, and photographer/licence credits are retained here.</p>
+        <h3 class="mt-7 text-sm font-extrabold tracking-wide text-stone-ink">Primary official sources</h3>
+        <ul class="mt-3 space-y-2.5 text-sm leading-6">
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://bengaluruurban.nic.in/en/history/">Bengaluru Urban District Administration – History</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://karnatakatourism.org/en/destinations/bengaluru">Karnataka Tourism Department – Bengaluru</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://www.incredibleindia.gov.in/en/karnataka/bengaluru">Government of India – Incredible India</a></li>
+          <li><a class="font-bold text-fort underline" rel="external noopener" href="https://asi.nic.in/admin/whatsnew/download/719">Archaeological Survey of India – Protected Monuments List</a></li>
+        </ul>
+      </div>
       <div class="space-y-4 text-sm leading-7 text-stone-ink/70">
         <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 1 · courtyard and arch:</strong> Pavithrah, Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Inside_View.JPG">Source</a></div>
         <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 2 · wide fort-gate view:</strong> Pradhan V., Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Bangalore_Fort_N-KA-B1.jpg">Source</a></div>
