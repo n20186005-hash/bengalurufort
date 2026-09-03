@@ -1,0 +1,104 @@
+---
+// Visitor-facility guide for the area around Bengaluru Fort.
+// Independent, non-profit, non-commercial: we list facility TYPES and general
+// areas only and never name or rank specific shops, brands or businesses.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Item = { n: string; title: string; body: string };
+const items: Item[] = [
+  {
+    n: '01',
+    title: en ? 'Toilets / WC' : 'ಶೌಚಾಲಯ',
+    body: en
+      ? 'No reliable public toilet is guaranteed inside the monument grounds. Public conveniences around K.R. Market and City Market change over time; check condition yourself and plan ahead.'
+      : 'ಸ್ಮಾರಕದ ಆವರಣದೊಳಗೆ ಖಾತರಿಯ ಸಾರ್ವಜನಿಕ ಶೌಚಾಲಯ ಇದೆ ಎಂದು ಹೇಳಲು ಆಧಾರವಿಲ್ಲ. ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಮತ್ತು ಸಿಟಿ ಮಾರುಕಟ್ಟೆ ಸುತ್ತಲಿನ ಸಾರ್ವಜನಿಕ ವ್ಯವಸ್ಥೆಗಳು ಬದಲಾಗುತ್ತವೆ; ಸ್ಥಿತಿಯನ್ನು ಸ್ವತಃ ಪರಿಶೀಲಿಸಿ.'
+  },
+  {
+    n: '02',
+    title: en ? 'Drinking water' : 'ಕುಡಿಯುವ ನೀರು',
+    body: en
+      ? 'Arranged drinking water is not assured at the monument. Carry your own bottle; shops around the market area sell water.'
+      : 'ಸ್ಮಾರಕದಲ್ಲಿ ವ್ಯವಸ್ಥಿತ ಕುಡಿಯುವ ನೀರಿನ ಖಾತರಿ ಇಲ್ಲ. ಸ್ವಂತ ಬಾಟಲ್ ಒಯ್ಯಿರಿ; ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶದ ಅಂಗಡಿಗಳಲ್ಲಿ ನೀರು ದೊರೆಯುತ್ತದೆ.'
+  },
+  {
+    n: '03',
+    title: en ? 'Parking' : 'ಪಾರ್ಕಿಂಗ್',
+    body: en
+      ? 'There is no large dedicated tourist car park at the fort. Lawful paid parking exists on surrounding market streets; public transport, or a two-wheeler with local parking, is usually simpler. Keep the gate approaches clear.'
+      : 'ಕೋಟೆ ಬಳಿ ದೊಡ್ಡ ಮೀಸಲು ಪ್ರವಾಸಿ ಪಾರ್ಕಿಂಗ್ ಇಲ್ಲ. ಸುತ್ತಲಿನ ಮಾರುಕಟ್ಟೆ ರಸ್ತೆಗಳಲ್ಲಿ ಕಾನೂನುಬದ್ಧ ಪೇಡ್ ಪಾರ್ಕಿಂಗ್ ಇದೆ; ಸಾರ್ವಜನಿಕ ಸಾರಿಗೆ ಅಥವಾ ದ್ವಿಚಕ್ರ ವಾಹನ ಸಾಮಾನ್ಯವಾಗಿ ಸರಳ. ಪ್ರವೇಶ ದ್ವಾರದ ಎದುರು ವಾಹನ ನಿಲ್ಲಿಸಬೇಡಿ.'
+  },
+  {
+    n: '04',
+    title: en ? 'Food & refreshments' : 'ಊಟ ಮತ್ತು ತಿಂಡಿ',
+    body: en
+      ? 'K.R. Market and Chickpet have many small vegetarian darshini-style eateries serving idli, dosa, vada, khara bath and filter coffee, plus non-vegetarian options in the area. Judge hygiene, posted prices and your own dietary needs.'
+      : 'ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ–ಚಿಕ್ಕಪೇಟೆ ವಲಯದಲ್ಲಿ ಇಡ್ಲಿ, ದೋಸೆ, ವಡೆ, ಖಾರಾ ಬಾತ್ ಮತ್ತು ಫಿಲ್ಟರ್ ಕಾಫಿ ನೀಡುವ ಅನೇಕ ಸಣ್ಣ ಸಸ್ಯಾಹಾರಿ ದರ್ಶಿನಿಗಳಿವೆ; ಪ್ರದೇಶದಲ್ಲಿ ಮಾಂಸಾಹಾರಿ ಆಯ್ಕೆಗಳೂ ಲಭ್ಯ. ನೈರ್ಮಲ್ಯ, ಬೆಲೆಪಟ್ಟಿ ಹಾಗೂ ನಿಮ್ಮ ಆಹಾರದ ಅಗತ್ಯಗಳನ್ನು ಸ್ವತಃ ಪರಿಶೀಲಿಸಿ.'
+  },
+  {
+    n: '05',
+    title: en ? 'Shops & daily needs' : 'ಅಂಗಡಿಗಳು ಮತ್ತು ದಿನಸಿ',
+    body: en
+      ? 'K.R. Market is a working produce market (fruit, vegetables, flowers) and the surrounding pete areas have small shops for everyday needs. Useful for supplies; not a curated souvenir market.'
+      : 'ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಕಾರ್ಯನಿರತ ಉತ್ಪನ್ನ ಮಾರುಕಟ್ಟೆ (ಹಣ್ಣು, ತರಕಾರಿ, ಹೂವು); ಸುತ್ತಲಿನ ಪೇಟೆ ಪ್ರದೇಶಗಳಲ್ಲಿ ದಿನನಿತ್ಯದ ಅಗತ್ಯಗಳಿಗೆ ಸಣ್ಣ ಅಂಗಡಿಗಳಿವೆ. ಪೂರೈಕೆಗೆ ಉಪಯುಕ್ತ; ಆಯ್ದ ಸ್ಮಾರಕ ಮಾರುಕಟ್ಟೆ ಅಲ್ಲ.'
+  },
+  {
+    n: '06',
+    title: en ? 'Accommodation' : 'ವಸತಿ',
+    body: en
+      ? 'Budget hotels, lodges, guesthouses and hostels exist around the Majestic / Gandhinagar and City Market side of the city; mid-range and premium options concentrate nearer the central business district. Compare distance and recent reviews when booking.'
+      : 'ಮೆಜೆಸ್ಟಿಕ್ / ಗಾಂಧಿನಗರ ಮತ್ತು ಸಿಟಿ ಮಾರುಕಟ್ಟೆ ಭಾಗದಲ್ಲಿ ಬಜೆಟ್ ಹೋಟೆಲ್, ಲಾಡ್ಜ್, ಗೆಸ್ಟ್‌ಹೌಸ್, ಹಾಸ್ಟೆಲ್ ಪ್ರಕಾರಗಳಿವೆ; ಮಧ್ಯಮ ಮತ್ತು ಪ್ರೀಮಿಯಂ ವಸತಿ ಸಾಮಾನ್ಯವಾಗಿ ನಗರ ಕೇಂದ್ರದ ಹತ್ತಿರ ಕೇಂದ್ರೀಕೃತ. ಕಾದಿರಿಸುವಾಗ ಅಂತರ ಮತ್ತು ಇತ್ತೀಚಿನ ವಿಮರ್ಶೆ ಹೋಲಿಸಿ.'
+  },
+  {
+    n: '07',
+    title: en ? 'Fuel & EV charging' : 'ಇಂಧನ ಮತ್ತು EV ಚಾರ್ಜಿಂಗ್',
+    body: en
+      ? 'Fuel stations are located on the main arterial roads around the old city. Public EV charging in Bengaluru is expanding but is not guaranteed beside the fort; check charging apps for live availability before driving in.'
+      : 'ಹಳೆಯ ನಗರದ ಪ್ರಮುಖ ರಸ್ತೆಗಳಲ್ಲಿ ಇಂಧನ ಕೇಂದ್ರಗಳಿವೆ. ಬೆಂಗಳೂರಿನಲ್ಲಿ ಸಾರ್ವಜನಿಕ EV ಚಾರ್ಜಿಂಗ್ ವಿಸ್ತರಿಸುತ್ತಿದೆ ಆದರೆ ಕೋಟೆಯ ಬಳಿ ಖಾತರಿ ಇಲ್ಲ; ವಾಹನ ತರುವ ಮೊದಲು ಚಾರ್ಜಿಂಗ್ ಆಪ್‌ಗಳಲ್ಲಿ ಲಭ್ಯತೆ ಪರಿಶೀಲಿಸಿ.'
+  },
+  {
+    n: '08',
+    title: en ? 'ATMs & cash' : 'ಎಟಿಎಂ ಮತ್ತು ನಗದು',
+    body: en
+      ? 'Bank ATMs and pharmacies are found around the market area and main roads. Small traders and street vendors may prefer cash, so keep small notes handy as well as a card.'
+      : 'ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶ ಮತ್ತು ಪ್ರಮುಖ ರಸ್ತೆಗಳಲ್ಲಿ ಬ್ಯಾಂಕ್ ಎಟಿಎಂ ಹಾಗೂ ಔಷಧ ಅಂಗಡಿಗಳಿವೆ. ಸಣ್ಣ ವ್ಯಾಪಾರಿಗಳು ನಗದನ್ನು ಬಯಸಬಹುದು; ಕಾರ್ಡ್‌ನೊಂದಿಗೆ ಸಣ್ಣ ನೋಟುಗಳನ್ನೂ ಇಟ್ಟುಕೊಳ್ಳಿ.'
+  },
+  {
+    n: '09',
+    title: en ? 'Comfort & access' : 'ಆರಾಮ ಮತ್ತು ಪ್ರವೇಶ',
+    body: en
+      ? 'The monument is an open urban site on a busy pavement; ground surfaces are uneven. Comfortable shoes, a hat and sun protection help. If you need mobility assistance, plan the short walk from drop-off points carefully.'
+      : 'ಕೋಟೆ ಗದ್ದಲದ ಪಾದಚಾರಿ ಪ್ರದೇಶದ ಮುಕ್ತ ಹೊರಾಂಗಣ ಸ್ಮಾರಕ; ನೆಲ ಅಸಮವಾಗಿರಬಹುದು. ಆರಾಮದಾಯಕ ಬೂಟು, ಟೋಪಿ ಹಾಗೂ ಸನ್‌ಕವಚ ಸಹಾಯಕ. ಚಲನಶೀಲತೆ ನೆರವು ಬೇಕಾದರೆ ಇಳಿಯುವ ಸ್ಥಳದಿಂದ ಕಡಿಮೆ ನಡಿಗೆಯನ್ನು ಮುಂಚಿತವಾಗಿ ಯೋಜಿಸಿ.'
+  }
+];
+const intro = en
+  ? 'Facility TYPES only — no names, no brands, no endorsements. Availability, prices and quality change over time, so always confirm on the spot during your visit.'
+  : 'ಇಲ್ಲಿ ಕೇವಲ ಸೌಲಭ್ಯದ ಪ್ರಕಾರಗಳಿವೆ — ಹೆಸರುಗಳಿಲ್ಲ, ಬ್ರ್ಯಾಂಡ್‌ಗಳಿಲ್ಲ, ಶಿಫಾರಸುಗಳಿಲ್ಲ. ಲಭ್ಯತೆ, ದರ ಹಾಗೂ ಗುಣಮಟ್ಟ ಕಾಲಾನುಸರ ಬದಲಾಗುತ್ತವೆ; ಭೇಟಿಯ ದಿನ ಸ್ಥಳದಲ್ಲೇ ಖಚಿತಪಡಿಸಿ.';
+---
+<section id="facilities" class="bg-[#e8d8bf] py-20 lg:py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <p class="section-kicker">{en ? 'VISITOR FACILITIES' : 'ಪ್ರವಾಸಿ ಸೌಲಭ್ಯ ಮಾರ್ಗದರ್ಶಿ'}</p>
+    <h2 class="section-title max-w-3xl">{en ? 'Facilities around the fort — planned by type, never endorsed' : 'ಕೋಟೆ ಸುತ್ತಲಿನ ಸೌಲಭ್ಯಗಳು — ಪ್ರಕಾರದಿಂದ ಯೋಜಿಸಿ, ಶಿಫಾರಸು ಅಲ್ಲ'}</h2>
+    <p class="mt-4 max-w-3xl text-sm leading-7 text-stone-ink/65">{intro}</p>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      {items.map((item) => (
+        <article class="arch-card p-6">
+          <div class="flex items-center gap-3">
+            <span class="rounded-lg bg-fort/10 px-2.5 py-1 text-xs font-black text-fort">{item.n}</span>
+            <h3 class="font-extrabold">{item.title}</h3>
+          </div>
+          <p class="mt-3 text-sm leading-7 text-stone-ink/70">{item.body}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="mt-8 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70">
+      <strong class="text-stone-ink">{en ? 'Note:' : 'ಸೂಚನೆ:'}</strong>{' '}
+      {en
+        ? 'This independent guide intentionally describes facility categories and broad areas only. Specific premises open or close, and standards differ, so treat this page as general planning information rather than a directory.'
+        : 'ಈ ಸ್ವತಂತ್ರ ಮಾರ್ಗದರ್ಶಿ ಉದ್ದೇಶಪೂರ್ವಕವಾಗಿ ಕೇವಲ ಸೌಲಭ್ಯದ ವರ್ಗಗಳು ಮತ್ತು ವಿಶಾಲ ಪ್ರದೇಶಗಳನ್ನು ವಿವರಿಸುತ್ತದೆ. ನಿರ್ದಿಷ್ಟ ಸ್ಥಳಗಳು ತೆರೆಯು/ಮುಚ್ಚುತ್ತವೆ ಮತ್ತು ಗುಣಮಟ್ಟ ಬೇರೆಯಾಗಿರುತ್ತದೆ; ಈ ಪುಟವನ್ನು ನಿರ್ದೇಶಿಕೆಯಾಗಿ ಅಲ್ಲ, ಸಾಮಾನ್ಯ ಯೋಜನಾ ಮಾಹಿತಿಯಾಗಿ ಪರಿಗಣಿಸಿ.'}
+    </div>
+  </div>
+</section>

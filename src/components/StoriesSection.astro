@@ -1,0 +1,89 @@
+---
+// Stories, legends and documented turning points behind Bengaluru Fort.
+// "Legend" items are presented as folk memory (not proven fact); "documented"
+// items follow public history/administration sources used across this site.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Kind = 'legend' | 'doc' | 'note';
+const kindText: Record<Kind, { kn: string; en: string }> = {
+  legend: { kn: 'ದಂತಕಥೆ', en: 'Legend' },
+  doc: { kn: 'ದಾಖಲಿತ', en: 'Documented' },
+  note: { kn: 'ಸ್ಮಾರಕದ ಕುತೂಹಲ', en: 'Monument note' }
+};
+type Story = { kind: Kind; title: string; body: string };
+const stories: Story[] = [
+  {
+    kind: 'legend',
+    title: en
+      ? 'A hungry king and “Benda Kaalu Ooru”'
+      : 'ಹಸಿದ ಅರಸ ಮತ್ತು “ಬೆಂದ ಕಾಳು ಊರು”',
+    body: en
+      ? 'Popular memory says a Hoysala king, lost while hunting and hungry, was served boiled beans by an old woman, and grateful he called the place “Benda-kaal-ooru” (town of boiled beans) — which slowly became Bengaluru. The name already appears in a stone inscription near Begur dating to 890 CE, so the beans story is best read as folk memory rather than a proven etymology.'
+      : 'ಬೇಟೆಯಲ್ಲಿ ದಾರಿ ತಪ್ಪಿ ಹಸಿದ ಹೊಯ್ಸಳ ಅರಸನಿಗೆ ಒಬ್ಬ ಮುದುಕಿ ಬೆಂದ (ಹುರಿದ) ಕಾಳು ನೀಡಿದಳೆಂದೂ, ಕೃತಜ್ಞನಾದ ಅರಸ ಆ ಸ್ಥಳವನ್ನು “ಬೆಂದಕಾಳು ಊರು” ಎಂದು ಕರೆದನೆಂದೂ — ಕಾಲಕ್ರಮೇಣ ಅದು ಬೆಂಗಳೂರು ಆಯಿತೆಂದೂ ಜನಪ್ರಿಯ ಕಥೆ ಹೇಳುತ್ತದೆ. ಆದರೆ ಕ್ರಿ.ಶ. 890ರಷ್ಟು ಹಿಂದಿನ ಬೇಗೂರಿನ ಶಾಸನದಲ್ಲೇ “ಬೆಂಗಳೂರು” ಎಂಬ ಹೆಸರು ಕಾಣುತ್ತದೆ; ಆದ್ದರಿಂದ ಈ ಕಥೆಯನ್ನು ನಿಖರವಾದ ವ್ಯುತ್ಪತ್ತಿ ಅಲ್ಲ, ಜನಪ್ರಿಯ ನೆನಪು ಎಂದು ಓದುವುದು ಸೂಕ್ತ.'
+  },
+  {
+    kind: 'doc',
+    title: en
+      ? '1537: ploughing the ground for a mud fort'
+      : '1537: ಮಣ್ಣಿನ ಕೋಟೆಗಾಗಿ ಭೂಮಿಯನ್ನು ಉಳುವುದು',
+    body: en
+      ? 'Kempe Gowda I chose the site and laid out the settlement that became Bengaluru. As later retellings record, the foundation ground was ritually ploughed with four pairs of white oxen in four directions. Old descriptions speak of a moat and gates around the mud fort, a layout that a busy market town soon outgrew.'
+      : 'ಕೆಂಪೇಗೌಡರು ಸ್ಥಳ ಆಯ್ದು ಬೆಂಗಳೂರು ಆಗಿ ಬೆಳೆದ ನೆಲೆಯನ್ನು ರೂಪಿಸಿದರು. ನಂತರದ ವಿವರಣೆಗಳ ಪ್ರಕಾರ, ಅಡಿಪಾಯದ ಭೂಮಿಯನ್ನು ನಾಲ್ಕು ದಿಕ್ಕುಗಳಲ್ಲಿ ನಾಲ್ಕು ಜೊತೆ ಬಿಳಿ ಎತ್ತುಗಳಿಂದ ಆಚರಣಾತ್ಮಕವಾಗಿ ಉಳಲಾಯಿತು. ಹಳೆಯ ವಿವರಣೆಗಳಲ್ಲಿ ಮಣ್ಣಿನ ಕೋಟೆ ಸುತ್ತ ಕಂದಕ ಮತ್ತು ಬಾಗಿಲುಗಳ ಉಲ್ಲೇಖವಿದೆ; ಜನನಿಬಿಡ ಮಾರುಕಟ್ಟೆ ಪಟ್ಟಣ ಬೇಗನೆ ಆ ವಿನ್ಯಾಸವನ್ನು ಮೀರಿ ಬೆಳೆಯಿತು.'
+  },
+  {
+    kind: 'doc',
+    title: en
+      ? '1761: the fort turns to stone'
+      : '1761: ಕೋಟೆ ಕಲ್ಲಿನದಾಗುತ್ತದೆ',
+    body: en
+      ? 'Hyder Ali rebuilt the mud defences in stone around 1761. The surviving gateway traditionally known as the Delhi Gate and the curved bastion elements date from this stone phase. Under Tipu Sultan the stronghold remained one of Mysore’s key military and arsenal centres before the wars with the British.'
+      : 'ಹೈದರ್ ಅಲಿ 1761ರ ಸುಮಾರಿಗೆ ಮಣ್ಣಿನ ರಕ್ಷಣೆಯನ್ನು ಕಲ್ಲಿನಿಂದ ಪುನರ್ನಿರ್ಮಿಸಿದನು. ಉಳಿದುಕೊಂಡಿರುವ, ಪರಂಪರೆಯಲ್ಲಿ ದೆಹಲಿ ಬಾಗಿಲು ಎಂದು ಕರೆಯಲಾಗುವ ದ್ವಾರ ಮತ್ತು ವಕ್ರ ಬುರಜುಗಳು ಈ ಕಲ್ಲಿನ ಹಂತದ ರಚನೆ. ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಕಾಲದಲ್ಲಿ ಬ್ರಿಟಿಷರೊಂದಿಗಿನ ಯುದ್ಧಗಳಿಗೂ ಮುನ್ನ ಈ ಕೋಟೆ ಮೈಸೂರಿನ ಪ್ರಮುಖ ಸೈನಿಕ ಹಾಗೂ ಶಸ್ತ್ರಾಗಾರ ಕೇಂದ್ರಗಳಲ್ಲಿ ಒಂದಾಗಿತ್ತು.'
+  },
+  {
+    kind: 'doc',
+    title: en
+      ? '21 March 1791: the fort changes hands'
+      : '1791 ಮಾರ್ಚ್ 21: ಕೋಟೆ ಕೈ ಬದಲಿಸುತ್ತದೆ',
+    body: en
+      ? 'During the Third Anglo-Mysore War, British forces under Lord Cornwallis captured Bengaluru Fort on 21 March 1791 after a short siege. The fort never recovered its old military role; through the nineteenth and into the twentieth century its walls, gates and ditches were progressively dismantled as roads and buildings replaced ramparts.'
+      : 'ಮೂರನೇ ಆಂಗ್ಲ–ಮೈಸೂರು ಯುದ್ಧದ ಸಂದರ್ಭದಲ್ಲಿ ಕಾರ್ನ್‌ವಾಲಿಸ್‌ನ ನೇತೃತ್ವದ ಬ್ರಿಟಿಷ್ ಪಡೆಗಳು ಸಣ್ಣ ಮುತ್ತಿಗೆಯ ನಂತರ 1791ರ ಮಾರ್ಚ್ 21ರಂದು ಬೆಂಗಳೂರು ಕೋಟೆಯನ್ನು ವಶಪಡಿಸಿಕೊಂಡವು. ಕೋಟೆ ತನ್ನ ಹಿಂದಿನ ಸೈನಿಕ ಪಾತ್ರವನ್ನು ಮರಳಿ ಪಡೆಯಲಿಲ್ಲ; 19ನೇ ಮತ್ತು 20ನೇ ಶತಮಾನದುದ್ದಕ್ಕೂ ಗೋಡೆ, ಬಾಗಿಲು ಮತ್ತು ಕಂದಕಗಳನ್ನು ಕ್ರಮೇಣ ತೆರವುಗೊಳಿಸಿ, ಕೋಟೆಕೊತ್ತಲುಗಳ ಬದಲು ರಸ್ತೆಗಳು ಮತ್ತು ಕಟ್ಟಡಗಳು ಬಂದವು.'
+  },
+  {
+    kind: 'note',
+    title: en
+      ? '“Old Dungeon Fort and Gates”: a listed name and what it hides'
+      : '“ಓಲ್ಡ್ ಡಂಜಿಯನ್ ಫೋರ್ಟ್ ಅಂಡ್ ಗೇಟ್ಸ್”: ಪಟ್ಟಿಯ ಹೆಸರು ಮತ್ತು ಅದರ ಹಿಂದೆ',
+    body: en
+      ? 'The surviving fragment is protected by the Archaeological Survey of India under the name “Old Dungeon Fort and Gates”. The word “dungeon” puzzles visitors; some colonial-period descriptions suggest the gate complex was used for detention, but written records are limited. Urban digs add another layer of memory: during Namma Metro work in the old city around 2012, iron cannons and cannonballs reportedly linked to the fort’s Tipu-era military history were unearthed, a reminder of how much history still lies beneath the streets.'
+      : 'ಉಳಿದಿರುವ ಭಾಗ ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆಯ ರಕ್ಷಣೆಯಲ್ಲಿ “ಓಲ್ಡ್ ಡಂಜಿಯನ್ ಫೋರ್ಟ್ ಅಂಡ್ ಗೇಟ್ಸ್” ಎಂಬ ಹೆಸರಿನಿಂದ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕವಾಗಿದೆ. “ಡಂಜಿಯನ್” (ಕತ್ತಲು ಕೋಣೆ) ಪದ ಪ್ರವಾಸಿಗರಲ್ಲಿ ಕುತೂಹಲ ಮೂಡಿಸುತ್ತದೆ; ಕೆಲವು ವಸಾಹತು ಕಾಲದ ವಿವರಣೆಗಳು ದ್ವಾರ ವಲಯವನ್ನು ಬಂಧನಕ್ಕೆ ಬಳಸಿದ್ದನ್ನು ಸೂಚಿಸುತ್ತವೆ, ಆದರೆ ಲಿಖಿತ ದಾಖಲೆಗಳು ಕಡಿಮೆ. ನಗರದ ಉತ್ಖನನಗಳು ಇನ್ನೊಂದು ಪದರದ ನೆನಪು ಸೇರಿಸುತ್ತವೆ: 2012ರ ಸುಮಾರಿಗೆ ಹಳೆಯ ನಗರದಲ್ಲಿ ನಮ್ಮ ಮೆಟ್ರೋ ಕಾಮಗಾರಿಯ ವೇಳೆ, ಕೋಟೆಯ ಟಿಪ್ಪು ಕಾಲದ ಸೈನಿಕ ಇತಿಹಾಸಕ್ಕೆ ಸಂಬಂಧಿಸಿದೆ ಎನ್ನಲಾದ ಕಬ್ಬಿಣದ ಫಿರಂಗಿಗಳು ಮತ್ತು ಗೋಲೆಗಳು ಪತ್ತೆಯಾದವು — ರಸ್ತೆಗಳ ಕೆಳಗೆ ಇನ್ನೂ ಎಷ್ಟು ಇತಿಹಾಸ ಅಡಗಿದೆ ಎಂಬುದರ ನೆನಪು.'
+  }
+];
+---
+<section id="stories" class="bg-[#e8d8bf] py-20 lg:py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+      <div class="lg:sticky lg:top-28">
+        <p class="section-kicker">{en ? 'STORIES & LEGENDS' : 'ಕಥೆಗಳು ಮತ್ತು ದಂತಕಥೆಗಳು'}</p>
+        <h2 class="section-title">{en ? 'The stories that shaped the fort' : 'ಕೋಟೆಯನ್ನು ರೂಪಿಸಿದ ಕಥೆಗಳು'}</h2>
+        <p class="mt-5 max-w-xl leading-8 text-stone-ink/70">
+          {en
+            ? 'A fort is more than walls: names, rumours, sieges and lost gates all become part of the place. Below we separate folk memory from documented turning points so the history stays as honest as it is vivid.'
+            : 'ಕೋಟೆ ಎಂದರೆ ಕೇವಲ ಗೋಡೆಗಳಲ್ಲ: ಹೆಸರುಗಳು, ಕಿಂವದಂತಿಗಳು, ಮುತ್ತಿಗೆಗಳು ಮತ್ತು ಕಳೆದುಹೋದ ಬಾಗಿಲುಗಳು ಎಲ್ಲವೂ ಆ ಸ್ಥಳದ ಭಾಗವಾಗುತ್ತವೆ. ಕೆಳಗೆ ನಾವು ಜನಪ್ರಿಯ ನೆನಪನ್ನು ದಾಖಲಿತ ತಿರುವುಗಳಿಂದ ಪ್ರತ್ಯೇಕಿಸಿದ್ದೇವೆ — ಇತಿಹಾಸ ಸ್ಪಷ್ಟವಾಗಿ ಮತ್ತು ಪ್ರಾಮಾಣಿಕವಾಗಿ ಉಳಿಯಲಿ ಎಂಬ ಉದ್ದೇಶದಿಂದ.'}
+        </p>
+      </div>
+      <div class="space-y-6">
+        {stories.map((story) => (
+          <article class="arch-card p-7 sm:p-8">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+              <h3 class="max-w-[26rem] text-xl font-extrabold leading-snug">{story.title}</h3>
+              <span class="rounded-full bg-fort/10 px-3 py-1 text-xs font-bold text-fort">{en ? kindText[story.kind].en : kindText[story.kind].kn}</span>
+            </div>
+            <p class="mt-4 leading-8 text-stone-ink/70">{story.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

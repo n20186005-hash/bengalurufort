@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import StoriesSection from '../../components/StoriesSection.astro';
+import FacilitiesSection from '../../components/FacilitiesSection.astro';
+import WeatherSection from '../../components/WeatherSection.astro';
 export const prerender = true;
 
 const pageUrl = Astro.site ? new URL('/en/', Astro.site).href : undefined;
@@ -50,7 +53,10 @@ const faqItems = [
   ['Is there an entry fee?', 'Recent visitor listings commonly report free entry, but operating rules can change. Treat the notice at the monument or current Archaeological Survey of India information as authoritative on the day you visit.'],
   ['What is the best time to visit?', 'Early morning is usually the easiest time for walking and photography and avoids some of the midday heat and old-city traffic. Bengaluru is generally pleasant for outdoor sightseeing from October to February.'],
   ['Which metro station is convenient?', 'K.R. Market and Chickpet are practical metro approaches for this part of the old city. Check the current Namma Metro map before travelling because access arrangements can change.'],
-  ['Is car parking easy?', 'The fort is in a dense market district. Do not assume a large dedicated tourist car park is available at the monument; public transport or a lawful paid parking facility is usually simpler.']
+  ['Is car parking easy?', 'The fort is in a dense market district. Do not assume a large dedicated tourist car park is available at the monument; public transport or a lawful paid parking facility is usually simpler.'],
+  ['Are there toilets, food and ATMs nearby?', 'No reliable public toilets or eateries are guaranteed inside the monument grounds. The K.R. Market–Chickpet area offers public conveniences, small eateries, shops and ATMs; judge hygiene, prices and availability on the spot.'],
+  ['Can I take photographs at the fort?', 'As an open-air monument, casual visitor photography is generally fine. For commercial filming, drones or special equipment, check the current Archaeological Survey of India or on-site guidance, and avoid blocking the busy pavement.'],
+  ['Are Bengaluru Fort and Tipu Sultan’s Summer Palace the same site?', 'No — they are separate centrally protected monuments. The Summer Palace lies a short distance away in the old city; plan it as a distinct visit rather than part of the fort.']
 ];
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -65,7 +71,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
   lang="en-IN"
   alternatePath="/"
   title="Bengaluru Fort | History, Visitor Information, Transport & Map"
-  description="Independent English visitor guide to Bengaluru Fort with history, opening-hours guidance, entry-fee notes, transport, parking, nearby food and sights, FAQ and map."
+  description="Independent English guide to Bengaluru Fort: history and stories, the surviving stone gateway, visiting hours, entry-fee notes, nearby facilities (toilets, parking, food, lodging), live weather, transport, map and FAQ."
   jsonLd={jsonLd}
 >
   <section class="relative isolate overflow-hidden bg-[#302820] text-white">
@@ -140,6 +146,8 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
     </div>
   </section>
 
+  <StoriesSection lang="en-IN" />
+
   <section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
     <p class="section-kicker">DETAILED TRANSPORT</p>
     <h2 class="section-title">Reaching the fort in Bengaluru’s busy old-city core</h2>
@@ -154,12 +162,15 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
     </div>
   </section>
 
+  <FacilitiesSection lang="en-IN" />
+  <WeatherSection lang="en-IN" />
+
   <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">
       <div class="grid gap-12 lg:grid-cols-2">
         <div><p class="section-kicker">NEARBY SIGHTS</p><h2 class="section-title">More history in the same old-city area</h2><div class="mt-8 space-y-4">
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Tipu Sultan’s Summer Palace</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A separate centrally protected monument with timber columns and arches. Do not confuse the palace with Bengaluru Fort itself.</p></article>
-          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Kote Venkataramana Swamy Temple</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic temple that adds a religious and architectural layer to the old fort precinct.</p></article>
+          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Kote Venkataramana Swamy Temple</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic temple built in 1689 in the period of Chikkadevaraja Wodeyar, adding a religious and architectural layer to the old fort area.</p></article>
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">K.R. Market</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A busy old Bengaluru market known for flowers, fruit, vegetables and daily trade, especially lively in the morning.</p></article>
           <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Lalbagh Botanical Garden</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic garden begun under Hyder Ali and expanded in Tipu Sultan’s era, useful as a green counterpoint after the fort.</p></article>
         </div></div>

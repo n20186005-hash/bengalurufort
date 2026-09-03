@@ -19,7 +19,7 @@
 - Kannada legal pages: `/privacy/`, `/terms/`, `/cookies/`
 - English legal pages: `/en/privacy/`, `/en/terms/`, `/en/cookies/`
 
-The header includes a Kannada ↔ English switch. Stable section anchors are shared across languages: `#history`, `#visit`, `#transport`, `#nearby`, `#faq`, `#map`.
+The header includes a Kannada ↔ English switch. Stable section anchors are shared across languages: `#history`, `#stories`, `#visit`, `#transport`, `#facilities`, `#weather`, `#nearby`, `#faq`, `#map`.
 
 ## Production domain — one configuration point
 
@@ -48,6 +48,16 @@ pnpm deploy
 ## Images
 
 Runtime page markup references only local files under `public/images/`. Photographer, licence and source details are recorded in `PHOTO_SOURCES.md` and repeated on the attraction page. Do not remove attribution when publishing CC BY-SA images.
+
+The four local JPEGs are already compressed (progressive mozjpeg, longest edges 1600/1920 px; total ≈ 0.87 MB). Re-run the optimisation any time originals are replaced:
+
+```bash
+pnpm optimize:images   # sharp-based; needs a local sharp install (pnpm add -D sharp)
+```
+
+## Weather module
+
+The `#weather` section (WeatherSection.astro) is bilingual and shows three season advisory cards plus a live widget (current conditions + seven-day forecast). Because the site is a fully static Cloudflare deployment, the widget fetches the free, keyless Open-Meteo API from the visitor’s browser (fort coordinates only, 30-minute local cache, graceful fallback, `<noscript>` note). No server, key or cookies are involved. See the privacy pages for the user-facing disclosure.
 
 ## GA4 and consent
 

@@ -1,0 +1,250 @@
+---
+// Weather module for Bengaluru Fort (lat 12.962875, lon 77.575956).
+// Data: Open-Meteo forecast API — free, no API key, non-profit friendly.
+// Because the site is fully static (Cloudflare Workers static assets), the
+// widget fetches the live forecast from the visitor's browser with a 30-minute
+// local cache, and always falls back to readable advisory cards when JS is off
+// or the request is blocked. The fetch happens client-side only; the site
+// itself stores nothing.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+const seasonCards = en
+  ? [
+      ['Oct–Feb · Comfortable season', 'Cooler mornings and evenings suit outdoor walking. Mornings at the fort are usually calm before the market district gets busy.'],
+      ['Mar–May · Hot season', 'Midday heat is strongest. Plan for the first hour of the morning or after about 4pm; carry water, a hat and sun protection.'],
+      ['Jun–Sep · Monsoon', 'Bengaluru rains can arrive suddenly. Keep an umbrella or light rainwear, allow extra time for slippery, busy streets, and check the forecast each morning.']
+    ]
+  : [
+      ['ಅಕ್ಟೋಬರ್–ಫೆಬ್ರವರಿ · ಆರಾಮದಾಯಕ ಋತು', 'ತಂಪಾದ ಮುಂಜಾನೆ ಮತ್ತು ಸಂಜೆ ಹೊರಾಂಗಣ ನಡಿಗೆಗೆ ಸೂಕ್ತ. ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶ ಗದ್ದಲವಾಗುವ ಮೊದಲು ಕೋಟೆಯ ಬೆಳಗಿನ ಹೊತ್ತು ಸಾಮಾನ್ಯವಾಗಿ ಶಾಂತ.'],
+      ['ಮಾರ್ಚ್–ಮೇ · ಬೇಸಿಗೆ ಋತು', 'ಮಧ್ಯಾಹ್ನದ ಬಿಸಿಲು ಹೆಚ್ಚು. ಮುಂಜಾನೆಯ ಮೊದಲ ಗಂಟೆ ಅಥವಾ ಸಂಜೆ 4ರ ನಂತರ ಯೋಜಿಸಿ; ನೀರು, ಟೋಪಿ ಹಾಗೂ ಸನ್‌ಕವಚ ಒಯ್ಯಿರಿ.'],
+      ['ಜೂನ್–ಸೆಪ್ಟೆಂಬರ್ · ಮಳೆಗಾಲ', 'ಬೆಂಗಳೂರಿನಲ್ಲಿ ಮಳೆ ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಬರಬಹುದು. ಛತ್ರಿ ಅಥವಾ ಲಘು ಮಳೆರಕ್ಷೆ ಇಟ್ಟುಕೊಳ್ಳಿ, ಜಾರುವ ಮತ್ತು ಗದ್ದಲದ ರಸ್ತೆಗಳಿಗೆ ಹೆಚ್ಚು ಸಮಯ ಕಾದಿರಿಸಿ, ಪ್ರತಿ ಬೆಳಿಗ್ಗೆ ಮುನ್ನೋಟ ಪರಿಶೀಲಿಸಿ.']
+  ];
+---
+<section id="weather" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+  <div class="max-w-3xl">
+      <p class="section-kicker">{en ? 'PLAN FOR THE WEATHER' : 'ಹವಾಮಾನಕ್ಕೆ ಅನುಗುಣ ಯೋಜನೆ'}</p>
+      <h2 class="section-title">{en ? 'Live weather near Bengaluru Fort' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಬಳಿಯ ಲೈವ್ ಹವಾಮಾನ'}</h2>
+      <p class="mt-4 leading-8 text-stone-ink/70">
+        {en
+          ? 'The fort is an open-air site, so the weather shapes your visit. The widget below shows current conditions plus a seven-day forecast supplied by Open-Meteo (a free, keyless forecast service); it refreshes automatically.'
+          : 'ಕೋಟೆ ಮುಕ್ತ ಹೊರಾಂಗಣ ಸ್ಥಳ ಆಗಿರುವುದರಿಂದ ಹವಾಮಾನ ಭೇಟಿಯನ್ನು ರೂಪಿಸುತ್ತದೆ. ಕೆಳಗಿನ ವಿಜೆಟ್ Open-Meteo (ಉಚಿತ, ಕೀ ಇಲ್ಲದ ಮುನ್ನೋಟ ಸೇವೆ) ಒದಗಿಸುವ ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ ಮತ್ತು ಏಳು ದಿನದ ಮುನ್ನೋಟವನ್ನು ತೋರಿಸುತ್ತದೆ; ಇದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಿಫ್ರೆಶ್ ಆಗುತ್ತದೆ.'}
+      </p>
+    </div>
+
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
+      {seasonCards.map(([t, d]) => (
+        <article class="rounded-2xl border border-fort/15 bg-white/55 p-6">
+          <h3 class="font-extrabold text-fort">{t}</h3>
+          <p class="mt-2 text-sm leading-7 text-stone-ink/70">{d}</p>
+        </article>
+      ))}
+    </div>
+
+    <div id="bengaluru-weather" data-lang={en ? 'en' : 'kn'} class="mt-8 grid gap-5 lg:grid-cols-[.9fr_1.1fr]">
+      <article class="arch-card flex flex-col p-7">
+        <p class="text-xs font-extrabold tracking-wider text-fort">{en ? 'CURRENT CONDITIONS' : 'ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ'}</p>
+        <div id="wx-current" class="flex flex-1 flex-col items-center justify-center py-6 text-center">
+          <div class="text-stone-ink/40">{en ? 'Loading live forecast…' : 'ಲೈವ್ ಮುನ್ನೋಟ ಲೋಡ್ ಆಗುತ್ತಿದೆ…'}</div>
+        </div>
+      </article>
+      <article class="arch-card flex flex-col p-7">
+        <p class="text-xs font-extrabold tracking-wider text-fort">{en ? '7-DAY FORECAST' : '7 ದಿನದ ಮುನ್ನೋಟ'}</p>
+        <ol id="wx-daily" class="mt-4 flex flex-1 flex-col justify-center divide-y divide-fort/10 text-stone-ink/70">
+          <li class="py-2 text-center text-sm">{en ? 'Forecast loads here automatically…' : 'ಮುನ್ನೋಟ ಇಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೋಡ್ ಆಗುತ್ತದೆ…'}</li>
+        </ol>
+      </article>
+    </div>
+    <noscript>
+      <p class="mt-5 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70">
+        {en
+          ? 'JavaScript is disabled, so the live widget cannot load. The season cards above still give planning guidance; also check a national or regional forecast source before travelling.'
+          : 'ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರಿಂದ ಲೈವ್ ವಿಜೆಟ್ ಲೋಡ್ ಆಗುವುದಿಲ್ಲ. ಮೇಲಿನ ಋತು ಕಾರ್ಡ್‌ಗಳು ಯೋಜನೆಗೆ ಸಹಾಯಕ; ಪ್ರಯಾಣಿಸುವ ಮೊದಲು ರಾಷ್ಟ್ರೀಯ ಅಥವಾ ಪ್ರಾದೇಶಿಕ ಮುನ್ನೋಟ ಮೂಲ ಪರಿಶೀಲಿಸಿ.'}
+      </p>
+    </noscript>
+    <p class="mt-5 text-xs leading-6 text-stone-ink/55">
+      {en
+        ? 'Weather source: Open-Meteo (open-meteo.com) — free forecast API, cached locally for about 30 minutes. Forecasts can differ from official guidance; for warnings check the India Meteorological Department.'
+        : 'ಹವಾಮಾನ ಮೂಲ: Open-Meteo (open-meteo.com) — ಉಚಿತ ಮುನ್ನೋಟ API, ಸುಮಾರು 30 ನಿಮಿಷ ಸ್ಥಳೀಯವಾಗಿ ಕ್ಯಾಶ್ ಆಗುತ್ತದೆ. ಮುನ್ನೋಟ ಅಧಿಕೃತ ಮಾರ್ಗದರ್ಶನಕ್ಕಿಂತ ಭಿನ್ನವಾಗಬಹುದು; ಎಚ್ಚರಿಕೆಗಳಿಗಾಗಿ ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.'}
+    </p>
+</section>
+
+<script>
+  const LAT = 12.962875;
+  const LON = 77.575956;
+  const TIMEZONE = 'Asia/Kolkata';
+  const CACHE_KEY = 'bengaluru-fort-weather-v1';
+  const CACHE_TTL_MS = 30 * 60 * 1000;
+
+  const root = document.getElementById('bengaluru-weather');
+  const currentEl = document.getElementById('wx-current');
+  const dailyEl = document.getElementById('wx-daily');
+  const lang = root ? root.dataset.lang : 'en';
+  const kn = lang !== 'en';
+
+  // WMO weather code -> { group, en, kn }
+  const WMO = {
+    0: ['sun', 'Clear sky', 'ಸ್ಪಷ್ಟ ಆಕಾಶ'],
+    1: ['sun', 'Mostly clear', 'ಬಹುತೇಕ ಸ್ಪಷ್ಟ'],
+    2: ['sunc', 'Partly cloudy', 'ಭಾಗಶಃ ಮೋಡ'],
+    3: ['cloud', 'Overcast', 'ಮೋಡ ಕವಿದ ವಾತಾವರಣ'],
+    45: ['fog', 'Fog', 'ಮಂಜು'],
+    48: ['fog', 'Freezing fog', 'ಘನೀಭವನ ಮಂಜು'],
+    51: ['drizzle', 'Light drizzle', 'ಲಘು ತುಂತುರು ಮಳೆ'],
+    53: ['drizzle', 'Drizzle', 'ತುಂತುರು ಮಳೆ'],
+    55: ['drizzle', 'Dense drizzle', 'ದಟ್ಟ ತುಂತುರು ಮಳೆ'],
+    56: ['drizzle', 'Freezing drizzle', 'ತಂಪಾದ ತುಂತುರು'],
+    57: ['drizzle', 'Freezing drizzle', 'ತಂಪಾದ ತುಂತುರು'],
+    61: ['rain', 'Light rain', 'ಲಘು ಮಳೆ'],
+    63: ['rain', 'Moderate rain', 'ಮಧ್ಯಮ ಮಳೆ'],
+    65: ['rain', 'Heavy rain', 'ಭಾರಿ ಮಳೆ'],
+    66: ['rain', 'Freezing rain', 'ತಂಪಾದ ಮಳೆ'],
+    67: ['rain', 'Freezing rain', 'ತಂಪಾದ ಮಳೆ'],
+    71: ['snow', 'Light snow', 'ಲಘು ಹಿಮ'],
+    73: ['snow', 'Snow', 'ಹಿಮ'],
+    75: ['snow', 'Heavy snow', 'ಭಾರಿ ಹಿಮ'],
+    77: ['snow', 'Snow grains', 'ಹಿಮ ಕಣಗಳು'],
+    80: ['rain', 'Rain showers', 'ಜಡಿ ಮಳೆ'],
+    81: ['rain', 'Rain showers', 'ಜಡಿ ಮಳೆ'],
+    82: ['rain', 'Violent showers', 'ಭಾರಿ ಜಡಿ ಮಳೆ'],
+    85: ['snow', 'Snow showers', 'ಹಿಮದ ಜಡಿ'],
+    86: ['snow', 'Snow showers', 'ಹಿಮದ ಜಡಿ'],
+    95: ['storm', 'Thunderstorm', 'ಗುಡುಗು ಸಹಿತ ಮಳೆ'],
+    96: ['storm', 'Thunderstorm with hail', 'ಗುಡುಗು–ಆಲಿಕಲ್ಲು'],
+    99: ['storm', 'Severe thunderstorm with hail', 'ತೀವ್ರ ಗುಡುಗು–ಆಲಿಕಲ್ಲು']
+  };
+
+  const fmt = (v, unit, digits = 0) => (v == null ? '—' : v.toFixed(digits) + ' ' + unit);
+  const label = (code) => {
+    const e = WMO[code];
+    if (!e) return kn ? 'ಹವಾಮಾನ' : 'Weather';
+    return kn ? e[2] : e[1];
+  };
+
+  // Minimal inline weather glyphs (stroke icons, currentColor).
+  const C = 'fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;';
+  const svg = (inner) => `<svg viewBox="0 0 24 24" style="${C}" class="h-10 w-10" aria-hidden="true">${inner}</svg>`;
+  const iconFor = (group) => {
+    switch (group) {
+      case 'sun':
+        return svg('<circle cx="12" cy="12" r="4"/><path d="M12 2.6v2M12 19.4v2M2.6 12h2M19.4 12h2M5.4 5.4l1.4 1.4M17.2 17.2l1.4 1.4M18.6 5.4l-1.4 1.4M6.8 17.2l-1.4 1.4"/>');
+      case 'sunc':
+        return svg('<circle cx="8" cy="7.5" r="3"/><path d="M8 1.9v1.3M8 12v1.3M2.6 7.5h1.3M12 7.5h1.3M4.2 3.9l1 .9M10.9 10.6l1 .9M10.8 4l-1 .9M4.1 10.7l1-.9"/><path d="M8.6 12.2a4.1 4.1 0 0 1 .5-8.1A5 5 0 0 1 17.6 5.5a3.8 3.8 0 0 1 .4 6.7H8.6z"/>');
+      case 'cloud':
+        return svg('<path d="M7.6 17.6a4.2 4.2 0 0 1 .4-8.4 5.6 5.6 0 0 1 10.7 1.7 4 4 0 0 1-.3 6.7H7.6z"/>');
+      case 'fog':
+        return svg('<path d="M7.8 11.6a3.7 3.7 0 0 1 .4-7.4 4.9 4.9 0 0 1 9.4 1.5 3.5 3.5 0 0 1-.4 5.9H7.8z"/><path d="M5 15.4h14M6.5 18.2h11M8 21h8"/>');
+      case 'drizzle':
+        return svg('<path d="M7.6 13.4a3.9 3.9 0 0 1 .4-7.8 5.2 5.2 0 0 1 10 1.6 3.7 3.7 0 0 1-.4 6.2H7.6z"/><path d="M8.5 16l-1 3M12 16l-1 3M15.5 16l-1 3"/>');
+      case 'rain':
+        return svg('<path d="M7.6 12.8a3.9 3.9 0 0 1 .4-7.7 5.2 5.2 0 0 1 10 1.5 3.7 3.7 0 0 1-.4 6.2H7.6z"/><path d="M8.5 16.5l-1.1 4M12 16.5l-1.1 4M15.5 16.5l-1.1 4"/>');
+      case 'snow':
+        return svg('<path d="M7.6 12.6a3.9 3.9 0 0 1 .4-7.7 5.2 5.2 0 0 1 10 1.5 3.7 3.7 0 0 1-.4 6.2H7.6z"/><path d="M12 17v2.4M9.9 18.2l2.1-1.2 2.1 1.2M9.9 18.2l2.1-1.2"/>');
+      case 'storm':
+      default:
+        return svg('<path d="M7.6 12.4a3.9 3.9 0 0 1 .4-7.7 5.2 5.2 0 0 1 10 1.5 3.7 3.7 0 0 1-.4 6.2H7.6z"/><path d="M12.2 13.6l-2.7 4.2h2.4L11 22l3.6-5.1h-2.4l2-3.3z"/>');
+    }
+  };
+
+  function buildUrl() {
+    const p = new URLSearchParams({
+      latitude: String(LAT),
+      longitude: String(LON),
+      current: 'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m',
+      daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
+      timezone: TIMEZONE,
+      forecast_days: '7'
+    });
+    return 'https://api.open-meteo.com/v1/forecast?' + p.toString();
+  }
+
+  function readCache() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || parsed.lang !== lang || Date.now() - parsed.t > CACHE_TTL_MS) return null;
+      return parsed.data;
+    } catch {
+      return null;
+    }
+  }
+  function writeCache(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), lang, data }));
+    } catch {}
+  }
+
+  function renderCurrent(c) {
+    const temp = fmt(c.temperature_2m, '°C');
+    const feels = fmt(c.apparent_temperature, '°C');
+    const hum = fmt(c.relative_humidity_2m, '%');
+    const wind = fmt(c.wind_speed_10m, ' km/h');
+    const rain = c.precipitation == null ? '—' : c.precipitation + ' mm';
+    currentEl.innerHTML = `
+      <div class="text-5xl leading-none">${iconFor((WMO[c.weather_code] || ['cloud'])[0])}</div>
+      <div class="mt-4 text-4xl font-black text-stone-ink">${temp}</div>
+      <p class="mt-1 font-bold text-fort">${label(c.weather_code)}</p>
+      <dl class="mt-5 grid w-full max-w-xs grid-cols-2 gap-x-4 gap-y-2 text-left text-sm text-stone-ink/70">
+        <div class="flex justify-between gap-3"><dt>${kn ? 'ಅನುಭವ' : 'Feels'}</dt><dd class="font-bold">${feels}</dd></div>
+        <div class="flex justify-between gap-3"><dt>${kn ? 'ಆರ್ದ್ರತೆ' : 'Humidity'}</dt><dd class="font-bold">${hum}</dd></div>
+        <div class="flex justify-between gap-3"><dt>${kn ? 'ಗಾಳಿ' : 'Wind'}</dt><dd class="font-bold">${wind}</dd></div>
+        <div class="flex justify-between gap-3"><dt>${kn ? 'ಮಳೆ' : 'Rain'}</dt><dd class="font-bold">${rain}</dd></div>
+      </dl>`;
+  }
+
+  function renderDaily(d) {
+    const days = (d.time || []).map((_, i) => i);
+    dailyEl.innerHTML = days.map((i) => {
+      const date = new Date(d.time[i] + 'T12:00:00Z');
+      const dateLabel = date.toLocaleDateString(lang === 'en' ? 'en-IN' : 'kn-IN', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        timeZone: TIMEZONE
+      });
+      const code = d.weather_code[i];
+      const tmax = d.temperature_2m_max?.[i];
+      const tmin = d.temperature_2m_min?.[i];
+      const pop = d.precipitation_probability_max?.[i];
+      const chip = pop != null && pop > 0 ? `<span class="rounded-full bg-[#9c5d36]/10 px-2 py-0.5 text-xs font-bold text-[#9c5d36]">${pop}%</span>` : '';
+      return `<li class="flex items-center gap-3 py-2.5 text-sm">
+        <span class="w-24 shrink-0 font-bold text-stone-ink">${dateLabel}</span>
+        <span class="shrink-0 text-[#9c5d36]">${iconFor((WMO[code] || ['cloud'])[0])}</span>
+        <span class="min-w-0 flex-1 truncate text-stone-ink/75">${label(code)}</span>
+        <span class="shrink-0 font-bold text-stone-ink">${fmt(tmax, '°')}<span class="font-normal text-stone-ink/50"> / ${fmt(tmin, '°')}</span></span>
+        ${chip}
+      </li>`;
+    }).join('');
+  }
+
+  function fallback(msg) {
+    currentEl.innerHTML = `<div class="max-w-xs text-sm leading-7 text-stone-ink/60">${msg}</div>`;
+    dailyEl.innerHTML = '';
+  }
+
+  async function refresh() {
+    try {
+      const cached = readCache();
+      if (cached) {
+        renderCurrent(cached.current);
+        renderDaily(cached.daily);
+        return;
+      }
+      const res = await fetch(buildUrl(), { signal: AbortSignal.timeout(15000) });
+      if (!res.ok) throw new Error('http ' + res.status);
+      const j = await res.json();
+      if (!j || !j.current || !j.daily) throw new Error('bad payload');
+      writeCache(j);
+      renderCurrent(j.current);
+      renderDaily(j.daily);
+    } catch (e) {
+      fallback(
+        kn
+          ? 'ಲೈವ್ ಹವಾಮಾನ ಲೋಡ್ ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಋತು ಕಾರ್ಡ್‌ಗಳನ್ನು ಬಳಸಿ; ಸರ್ಕಾರಿ ಹವಾಮಾನ ಇಲಾಖೆಯ ಮುನ್ನೋಟವನ್ನೂ ಪರಿಶೀಲಿಸಿ.'
+          : 'Live weather could not load. Use the season cards above, and also check the national weather service before travelling.'
+      );
+    }
+  }
+  if (root && currentEl && dailyEl) refresh();
+</script>
