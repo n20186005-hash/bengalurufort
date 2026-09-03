@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+export const prerender = true;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'ಕುಕಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
+  inLanguage: 'kn-IN',
+  ...(Astro.site ? { url: new URL('/cookies/', Astro.site).href } : {})
+};
+---
+<BaseLayout title="ಕುಕಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು | ಬೆಂಗಳೂರು ಕೋಟೆ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ" description="ಅಗತ್ಯ, ವಿಶ್ಲೇಷಣಾ, ಆದ್ಯತೆ ಮತ್ತು ಮಾರ್ಕೆಟಿಂಗ್ ಕುಕಿಗಳ ಕುರಿತು ಮಾಹಿತಿ ಹಾಗೂ ನಿಮ್ಮ ಆಯ್ಕೆಗಳನ್ನು ನಿರ್ವಹಿಸುವ ಪುಟ." jsonLd={jsonLd} alternatePath="/en/cookies/">
+  <section class="mx-auto max-w-5xl px-5 py-16 lg:px-8 lg:py-24">
+    <a href="/" class="text-sm font-bold text-fort underline">← ಮುಖಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ</a>
+    <p class="section-kicker mt-10">ನಿಮ್ಮ ಆಯ್ಕೆ</p>
+    <h1 class="section-title">ಕುಕಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</h1>
+    <p class="mt-3 text-sm text-stone-ink/60">ಕೊನೆಯ ಪರಿಷ್ಕರಣೆ: ಸೆಪ್ಟೆಂಬರ್ 2026</p>
+    <p class="mt-7 max-w-3xl leading-8 text-stone-ink/70">ತಾಣದ ಕಾರ್ಯಾಚರಣೆಗೆ ಅಗತ್ಯವಿರುವ ಕನಿಷ್ಠ ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆಯನ್ನು ಬಳಸುತ್ತೇವೆ. ವಿಶ್ಲೇಷಣೆ ಪೂರ್ವನಿಯೋಜಿತವಾಗಿ ನಿಷ್ಕ್ರಿಯ. ಕೆಳಗೆ ನಿಮ್ಮ ಆಯ್ಕೆಯನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಾಯಿಸಬಹುದು.</p>
+
+    <div class="mt-10 space-y-4" id="cookie-controls">
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 class="text-lg font-extrabold">ಅಗತ್ಯ ಸಂಗ್ರಹಣೆ</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">ತಾಣದ ಮೂಲ ಕಾರ್ಯ ಮತ್ತು ನಿಮ್ಮ ಕುಕಿ ಆಯ್ಕೆಯನ್ನು ನೆನಪಿಡಲು ಅಗತ್ಯ. ಇದನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ.</p></div>
+        <span class="rounded-full bg-moss/10 px-4 py-2 text-sm font-bold text-moss">ಯಾವಾಗಲೂ ಸಕ್ರಿಯ</span>
+      </article>
+
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 class="text-lg font-extrabold">ವಿಶ್ಲೇಷಣಾ ಕುಕಿ · ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">ನೀವು ಹೇಗೆ ತಾಣವನ್ನು ಬಳಸುತ್ತೀರಿ ಎಂಬ ಒಟ್ಟಾರೆ, ಅಳತೆಗೊಳಿಸಿದ ಮಾಹಿತಿಯನ್ನು ತಿಳಿಯಲು ಸಹಾಯ. ಒಪ್ಪುವವರೆಗೆ ಜಿ-ಎಚ್‌ಎಕ್ಸ್‌ಎಂ22ಡಬ್ಲ್ಯೂಡಬ್ಲ್ಯುಪಿಕೆಪಿ ಸ್ಕ್ರಿಪ್ಟ್ ಲೋಡ್ ಆಗುವುದಿಲ್ಲ.</p></div>
+        <label class="inline-flex cursor-pointer items-center gap-3 font-bold"><input id="analytics-consent" type="checkbox" class="h-5 w-5 accent-[#9c5d36]" /> ಸಕ್ರಿಯ</label>
+      </article>
+
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 class="text-lg font-extrabold">ಆದ್ಯತೆ ಸಂಗ್ರಹಣೆ</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">ಭವಿಷ್ಯದಲ್ಲಿ ಭಾಷೆ ಅಥವಾ ಥೀಮ್‌ನಂತಹ ಆಯ್ಕೆಗಳನ್ನು ನೆನಪಿಡಲು ಬಳಸಬಹುದಾದ ವರ್ಗ. ಪ್ರಸ್ತುತ ತಾಣದ ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಇದು ಅಗತ್ಯವಿಲ್ಲ.</p></div>
+        <label class="inline-flex cursor-pointer items-center gap-3 font-bold"><input id="preference-consent" type="checkbox" class="h-5 w-5 accent-[#9c5d36]" /> ಸಕ್ರಿಯ</label>
+      </article>
+
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
+        <div><h2 class="text-lg font-extrabold">ಮಾರ್ಕೆಟಿಂಗ್ ಕುಕಿ</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">ಈ ತಾಣವು ಪ್ರಸ್ತುತ ವೈಯಕ್ತಿಕೀಕೃತ ಜಾಹೀರಾತು ಅಥವಾ ಮಾರ್ಕೆಟಿಂಗ್ ಟ್ರ್ಯಾಕಿಂಗ್ ಬಳಸುವುದಿಲ್ಲ.</p></div>
+        <span class="rounded-full bg-stone-ink/5 px-4 py-2 text-sm font-bold text-stone-ink/60">ನಿಷ್ಕ್ರಿಯ</span>
+      </article>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <button id="save-consent" type="button" class="focus-ring rounded-full bg-fort px-6 py-3 font-extrabold text-white hover:bg-fort-deep">ಆಯ್ಕೆಗಳನ್ನು ಉಳಿಸಿ</button>
+      <button id="reject-consent" type="button" class="focus-ring rounded-full border border-fort/35 bg-white/40 px-6 py-3 font-extrabold text-fort hover:bg-white">ಅಗತ್ಯವಲ್ಲದ ಎಲ್ಲವನ್ನು ನಿರಾಕರಿಸಿ</button>
+    </div>
+    <p id="consent-status" class="mt-4 min-h-7 text-sm font-bold text-moss" aria-live="polite"></p>
+
+    <div class="policy mt-12">
+      <h2>ಒಪ್ಪಿಗೆ ನಿರ್ವಹಣೆ</h2>
+      <p>ನಿಮ್ಮ ಆಯ್ಕೆಯನ್ನು ಇದೇ ಬ್ರೌಸರ್‌ನ ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆಯಲ್ಲಿ ಉಳಿಸಲಾಗುತ್ತದೆ. ಅದನ್ನು ಅಳಿಸಿದರೆ ಆಯ್ಕೆಯೂ ಮರುಹೊಂದಬಹುದು. ಕೆಲವು ಮೂರನೇ ಪಕ್ಷದ ಎಂಬೆಡ್ ಸೇವೆಗಳು, ವಿಶೇಷವಾಗಿ ಗೂಗಲ್ ನಕ್ಷೆ, ತಮ್ಮ ಕಾರ್ಯಾಚರಣೆಗೆ ಸ್ವಂತ ತಾಂತ್ರಿಕ ಸಂಗ್ರಹಣೆಯನ್ನು ಬಳಸಬಹುದು. ನಕ್ಷೆ ಬಳಕೆ ಗೂಗಲ್‌ನ ನೀತಿಗಳಿಗೆ ಒಳಪಟ್ಟಿರುತ್ತದೆ.</p>
+      <p>ವಿಶ್ಲೇಷಣೆಯನ್ನು ನಿಷ್ಕ್ರಿಯ ಮಾಡಿದ ನಂತರ ಹೊಸ ಗೂಗಲ್ ಅನಾಲಿಟಿಕ್ಸ್ ಲೋಡ್‌ಗಳನ್ನು ತಡೆಯಲಾಗುತ್ತದೆ. ಇದೇ ಪುಟದಲ್ಲಿ ಹಿಂದೆ ಸಕ್ರಿಯಗೊಳಿಸಿದ್ದರೆ, ಸಂಪೂರ್ಣವಾಗಿ ಸ್ಕ್ರಿಪ್ಟ್ ರನ್ ನಿಲ್ಲಿಸಲು ಪುಟವನ್ನು ಮರುಲೋಡ್ ಮಾಡುವುದು ಸೂಕ್ತ.</p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const key = 'bengaluru-fort-cookie-preferences';
+      const analytics = document.getElementById('analytics-consent');
+      const preference = document.getElementById('preference-consent');
+      const status = document.getElementById('consent-status');
+      const read = () => {
+        try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
+      };
+      const current = read();
+      analytics.checked = current.analytics === true;
+      preference.checked = current.preferences === true;
+      const save = (prefs) => {
+        localStorage.setItem(key, JSON.stringify(prefs));
+        window.dispatchEvent(new CustomEvent('bengaluru-fort-consent-changed', { detail: prefs }));
+        status.textContent = 'ನಿಮ್ಮ ಕುಕಿ ಆಯ್ಕೆಗಳು ಉಳಿಸಲಾಗಿದೆ.';
+      };
+      document.getElementById('save-consent')?.addEventListener('click', () => save({ analytics: analytics.checked, preferences: preference.checked, marketing: false }));
+      document.getElementById('reject-consent')?.addEventListener('click', () => {
+        analytics.checked = false;
+        preference.checked = false;
+        save({ analytics: false, preferences: false, marketing: false });
+      });
+    })();
+  </script>
+</BaseLayout>

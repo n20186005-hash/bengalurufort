@@ -1,0 +1,196 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export const prerender = true;
+
+const pageUrl = Astro.site ? new URL('/en/', Astro.site).href : undefined;
+const imageUrl = Astro.site ? new URL('/images/bengaluru-fort-courtyard.jpg', Astro.site).href : '/images/bengaluru-fort-courtyard.jpg';
+
+const attraction = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: 'Bengaluru Fort',
+  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
+  description: 'A surviving historic fort in old Bengaluru, rooted in Kempe Gowda I’s 1537 mud fort and later strengthened in stone under Hyder Ali.',
+  ...(pageUrl ? { url: pageUrl } : {}),
+  image: [imageUrl],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Krishna Rajendra Rd, New Tharagupet',
+    addressLocality: 'Bengaluru',
+    addressRegion: 'Karnataka',
+    postalCode: '560002',
+    addressCountry: 'IN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 12.962875,
+    longitude: 77.575956
+  },
+  openingHours: 'Mo-Su 08:30-17:30',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.0',
+    reviewCount: '26832',
+    bestRating: '5',
+    worstRating: '1'
+  },
+  isAccessibleForFree: true,
+  publicAccess: true,
+  inLanguage: 'en-IN',
+  sameAs: [
+    'https://maps.app.goo.gl/YQMDNDs39ST6udZd6',
+    'https://bengaluruurban.nic.in/en/history/',
+    'https://asi.nic.in/admin/whatsnew/download/719'
+  ]
+};
+
+const faqItems = [
+  ['Who built Bengaluru Fort?', 'Kempe Gowda I established the early mud fort in 1537. Hyder Ali later strengthened the fort in stone around 1761.'],
+  ['How long should I spend at the fort?', 'About 45–75 minutes is usually enough for the surviving gateway, walls, bastions and courtyard. Allow 3–4 hours if you combine it with nearby old-Bengaluru heritage sites.'],
+  ['Is there an entry fee?', 'Recent visitor listings commonly report free entry, but operating rules can change. Treat the notice at the monument or current Archaeological Survey of India information as authoritative on the day you visit.'],
+  ['What is the best time to visit?', 'Early morning is usually the easiest time for walking and photography and avoids some of the midday heat and old-city traffic. Bengaluru is generally pleasant for outdoor sightseeing from October to February.'],
+  ['Which metro station is convenient?', 'K.R. Market and Chickpet are practical metro approaches for this part of the old city. Check the current Namma Metro map before travelling because access arrangements can change.'],
+  ['Is car parking easy?', 'The fort is in a dense market district. Do not assume a large dedicated tourist car park is available at the monument; public transport or a lawful paid parking facility is usually simpler.']
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'en-IN',
+  mainEntity: faqItems.map(([q,a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
+};
+const jsonLd = [attraction, faqSchema];
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.626518291582!2d77.57331127700142!3d12.962801787351749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e3043a1d57%3A0xb2a4590209bde6d7!2sBengaluru%20Fort!5e1!3m2!1sen!2sin!4v1788419693020!5m2!1sen!2sin';
+---
+<BaseLayout
+  lang="en-IN"
+  alternatePath="/"
+  title="Bengaluru Fort | History, Visitor Information, Transport & Map"
+  description="Independent English visitor guide to Bengaluru Fort with history, opening-hours guidance, entry-fee notes, transport, parking, nearby food and sights, FAQ and map."
+  jsonLd={jsonLd}
+>
+  <section class="relative isolate overflow-hidden bg-[#302820] text-white">
+    <img src="/images/bengaluru-fort-courtyard.jpg" alt="Stone walls, arched gateway and green courtyard inside Bengaluru Fort" class="absolute inset-0 -z-20 h-full w-full object-cover" width="1280" height="850" fetchpriority="high" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#241d17]/95 via-[#33261d]/72 to-[#33261d]/30"></div>
+    <div class="mx-auto grid min-h-[78vh] max-w-7xl items-end gap-10 px-5 py-16 lg:grid-cols-[1.1fr_.6fr] lg:px-8 lg:py-24">
+      <div class="max-w-3xl">
+        <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">Centrally protected ASI monument · N-KA-B1</p>
+        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">Bengaluru Fort</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">From Kempe Gowda I’s 1537 mud fort to Hyder Ali’s stone defences, this surviving gateway keeps a physical link to the making of Bengaluru’s old city.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">Plan your visit</a>
+          <a href="#map" class="focus-ring rounded-full border border-white/35 bg-white/10 px-5 py-3 font-extrabold backdrop-blur hover:bg-white/20">Open map</a>
+        </div>
+      </div>
+      <aside class="arch-card border-white/20 bg-black/35 p-6 text-white backdrop-blur-md">
+        <p class="text-xs font-bold tracking-wider text-[#e9cda7]">PLACE IDENTITY</p>
+        <p class="mt-2 text-lg font-bold">Krishna Rajendra Road, New Tharagupet</p>
+        <p class="mt-2 text-sm leading-7 text-white/75">Bengaluru · Karnataka 560002 · India</p>
+        <div class="mt-5 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 text-sm">
+          <div><span class="block text-white/60">Listed rating</span><strong class="text-lg">4.0 / 5</strong></div>
+          <div><span class="block text-white/60">Reviews</span><strong class="text-lg">26,832</strong></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="history" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <div class="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+      <div class="lg:sticky lg:top-28">
+        <p class="section-kicker">THE CITY'S EARLY LAYERS</p>
+        <h2 class="section-title">A fort tied directly to Bengaluru’s foundation story</h2>
+        <p class="mt-5 max-w-xl leading-8 text-stone-ink/70">Bengaluru Urban District Administration records that Kempe Gowda built a mud fort in 1537 and laid the foundation of modern Bengaluru. The Archaeological Survey of India lists the surviving protected monument as “Old Dungeon Fort and Gates”.</p>
+        <div class="mt-7 flex flex-wrap gap-3 text-sm font-bold">
+          <a rel="external noopener" href="https://bengaluruurban.nic.in/en/history/" class="rounded-full border border-fort/30 px-4 py-2 hover:bg-white">District history source</a>
+          <a rel="external noopener" href="https://asi.nic.in/admin/whatsnew/download/719" class="rounded-full border border-fort/30 px-4 py-2 hover:bg-white">ASI protected-monument list</a>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1537</span><h3 class="mt-3 text-xl font-extrabold">Kempe Gowda I’s mud fort</h3><p class="mt-3 leading-8 text-stone-ink/70">The early fort formed part of the foundation of the settlement that grew into modern Bengaluru under the wider Vijayanagara political world.</p></article>
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1761</span><h3 class="mt-3 text-xl font-extrabold">Strengthened in stone under Hyder Ali</h3><p class="mt-3 leading-8 text-stone-ink/70">Hyder Ali reinforced the defensive enclosure in stone. Bengaluru remained an important military centre under Tipu Sultan.</p></article>
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1791</span><h3 class="mt-3 text-xl font-extrabold">A turning point in the Third Anglo-Mysore War</h3><p class="mt-3 leading-8 text-stone-ink/70">British forces captured Bengaluru Fort during the 1791 campaign. Much of the larger fortification later disappeared, leaving the protected gateway, walls and bastion elements visible today.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#e8d8bf] py-20">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-5 md:grid-cols-3">
+        <figure class="overflow-hidden rounded-[2.2rem_2.2rem_.8rem_.8rem] bg-[#31281f] text-white md:col-span-2"><img src="/images/bengaluru-fort-panorama.jpg" alt="Wide view of Bengaluru Fort's historic gateway and stone walls" class="aspect-[16/8] h-full min-h-[330px] w-full object-cover" loading="lazy" width="1280" height="435" /></figure>
+        <figure class="overflow-hidden rounded-[2.2rem_2.2rem_.8rem_.8rem] bg-[#31281f] text-white"><img src="/images/bengaluru-fort-arch.jpg" alt="Historic arch and masonry at Bengaluru Fort" class="aspect-[4/5] h-full min-h-[330px] w-full object-cover" loading="lazy" width="960" height="1280" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <p class="section-kicker">PRACTICAL INFORMATION</p>
+    <h2 class="section-title max-w-3xl">What to know before visiting</h2>
+    <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <article class="arch-card p-6"><div class="text-2xl">◷</div><h3 class="mt-4 font-extrabold">Published visiting hours</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Most current visitor listings show 8:30am–5:30pm daily. Holiday or maintenance closures can change; the notice at the monument takes precedence.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">⌛</div><h3 class="mt-4 font-extrabold">Suggested duration</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Fort only: around 45–75 minutes. Allow 3–4 hours for a broader old-city heritage walk.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">₹</div><h3 class="mt-4 font-extrabold">Tickets / cost</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Recent visitor listings commonly report free entry. Verify current admission rules on the ASI or on-site notice before travel rather than relying on an old fee figure.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">☀</div><h3 class="mt-4 font-extrabold">Best time</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Early morning is good for walking and photography. October–February is generally Bengaluru’s most comfortable period for outdoor sightseeing.</p></article>
+    </div>
+    <div class="mt-8 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70"><strong class="text-stone-ink">Important:</strong> opening hours, admission rules and security arrangements may change temporarily. Check the monument notice or current Archaeological Survey of India information on the day of travel.</div>
+  </section>
+
+  <section class="bg-[#382e26] py-20 text-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+      <div><p class="text-xs font-extrabold tracking-wider text-[#e9cda7]">DEFENSIVE DETAILS IN STONE AND TIMBER</p><h2 class="mt-3 text-4xl font-black leading-tight sm:text-5xl">Arches, bastions and the spiked fort gate</h2><p class="mt-5 leading-8 text-white/70">The surviving fabric shows thick masonry, curved bastion forms, a recessed gateway sequence and heavy timber doors. Iron spikes on the gate are a vivid reminder of defensive architecture designed for an age of elephant assaults.</p></div>
+      <figure class="overflow-hidden rounded-[3rem_3rem_1rem_1rem] border border-white/10"><img src="/images/bengaluru-fort-spiked-gate.jpg" alt="Iron defensive spikes fixed to the heavy wooden gate at Bengaluru Fort" class="aspect-[3/2] w-full object-cover" loading="lazy" width="958" height="639" /></figure>
+    </div>
+  </section>
+
+  <section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <p class="section-kicker">DETAILED TRANSPORT</p>
+    <h2 class="section-title">Reaching the fort in Bengaluru’s busy old-city core</h2>
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Metro</h3><p class="mt-3 leading-8 text-stone-ink/70">Use the K.R. Market or Chickpet side of the Namma Metro network, then continue on foot or by short auto ride. Check the current official network map before departure.</p><a class="mt-4 inline-block text-sm font-bold text-fort underline" rel="external noopener" href="https://english.bmrc.co.in/">Namma Metro official information</a></article>
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Bus and auto-rickshaw</h3><p class="mt-3 leading-8 text-stone-ink/70">Many city bus routes serve K.R. Market, Kalasipalya and City Market. An auto is useful for the final leg; confirm the meter or app fare before travelling.</p></article>
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Rail and airport</h3><p class="mt-3 leading-8 text-stone-ink/70">From Krantivira Sangolli Rayanna Bengaluru City station, metro, auto and taxi links are practical. From Kempegowda International Airport, use an airport bus or taxi to the city centre and continue locally.</p></article>
+    </div>
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <article class="rounded-3xl bg-moss p-8 text-white"><p class="text-xs font-bold tracking-wider text-white/60">PARKING</p><h3 class="mt-2 text-2xl font-extrabold">Public transport is usually simpler than driving</h3><p class="mt-4 leading-8 text-white/75">New Tharagupet and K.R. Market carry heavy commercial traffic. Do not rely on a large dedicated tourist car park at the fort. Use a lawful paid parking facility and keep narrow approaches and emergency access clear.</p></article>
+      <article class="rounded-3xl border border-fort/20 bg-white/50 p-8"><p class="text-xs font-bold tracking-wider text-fort">WALKING PLAN</p><h3 class="mt-2 text-2xl font-extrabold">Fort first, then an old-Bengaluru heritage circuit</h3><p class="mt-4 leading-8 text-stone-ink/70">Bengaluru Fort, Tipu Sultan’s Summer Palace, Kote Venkataramana Swamy Temple and K.R. Market can be combined in the same old-city area. Footpaths are not continuous everywhere, so take care at road crossings.</p></article>
+    </div>
+  </section>
+
+  <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <div><p class="section-kicker">NEARBY SIGHTS</p><h2 class="section-title">More history in the same old-city area</h2><div class="mt-8 space-y-4">
+          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Tipu Sultan’s Summer Palace</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A separate centrally protected monument with timber columns and arches. Do not confuse the palace with Bengaluru Fort itself.</p></article>
+          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Kote Venkataramana Swamy Temple</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic temple that adds a religious and architectural layer to the old fort precinct.</p></article>
+          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">K.R. Market</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A busy old Bengaluru market known for flowers, fruit, vegetables and daily trade, especially lively in the morning.</p></article>
+          <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">Lalbagh Botanical Garden</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A historic garden begun under Hyder Ali and expanded in Tipu Sultan’s era, useful as a green counterpoint after the fort.</p></article>
+        </div></div>
+        <div><p class="section-kicker">NEARBY FOOD</p><h2 class="section-title">Old Bengaluru food traditions nearby</h2><p class="mt-4 text-sm leading-7 text-stone-ink/65">These are contextual examples, not paid rankings or endorsements.</p><div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <article class="arch-card p-6"><h3 class="font-extrabold">Mavalli Tiffin Rooms</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A long-running South Indian vegetarian institution on Lalbagh Road, associated with rava idli, dosa and bisibele bath.</p><a class="mt-3 inline-block text-xs font-bold text-fort underline" rel="external noopener" href="https://www.mavallitiffinrooms.com/">Official site</a></article>
+          <article class="arch-card p-6"><h3 class="font-extrabold">Vidyarthi Bhavan</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">A traditional Gandhi Bazaar breakfast stop widely known for masala dosa and old-Bengaluru dining culture.</p><a class="mt-3 inline-block text-xs font-bold text-fort underline" rel="external noopener" href="https://vidyarthibhavan.in/">Official site</a></article>
+          <article class="arch-card p-6 sm:col-span-2"><h3 class="font-extrabold">Darshinis and breakfast shops around the market area</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">K.R. Market and Chickpet have many small places serving idli, vada, dosa, khara bath and filter coffee. Check hygiene, posted prices and allergy needs yourself.</p></article>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="map" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <div class="mb-8 max-w-3xl"><p class="section-kicker">LOCATION & DIRECTIONS</p><h2 class="section-title">Bengaluru Fort on Krishna Rajendra Road</h2><p class="mt-4 leading-8 text-stone-ink/70">Address: XH7G+49C, Krishna Rajendra Rd, New Tharagupet, Bengaluru, Karnataka 560002, India.</p></div>
+    <div class="overflow-hidden rounded-[2.5rem_2.5rem_1rem_1rem] border border-fort/20 bg-white shadow-xl shadow-fort/5"><iframe src={mapSrc} title="Google map showing Bengaluru Fort" class="h-[520px] w-full" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href="https://maps.app.goo.gl/YQMDNDs39ST6udZd6">Open in Google Maps</a>
+  </section>
+
+  <section id="faq" class="bg-[#342b24] py-20 text-white lg:py-24">
+    <div class="mx-auto max-w-5xl px-5 lg:px-8"><p class="text-xs font-extrabold tracking-wider text-[#e9cda7]">FREQUENTLY ASKED QUESTIONS</p><h2 class="mt-3 text-4xl font-black sm:text-5xl">Questions to check before visiting</h2><div class="mt-10 divide-y divide-white/10 border-y border-white/10">{faqItems.map(([q,a]) => <details class="group py-5"><summary class="cursor-pointer list-none pr-8 text-lg font-extrabold">{q}<span class="float-right text-[#e9cda7] group-open:rotate-45">＋</span></summary><p class="mt-4 max-w-3xl leading-8 text-white/70">{a}</p></details>)}</div></div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+      <div><p class="section-kicker">SOURCES & IMAGE RIGHTS</p><h2 class="section-title">Evidence-led visitor information</h2><p class="mt-4 leading-8 text-stone-ink/70">The fort’s identity, protected status, location and history are tied to public authority sources. Photographs are stored locally rather than hotlinked at runtime, and photographer/licence credits are retained here.</p></div>
+      <div class="space-y-4 text-sm leading-7 text-stone-ink/70">
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 1 · courtyard and arch:</strong> Pavithrah, Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Inside_View.JPG">Source</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 2 · wide fort-gate view:</strong> Pradhan V., Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Bangalore_Fort_N-KA-B1.jpg">Source</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 3 · front arch:</strong> Pavithrah, Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Front_View.JPG">Source</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">Photo 4 · iron-spiked gate:</strong> Amshucr, Wikimedia Commons, CC BY-SA 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Dungeon_Fort_%26_Gates_-_Fort_Gates.JPG">Source</a></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

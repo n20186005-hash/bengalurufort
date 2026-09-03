@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+export const prerender = true;
+
+const siteUrl = Astro.site?.href;
+const pageUrl = siteUrl ? new URL('/', Astro.site).href : undefined;
+const imageUrl = siteUrl ? new URL('/images/bengaluru-fort-courtyard.jpg', Astro.site).href : '/images/bengaluru-fort-courtyard.jpg';
+
+const attraction = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristAttraction',
+  name: 'ಬೆಂಗಳೂರು ಕೋಟೆ',
+  alternateName: ['Bengaluru Fort', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
+  description: 'ಬೆಂಗಳೂರು ನಗರದ ಹಳೆಯ ಭಾಗದಲ್ಲಿರುವ, ಕೆಂಪೇಗೌಡರ 1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಆರಂಭವಾಗಿ ಹೈದರ್ ಅಲಿ ಕಾಲದಲ್ಲಿ ಕಲ್ಲಿನ ಕೋಟೆಯಾಗಿ ರೂಪಾಂತರಗೊಂಡ ಐತಿಹಾಸಿಕ ಸ್ಮಾರಕ.',
+  ...(pageUrl ? { url: pageUrl } : {}),
+  image: [imageUrl],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Krishna Rajendra Rd, New Tharagupet',
+    addressLocality: 'Bengaluru',
+    addressRegion: 'Karnataka',
+    postalCode: '560002',
+    addressCountry: 'IN'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 12.962875,
+    longitude: 77.575956
+  },
+  openingHours: 'Mo-Su 08:30-17:30',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.0',
+    reviewCount: '26832',
+    bestRating: '5',
+    worstRating: '1'
+  },
+  isAccessibleForFree: true,
+  publicAccess: true,
+  inLanguage: 'kn-IN',
+  sameAs: [
+    'https://maps.app.goo.gl/YQMDNDs39ST6udZd6',
+    'https://bengaluruurban.nic.in/en/history/',
+    'https://asi.nic.in/admin/whatsnew/download/719'
+  ]
+};
+
+const faqItems = [
+  ['ಬೆಂಗಳೂರು ಕೋಟೆಯನ್ನು ಯಾರು ಕಟ್ಟಿಸಿದರು?', 'ಇಂದಿನ ಬೆಂಗಳೂರು ನಗರದ ಆರಂಭಿಕ ಕೋಟೆಯನ್ನು ಕೆಂಪೇಗೌಡರು 1537ರಲ್ಲಿ ಮಣ್ಣಿನಿಂದ ನಿರ್ಮಿಸಿದರು. ನಂತರ ಹೈದರ್ ಅಲಿ 1761ರ ವೇಳೆಗೆ ಅದನ್ನು ಕಲ್ಲಿನ ರಕ್ಷಣಾತ್ಮಕ ಕಟ್ಟಡವಾಗಿ ಬಲಪಡಿಸಿದರು.'],
+  ['ಭೇಟಿಗೆ ಎಷ್ಟು ಸಮಯ ಮೀಸಲಿಡಬೇಕು?', 'ಉಳಿದಿರುವ ಬಾಗಿಲು, ಗೋಡೆ, ಬುರಜು ಮತ್ತು ಒಳಾಂಗಣವನ್ನು ನಿಧಾನವಾಗಿ ನೋಡಲು ಸಾಮಾನ್ಯವಾಗಿ 45ರಿಂದ 75 ನಿಮಿಷ ಸಾಕಾಗುತ್ತದೆ. ಹತ್ತಿರದ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆಯನ್ನು ಸೇರಿಸಿದರೆ ಅರ್ಧ ದಿನದ ಹಳೆಯ ಬೆಂಗಳೂರು ನಡಿಗೆ ರೂಪಿಸಬಹುದು.'],
+  ['ಪ್ರವೇಶ ಶುಲ್ಕ ಎಷ್ಟು?', 'ಇತ್ತೀಚಿನ ಪ್ರವಾಸಿ ಪಟ್ಟಿಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಉಚಿತ ಪ್ರವೇಶವನ್ನು ಸೂಚಿಸುತ್ತವೆ. ಆದರೂ ಕಾರ್ಯಾಚರಣೆ ಮತ್ತು ಪ್ರವೇಶ ನಿಯಮಗಳು ಬದಲಾಗಬಹುದು; ಭೇಟಿ ದಿನ ಸ್ಥಳದ ಸೂಚನೆ ಅಥವಾ ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆಯ ಪ್ರಸ್ತುತ ಮಾಹಿತಿಯನ್ನೇ ಅಂತಿಮವೆಂದು ಪರಿಗಣಿಸಿ.'],
+  ['ಯಾವ ಸಮಯದಲ್ಲಿ ಭೇಟಿ ನೀಡುವುದು ಉತ್ತಮ?', 'ಬೆಳಗಿನ ಮೊದಲ ಗಂಟೆಗಳು ಅಥವಾ ಸಂಜೆ ಮುಚ್ಚುವ ವೇಳೆಗೆ ಮುನ್ನದ ಭಾಗ ಉತ್ತಮ. ಈ ಸಮಯದಲ್ಲಿ ಹಳೆಯ ನಗರದ ರಸ್ತೆ ಸಂಚಾರ ಮತ್ತು ಮಧ್ಯಾಹ್ನದ ಬಿಸಿಯನ್ನು ಸ್ವಲ್ಪ ತಪ್ಪಿಸಬಹುದು. ಅಕ್ಟೋಬರ್‌ನಿಂದ ಫೆಬ್ರವರಿ ತನಕ ಬೆಂಗಳೂರು ಹೊರಾಂಗಣ ಸಂಚಾರಕ್ಕೆ ಸಾಮಾನ್ಯವಾಗಿ ಆರಾಮದಾಯಕ.'],
+  ['ಹತ್ತಿರದ ಮೆಟ್ರೋ ಆಯ್ಕೆ ಯಾವುದು?', 'ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಮತ್ತು ಚಿಕ್ಕಪೇಟೆ ಪ್ರದೇಶದ ಮೆಟ್ರೋ ನಿಲ್ದಾಣಗಳಿಂದ ಕೋಟೆ ಕಡೆಗೆ ನಡೆದು ಅಥವಾ ಕಡಿಮೆ ದೂರದ ಆಟೋ ಪ್ರಯಾಣ ಮಾಡಬಹುದು. ಮಾರ್ಗ ಬದಲಾವಣೆಗಳಿಗಾಗಿ ಹೊರಡುವ ಮೊದಲು ನಮ್ಮ ಮೆಟ್ರೋ ಅಧಿಕೃತ ಸೇವಾ ಮಾಹಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ.'],
+  ['ಕಾರ್ ಪಾರ್ಕಿಂಗ್ ಸುಲಭವೇ?', 'ಕೋಟೆ ಹಳೆಯ ನಗರದ ತುಂಬಾ ಕಾರ್ಯನಿರತ ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶದಲ್ಲಿದೆ. ಸ್ಥಳದಲ್ಲೇ ದೊಡ್ಡ ಮೀಸಲು ಪ್ರವಾಸಿ ಪಾರ್ಕಿಂಗ್ ಇದೆ ಎಂದು ಊಹಿಸಬೇಡಿ. ಸಾರ್ವಜನಿಕ ಸಾರಿಗೆ ಅಥವಾ ಅಧಿಕೃತ ಪೇಡ್ ಪಾರ್ಕಿಂಗ್ ಬಳಸಿ, ಪ್ರವೇಶ ದ್ವಾರಗಳ ಮುಂದೆ ವಾಹನ ನಿಲ್ಲಿಸಬೇಡಿ.']
+];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(([q,a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }))
+};
+const jsonLd = [attraction, faqSchema];
+
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.626518291582!2d77.57331127700142!3d12.962801787351749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e3043a1d57%3A0xb2a4590209bde6d7!2sBengaluru%20Fort!5e1!3m2!1ska!2sin!4v1788419693020!5m2!1ska!2sin';
+---
+<BaseLayout
+  title="ಬೆಂಗಳೂರು ಕೋಟೆ | ಇತಿಹಾಸ, ಭೇಟಿ ಮಾಹಿತಿ, ಸಾರಿಗೆ ಮತ್ತು ನಕ್ಷೆ"
+  description="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಇತಿಹಾಸ, ಕಲ್ಲಿನ ಬಾಗಿಲುಗಳು, ಭೇಟಿ ಸಮಯ, ಶುಲ್ಕ ಪರಿಶೀಲನೆ, ಮೆಟ್ರೋ ಮತ್ತು ರಸ್ತೆ ಸಾರಿಗೆ, ಪಾರ್ಕಿಂಗ್, ಹತ್ತಿರದ ಊಟ ಮತ್ತು ಆಕರ್ಷಣೆಗಳ ಕನ್ನಡ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ."
+  jsonLd={jsonLd}
+  alternatePath="/en/"
+>
+  <section class="relative isolate overflow-hidden bg-[#302820] text-white">
+    <img src="/images/bengaluru-fort-courtyard.jpg" alt="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಕಲ್ಲಿನ ಗೋಡೆ, ಕಮಾನು ಬಾಗಿಲು ಮತ್ತು ಒಳಾಂಗಣ ಹಸಿರು ಪ್ರದೇಶ" class="absolute inset-0 -z-20 h-full w-full object-cover" width="1280" height="850" fetchpriority="high" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#241d17]/95 via-[#33261d]/72 to-[#33261d]/30"></div>
+    <div class="mx-auto grid min-h-[78vh] max-w-7xl items-end gap-10 px-5 py-16 lg:grid-cols-[1.1fr_.6fr] lg:px-8 lg:py-24">
+      <div class="max-w-3xl">
+        <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆಯ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ · ಎನ್-ಕೆಎ-ಬಿ1</p>
+        <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">ಬೆಂಗಳೂರು ಕೋಟೆ</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಹೈದರ್ ಅಲಿಯ ಕಲ್ಲಿನ ರಕ್ಷಣಾ ಕಟ್ಟಡದವರೆಗೆ—ಬೆಂಗಳೂರು ನಗರದ ಹುಟ್ಟಿನ ಕಥೆಯನ್ನು ಇನ್ನೂ ಹಿಡಿದಿಟ್ಟಿರುವ ಹಳೆಯ ನಗರದ ಕಲ್ಲಿನ ದ್ವಾರ.</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">ಭೇಟಿ ಯೋಜಿಸಿ</a>
+          <a href="#map" class="focus-ring rounded-full border border-white/35 bg-white/10 px-5 py-3 font-extrabold backdrop-blur hover:bg-white/20">ನಕ್ಷೆ ತೆರೆಯಿರಿ</a>
+        </div>
+      </div>
+      <aside class="arch-card border-white/20 bg-black/35 p-6 text-white backdrop-blur-md">
+        <p class="text-xs font-bold tracking-wider text-[#e9cda7]">ಸ್ಥಳ ಗುರುತು</p>
+        <p class="mt-2 text-lg font-bold">ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆ, ನ್ಯೂ ತರಗುಪೇಟೆ</p>
+        <p class="mt-2 text-sm leading-7 text-white/75">ಬೆಂಗಳೂರು · ಕರ್ನಾಟಕ 560002 · ಭಾರತ</p>
+        <div class="mt-5 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 text-sm">
+          <div><span class="block text-white/60">ಪಟ್ಟಿಯ ರೇಟಿಂಗ್</span><strong class="text-lg">4.0 / 5</strong></div>
+          <div><span class="block text-white/60">ವಿಮರ್ಶೆಗಳು</span><strong class="text-lg">26,832</strong></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="history" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <div class="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+      <div class="lg:sticky lg:top-28">
+        <p class="section-kicker">ನಗರದ ಮೂಲದತ್ತ</p>
+        <h2 class="section-title">ಕೋಟೆಯೊಳಗೆ ಬೆಂಗಳೂರು ನಗರದ ಆರಂಭಿಕ ಪದರಗಳು</h2>
+        <p class="mt-5 max-w-xl leading-8 text-stone-ink/70">ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತದ ಇತಿಹಾಸದ ಪ್ರಕಾರ ಕೆಂಪೇಗೌಡರು 1537ರಲ್ಲಿ ಮಣ್ಣಿನ ಕೋಟೆ ನಿರ್ಮಿಸಿ ಆಧುನಿಕ ಬೆಂಗಳೂರಿನ ನೆಲೆಯನ್ನು ಹಾಕಿದರು. ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆಯ ಪಟ್ಟಿಯಲ್ಲಿ ಉಳಿದಿರುವ ಭಾಗವು “ಓಲ್ಡ್ ಡಂಜಿಯನ್ ಫೋರ್ಟ್ ಅಂಡ್ ಗೇಟ್ಸ್” ಎಂಬ ಹೆಸರಿನಲ್ಲಿ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕವಾಗಿದೆ.</p>
+        <div class="mt-7 flex flex-wrap gap-3 text-sm font-bold">
+          <a rel="external noopener" href="https://bengaluruurban.nic.in/en/history/" class="rounded-full border border-fort/30 px-4 py-2 hover:bg-white">ಜಿಲ್ಲಾಡಳಿತದ ಇತಿಹಾಸ ಮೂಲ</a>
+          <a rel="external noopener" href="https://asi.nic.in/admin/whatsnew/download/719" class="rounded-full border border-fort/30 px-4 py-2 hover:bg-white">ಪುರಾತತ್ವ ಇಲಾಖೆಯ ಪಟ್ಟಿಯನ್ನು ನೋಡಿ</a>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1537</span><h3 class="mt-3 text-xl font-extrabold">ಕೆಂಪೇಗೌಡರ ಮಣ್ಣಿನ ಕೋಟೆ</h3><p class="mt-3 leading-8 text-stone-ink/70">ವಿಜಯನಗರ ಸಾಮ್ರಾಜ್ಯದ ಅಧೀನದಲ್ಲಿದ್ದ ಕೆಂಪೇಗೌಡರು ಇಲ್ಲಿ ಮಣ್ಣಿನ ಕೋಟೆ ನಿರ್ಮಿಸಿದರು. ಈ ಘಟನೆಯನ್ನು ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತವೂ ಆಧುನಿಕ ನಗರದ ಸ್ಥಾಪನೆಯ ಪ್ರಮುಖ ಹಂತವೆಂದು ವಿವರಿಸುತ್ತದೆ.</p></article>
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1761</span><h3 class="mt-3 text-xl font-extrabold">ಹೈದರ್ ಅಲಿಯ ಕಲ್ಲಿನ ಬಲಪಡಿಕೆ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಹೈದರ್ ಅಲಿ ಮಣ್ಣಿನ ರಕ್ಷಣಾ ವಲಯವನ್ನು ಕಲ್ಲಿನಿಂದ ಬಲಪಡಿಸಿದನು. ನಂತರ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಕಾಲದಲ್ಲಿ ಬೆಂಗಳೂರು ಮೈಸೂರು ರಾಜ್ಯದ ಪ್ರಮುಖ ಸೈನಿಕ ಕೇಂದ್ರವಾಗಿ ಮುಂದುವರಿಯಿತು.</p></article>
+        <article class="arch-card p-7 sm:p-9"><span class="text-3xl font-black text-fort">1791</span><h3 class="mt-3 text-xl font-extrabold">ಆಂಗ್ಲ–ಮೈಸೂರು ಯುದ್ಧದ ತಿರುವು</h3><p class="mt-3 leading-8 text-stone-ink/70">ಮೂರನೇ ಆಂಗ್ಲ–ಮೈಸೂರು ಯುದ್ಧದ ಸಂದರ್ಭದಲ್ಲಿ ಬ್ರಿಟಿಷ್ ಪಡೆಗಳು ಬೆಂಗಳೂರು ಕೋಟೆಯನ್ನು ವಶಪಡಿಸಿಕೊಂಡವು. ನಂತರ ಕಾಲಕ್ರಮೇಣ ದೊಡ್ಡ ಕೋಟೆ ವಲಯದ ಬಹುಭಾಗ ಕಣ್ಮರೆಯಾಗಿ, ಇಂದು ಮುಖ್ಯವಾಗಿ ಉಳಿದ ದ್ವಾರ, ಗೋಡೆ ಮತ್ತು ಬುರಜುಗಳು ನಗರದ ಮಧ್ಯೆ ಕಾಣುತ್ತವೆ.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-[#e8d8bf] py-20">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-5 md:grid-cols-3">
+        <figure class="overflow-hidden rounded-[2.2rem_2.2rem_.8rem_.8rem] bg-[#31281f] text-white md:col-span-2">
+          <img src="/images/bengaluru-fort-panorama.jpg" alt="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಐತಿಹಾಸಿಕ ಕಮಾನು ದ್ವಾರ ಮತ್ತು ಕಲ್ಲಿನ ಗೋಡೆಗಳ ವಿಶಾಲ ನೋಟ" class="aspect-[16/8] h-full min-h-[330px] w-full object-cover" loading="lazy" width="1280" height="435" />
+        </figure>
+        <figure class="overflow-hidden rounded-[2.2rem_2.2rem_.8rem_.8rem] bg-[#31281f] text-white">
+          <img src="/images/bengaluru-fort-arch.jpg" alt="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಕತ್ತಲ ಕಮಾನು ಒಳಗಿನಿಂದ ಕಾಣುವ ಆಕಾಶ ಮತ್ತು ಕಲ್ಲಿನ ಗೋಡೆ" class="aspect-[4/5] h-full min-h-[330px] w-full object-cover" loading="lazy" width="960" height="1280" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <p class="section-kicker">ಪ್ರಾಯೋಗಿಕ ಮಾಹಿತಿ</p>
+    <h2 class="section-title max-w-3xl">ಭೇಟಿಗೆ ಮುನ್ನ ತಿಳಿದಿರಬೇಕಾದದ್ದು</h2>
+    <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <article class="arch-card p-6"><div class="text-2xl">◷</div><h3 class="mt-4 font-extrabold">ಪ್ರಕಟಿತ ಭೇಟಿ ಸಮಯ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಬಹುಪಾಲು ಪ್ರಸ್ತುತ ಪ್ರವಾಸಿ ಪಟ್ಟಿಗಳು ಬೆಳಿಗ್ಗೆ 8:30ರಿಂದ ಸಂಜೆ 5:30ರವರೆಗೆ ಸೂಚಿಸುತ್ತವೆ. ವಾರದ ರಜೆ/ವಿಶೇಷ ಮುಚ್ಚುವಿಕೆ ಬದಲಾಗಬಹುದು; ಸ್ಥಳದ ಸೂಚನೆಯೇ ಅಂತಿಮ.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">⌛</div><h3 class="mt-4 font-extrabold">ಸೂಚಿಸಿದ ಅವಧಿ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಕೋಟೆ ಮಾತ್ರ: ಸುಮಾರು 45–75 ನಿಮಿಷ. ಹತ್ತಿರದ ಅರಮನೆ, ದೇವಾಲಯ ಮತ್ತು ಮಾರುಕಟ್ಟೆ ಸೇರಿಸಿದರೆ 3–4 ಗಂಟೆ ಮೀಸಲಿಡಿ.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">₹</div><h3 class="mt-4 font-extrabold">ಟಿಕೆಟ್ / ವೆಚ್ಚ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಆನ್‌ಲೈನ್ ಮೂಲಗಳಲ್ಲಿ ಶುಲ್ಕದ ಬಗ್ಗೆ ವ್ಯತ್ಯಾಸ ಇದೆ. ಹಳೆಯ ಮೊತ್ತವನ್ನು ಇಲ್ಲಿ ಸ್ಥಿರವಾಗಿ ಪ್ರಕಟಿಸುವುದಿಲ್ಲ. ಅಧಿಕೃತ/ಸ್ಥಳದ ಫಲಕ ಪರಿಶೀಲಿಸಿ.</p></article>
+      <article class="arch-card p-6"><div class="text-2xl">☀</div><h3 class="mt-4 font-extrabold">ಉತ್ತಮ ಸಮಯ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಬೆಳಗಿನ ಮೊದಲ ಭಾಗ ಛಾಯಾಚಿತ್ರ ಮತ್ತು ನಡೆಗೆ ಅನುಕೂಲ. ಬೆಂಗಳೂರು ನಗರಕ್ಕೆ ಅಕ್ಟೋಬರ್–ಫೆಬ್ರವರಿ ಸಾಮಾನ್ಯವಾಗಿ ಸುಖಕರ ಹೊರಾಂಗಣ ಋತು.</p></article>
+    </div>
+    <div class="mt-8 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70"><strong class="text-stone-ink">ಮುಖ್ಯ ಸೂಚನೆ:</strong> ಭೇಟಿ ಸಮಯ, ಪ್ರವೇಶ ಶುಲ್ಕ ಮತ್ತು ಭದ್ರತಾ ನಿಯಮಗಳು ತಾತ್ಕಾಲಿಕವಾಗಿ ಬದಲಾಗಬಹುದು. ಈ ಸ್ವತಂತ್ರ ಮಾರ್ಗದರ್ಶಿ ಹಳೆಯ ಸಂಖ್ಯೆಯನ್ನು “ಅಧಿಕೃತ” ಎಂದು ತೋರಿಸುವುದಿಲ್ಲ; ಪ್ರಯಾಣದ ದಿನ ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆ ಅಥವಾ ಸ್ಥಳದ ಸೂಚನೆ ಪರಿಶೀಲಿಸಿ.</div>
+  </section>
+
+  <section class="bg-[#382e26] py-20 text-white">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+      <div>
+        <p class="text-xs font-extrabold tracking-wider text-[#e9cda7]">ಕಲ್ಲಿನಲ್ಲಿ ಓದಬಹುದಾದ ರಕ್ಷಣಾ ವಿನ್ಯಾಸ</p>
+        <h2 class="mt-3 text-4xl font-black leading-tight sm:text-5xl">ಕಮಾನು, ಬುರಜು ಮತ್ತು ಕಬ್ಬಿಣದ ಮುಳ್ಳುಗಳ ಬಾಗಿಲು</h2>
+        <p class="mt-5 leading-8 text-white/70">ಉಳಿದಿರುವ ಕಲ್ಲಿನ ಭಾಗದಲ್ಲಿ ದಪ್ಪ ಗೋಡೆ, ವಕ್ರ ಬುರಜು, ಒಳಹೊಕ್ಕ ದ್ವಾರಕ್ರಮ ಮತ್ತು ಮರದ ದೊಡ್ಡ ಬಾಗಿಲುಗಳು ಕಾಣುತ್ತವೆ. ಆನೆ ದಾಳಿಯನ್ನು ತಡೆಯಲು ಬಳಸುತ್ತಿದ್ದ ಕಬ್ಬಿಣದ ಮುಳ್ಳುಗಳು ರಕ್ಷಣಾತ್ಮಕ ವಾಸ್ತುಶಿಲ್ಪದ ಸ್ಪಷ್ಟ ಗುರುತು.</p>
+      </div>
+      <figure class="overflow-hidden rounded-[3rem_3rem_1rem_1rem] border border-white/10">
+        <img src="/images/bengaluru-fort-spiked-gate.jpg" alt="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಮರದ ದೊಡ್ಡ ಬಾಗಿಲಿನ ಮೇಲೆ ಅಳವಡಿಸಿದ ಕಬ್ಬಿಣದ ರಕ್ಷಣಾ ಮುಳ್ಳುಗಳು" class="aspect-[3/2] w-full object-cover" loading="lazy" width="958" height="639" />
+      </figure>
+    </div>
+  </section>
+
+  <section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <p class="section-kicker">ವಿಸ್ತೃತ ಸಾರಿಗೆ</p>
+    <h2 class="section-title">ಹಳೆಯ ನಗರದ ಗದ್ದಲದೊಳಗೆ ಸರಳವಾಗಿ ತಲುಪುವ ಮಾರ್ಗ</h2>
+    <div class="mt-10 grid gap-6 lg:grid-cols-3">
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ಮೆಟ್ರೋ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಚಿಕ್ಕಪೇಟೆ ಭಾಗದ ನಮ್ಮ ಮೆಟ್ರೋ ನಿಲ್ದಾಣವನ್ನು ಬಳಸಿ, ನಂತರ ನಡಿಗೆ/ಕಡಿಮೆ ದೂರದ ಆಟೋ ಆಯ್ಕೆ ಅನುಕೂಲ. ಸೇವಾ ಮಾರ್ಗ ಮತ್ತು ನಿಲ್ದಾಣ ಪ್ರವೇಶ ಬದಲಾವಣೆಗಾಗಿ ಹೊರಡುವ ಮೊದಲು ಅಧಿಕೃತ ನಕ್ಷೆ ಪರಿಶೀಲಿಸಿ.</p><a class="mt-4 inline-block text-sm font-bold text-fort underline" rel="external noopener" href="https://english.bmrc.co.in/">ನಮ್ಮ ಮೆಟ್ರೋ ಅಧಿಕೃತ ಮಾಹಿತಿ</a></article>
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ಬಸ್ ಮತ್ತು ಆಟೋ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ, ಕಲಾಸಿಪಾಳ್ಯ ಮತ್ತು ಸಿಟಿ ಮಾರುಕಟ್ಟೆ ಕಡೆಗೆ ಹಲವು ನಗರ ಬಸ್ ಮಾರ್ಗಗಳು ಬರುತ್ತವೆ. ಕೊನೆಯ ಭಾಗದಲ್ಲಿ ಆಟೋ ಉಪಯುಕ್ತ; ಮೀಟರ್ ಅಥವಾ ಆಪ್ ದರವನ್ನು ಪ್ರಯಾಣಕ್ಕೂ ಮುನ್ನ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</p></article>
+      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ರೈಲು ಮತ್ತು ವಿಮಾನ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕ್ರಾಂತಿವೀರ ಸಂಗೊಳ್ಳಿ ರಾಯಣ್ಣ ಬೆಂಗಳೂರು ನಿಲ್ದಾಣದಿಂದ ಹಳೆಯ ನಗರಕ್ಕೆ ಮೆಟ್ರೋ/ಆಟೋ/ಟ್ಯಾಕ್ಸಿ ಸಂಪರ್ಕ ಸುಲಭ. ಕೆಂಪೇಗೌಡ ಅಂತರರಾಷ್ಟ್ರೀಯ ವಿಮಾನ ನಿಲ್ದಾಣದಿಂದ ನಗರಕೇಂದ್ರದವರೆಗೆ ವಿಮಾನ ನಿಲ್ದಾಣ ಬಸ್ ಅಥವಾ ಟ್ಯಾಕ್ಸಿ ಬಳಸಿ.</p></article>
+    </div>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-2">
+      <article class="rounded-3xl bg-moss p-8 text-white"><p class="text-xs font-bold tracking-wider text-white/60">ಪಾರ್ಕಿಂಗ್ ಮಾಹಿತಿ</p><h3 class="mt-2 text-2xl font-extrabold">ಖಾಸಗಿ ಕಾರಿಗಿಂತ ಸಾರ್ವಜನಿಕ ಸಾರಿಗೆ ಸರಳ</h3><p class="mt-4 leading-8 text-white/75">ನ್ಯೂ ತರಗುಪೇಟೆ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶವು ದಿನಪೂರ್ತಿ ವ್ಯಾಪಾರ ಸಂಚಾರದಿಂದ ಗದ್ದಲವಾಗಿರಬಹುದು. ಕೋಟೆಗೆ ಸ್ವಂತ ದೊಡ್ಡ ಪ್ರವಾಸಿ ಪಾರ್ಕಿಂಗ್ ಇದೆ ಎಂದು ಅವಲಂಬಿಸಬೇಡಿ. ಕಾನೂನುಬದ್ಧ ಪೇಡ್ ಪಾರ್ಕಿಂಗ್ ಕಂಡು ಕಾರು ನಿಲ್ಲಿಸಿ, ಕಿರಿದಾದ ಪ್ರವೇಶ ರಸ್ತೆ ಮತ್ತು ತುರ್ತು ಮಾರ್ಗಗಳನ್ನು ತೆರವಾಗಿಡಿ.</p></article>
+      <article class="rounded-3xl border border-fort/20 bg-white/50 p-8"><p class="text-xs font-bold tracking-wider text-fort">ಚಲನೆಯ ಸಲಹೆ</p><h3 class="mt-2 text-2xl font-extrabold">ಬೆಳಿಗ್ಗೆ ಕೋಟೆ, ನಂತರ ಕಾಲ್ನಡಿಗೆಯ ಹಳೆಯ ಬೆಂಗಳೂರು</h3><p class="mt-4 leading-8 text-stone-ink/70">ಕೋಟೆಯಿಂದ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ, ಕೋಟೆ ವೆಂಕಟರಮಣ ಸ್ವಾಮಿ ದೇವಾಲಯ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಭಾಗಗಳನ್ನು ಒಂದೇ ಸ್ಥಳೀಯ ವಲಯವಾಗಿ ನೋಡಬಹುದು. ಪಾದಚಾರಿ ಮಾರ್ಗಗಳು ನಿರಂತರವಾಗಿರುವುದಿಲ್ಲ; ರಸ್ತೆ ದಾಟುವಾಗ ಎಚ್ಚರಿಕೆ ಅಗತ್ಯ.</p></article>
+    </div>
+  </section>
+
+  <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
+    <div class="mx-auto max-w-7xl px-5 lg:px-8">
+      <div class="grid gap-12 lg:grid-cols-2">
+        <div>
+          <p class="section-kicker">ಸುತ್ತಮುತ್ತಲಿನ ಇತಿಹಾಸ</p>
+          <h2 class="section-title">ಒಂದೇ ಹಳೆಯ ನಗರ ವಲಯದಲ್ಲಿ ಇನ್ನೇನು ನೋಡಬಹುದು?</h2>
+          <div class="mt-8 space-y-4">
+            <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಮರದ ಸ್ತಂಭಗಳು, ಕಮಾನುಗಳು ಮತ್ತು ಮೈಸೂರು ಆಡಳಿತದ ನಗರ ಇತಿಹಾಸವನ್ನು ಪರಿಚಯಿಸುವ ಹತ್ತಿರದ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ. ಕೋಟೆಯೊಂದಿಗೆ ಗೊಂದಲಪಡಿಸಬೇಡಿ—ಇದು ಪ್ರತ್ಯೇಕ ಸ್ಮಾರಕ.</p></article>
+            <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಕೋಟೆ ವೆಂಕಟರಮಣ ಸ್ವಾಮಿ ದೇವಾಲಯ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಹಳೆಯ ಕೋಟೆ ವಲಯದ ಧಾರ್ಮಿಕ ಮತ್ತು ವಾಸ್ತುಶಿಲ್ಪದ ಪದರಗಳನ್ನು ಓದಲು ಉಪಯುಕ್ತವಾದ ಐತಿಹಾಸಿಕ ದೇವಾಲಯ.</p></article>
+            <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಹೂವು, ಹಣ್ಣು, ತರಕಾರಿ ಮತ್ತು ದಿನನಿತ್ಯದ ವ್ಯಾಪಾರದಿಂದ ಜೀವಂತವಾಗಿರುವ ಹಳೆಯ ಬೆಂಗಳೂರು ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶ. ಮುಂಜಾನೆ ಅದರ ಚಟುವಟಿಕೆ ಹೆಚ್ಚು ಸ್ಪಷ್ಟವಾಗಿ ಕಾಣುತ್ತದೆ.</p></article>
+            <article class="rounded-2xl bg-white/55 p-6"><h3 class="font-extrabold">ಲಾಲ್‌ಬಾಗ್ ಸಸ್ಯೋದ್ಯಾನ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಹೈದರ್ ಅಲಿ ಆರಂಭಿಸಿ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಕಾಲದಲ್ಲಿ ವಿಸ್ತರಿಸಲಾದ ಐತಿಹಾಸಿಕ ಉದ್ಯಾನ; ಕೋಟೆಯ ಕಲ್ಲಿನ ಇತಿಹಾಸದ ನಂತರ ಹಸಿರು ವಿರಾಮಕ್ಕೆ ಸೂಕ್ತ.</p></article>
+          </div>
+        </div>
+        <div>
+          <p class="section-kicker">ಸುತ್ತಮುತ್ತಲಿನ ಊಟ</p>
+          <h2 class="section-title">ಬೆಂಗಳೂರು ರುಚಿಯನ್ನು ಪರಿಚಯಿಸುವ ಹಳೆಯ ಸಂಸ್ಥೆಗಳು</h2>
+          <p class="mt-4 text-sm leading-7 text-stone-ink/65">ಕೆಳಗಿನವು ಪಾವತಿತ ಶಿಫಾರಸುಗಳು ಅಥವಾ ಶ್ರೇಯಾಂಕವಲ್ಲ; ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಹಾಗೂ ಸಾರ್ವಜನಿಕ ಮೂಲಗಳಲ್ಲಿ ದಾಖಲಾದ, ಹಳೆಯ ಬೆಂಗಳೂರು ಆಹಾರ ಸಂಸ್ಕೃತಿಯನ್ನು ಪರಿಚಯಿಸುವ ಉದಾಹರಣೆಗಳು.</p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <article class="arch-card p-6"><h3 class="font-extrabold">ಮಾವಳ್ಳಿ ಟಿಫಿನ್ ರೂಮ್ಸ್</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಲಾಲ್‌ಬಾಗ್ ರಸ್ತೆಯ ಹಳೆಯ ದಕ್ಷಿಣ ಭಾರತೀಯ ಸಸ್ಯಾಹಾರಿ ಊಟದ ಸಂಸ್ಥೆ; ರವೆ ಇಡ್ಲಿ, ದೋಸೆ ಮತ್ತು ಬಿಸಿ ಬೇಳೆ ಬಾತ್‌ಗಾಗಿ ಪ್ರಸಿದ್ಧ.</p><a class="mt-3 inline-block text-xs font-bold text-fort underline" rel="external noopener" href="https://www.mavallitiffinrooms.com/">ಅಧಿಕೃತ ತಾಣ</a></article>
+            <article class="arch-card p-6"><h3 class="font-extrabold">ವಿದ್ಯಾರ್ಥಿ ಭವನ</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಗಾಂಧಿ ಬಜಾರ್‌ನ ಪರಂಪರೆಯ ಉಪಹಾರ ಸ್ಥಳ; ಮಸಾಲೆ ದೋಸೆಯೊಂದಿಗೆ ಹಳೆಯ ಬೆಂಗಳೂರು ಊಟದ ಸಂಸ್ಕೃತಿಯನ್ನು ಅನುಭವಿಸಲು ಪ್ರಸಿದ್ಧ.</p><a class="mt-3 inline-block text-xs font-bold text-fort underline" rel="external noopener" href="https://vidyarthibhavan.in/">ಅಧಿಕೃತ ತಾಣ</a></article>
+            <article class="arch-card p-6 sm:col-span-2"><h3 class="font-extrabold">ಮಾರುಕಟ್ಟೆ ಸುತ್ತಿನ ದರ್ಶಿನಿ ಮತ್ತು ಉಪಹಾರ ಮಳಿಗೆಗಳು</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಮತ್ತು ಚಿಕ್ಕಪೇಟೆ ಭಾಗದಲ್ಲಿ ಇಡ್ಲಿ, ವಡೆ, ದೋಸೆ, ಖಾರಾ ಬಾತ್ ಮತ್ತು ಫಿಲ್ಟರ್ ಕಾಫಿ ನೀಡುವ ಅನೇಕ ಸಣ್ಣ ಸ್ಥಳಗಳಿವೆ. ಸ್ವಚ್ಛತೆ, ಬೆಲೆಪಟ್ಟಿ ಮತ್ತು ನಿಮ್ಮ ಆಹಾರ ಅಲರ್ಜಿ ಅಗತ್ಯಗಳನ್ನು ಸ್ವತಃ ಪರಿಶೀಲಿಸಿ.</p></article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="map" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <div class="mb-8 max-w-3xl"><p class="section-kicker">ಸ್ಥಳ ಮತ್ತು ದಿಕ್ಕು</p><h2 class="section-title">ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆಯಲ್ಲಿರುವ ಬೆಂಗಳೂರು ಕೋಟೆ</h2><p class="mt-4 leading-8 text-stone-ink/70">ವಿಳಾಸ: XH7G+49C, ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆ, ನ್ಯೂ ತರಗುಪೇಟೆ, ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ 560002, ಭಾರತ.</p></div>
+    <div class="overflow-hidden rounded-[2.5rem_2.5rem_1rem_1rem] border border-fort/20 bg-white shadow-xl shadow-fort/5">
+      <iframe src={mapSrc} title="ಬೆಂಗಳೂರು ಕೋಟೆಯ ಗೂಗಲ್ ನಕ್ಷೆ" class="h-[520px] w-full" style="border:0" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    <a class="mt-5 inline-flex rounded-full border border-fort/30 px-5 py-3 text-sm font-extrabold text-fort hover:bg-white" rel="external noopener" href="https://maps.app.goo.gl/YQMDNDs39ST6udZd6">ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ</a>
+  </section>
+
+  <section id="faq" class="bg-[#342b24] py-20 text-white lg:py-24">
+    <div class="mx-auto max-w-5xl px-5 lg:px-8">
+      <p class="text-xs font-extrabold tracking-wider text-[#e9cda7]">ಸಾಮಾನ್ಯ ಪ್ರಶ್ನೆಗಳು</p>
+      <h2 class="mt-3 text-4xl font-black sm:text-5xl">ಭೇಟಿಗೆ ಮುನ್ನ ಕೇಳಲಾಗುವ ಪ್ರಶ್ನೆಗಳು</h2>
+      <div class="mt-10 divide-y divide-white/10 border-y border-white/10">
+        {faqItems.map(([q,a]) => <details class="group py-5"><summary class="cursor-pointer list-none pr-8 text-lg font-extrabold">{q}<span class="float-right text-[#e9cda7] group-open:rotate-45">＋</span></summary><p class="mt-4 max-w-3xl leading-8 text-white/70">{a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+      <div><p class="section-kicker">ಮೂಲಗಳು ಮತ್ತು ಚಿತ್ರ ಹಕ್ಕು</p><h2 class="section-title">ಸಾಕ್ಷ್ಯಾಧಾರಿತ ಮಾರ್ಗದರ್ಶಿ</h2><p class="mt-4 leading-8 text-stone-ink/70">ಕೋಟೆಯ ಗುರುತು, ಸ್ಥಳ, ಇತಿಹಾಸ ಮತ್ತು ನಗರ ಸಂಬಂಧವನ್ನು ಅಧಿಕೃತ ಸಾರ್ವಜನಿಕ ಮೂಲಗಳೊಂದಿಗೆ ಜೋಡಿಸಲಾಗಿದೆ. ಚಿತ್ರಗಳನ್ನು ವೆಬ್‌ನಲ್ಲಿ ಹಾಟ್‌ಲಿಂಕ್ ಮಾಡಿಲ್ಲ; ಪರವಾನಗಿ ಅನುಮತಿಸುವ ಪ್ರತಿಗಳನ್ನು ಸ್ಥಳೀಯ ಕಡತಗಳಾಗಿ ಬಳಸಲಾಗಿದೆ.</p></div>
+      <div class="space-y-4 text-sm leading-7 text-stone-ink/70">
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 1 · ಒಳಾಂಗಣ ಮತ್ತು ಮುಖ್ಯ ಕಮಾನು:</strong> ಪವಿತ್ರಾ, ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Inside_View.JPG">ಮೂಲ</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 2 · ಕೋಟೆಯ ವಿಶಾಲ ದ್ವಾರ ನೋಟ:</strong> ಪ್ರಧಾನ ವಿ., ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Bangalore_Fort_N-KA-B1.jpg">ಮೂಲ</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 3 · ಮುಂಭಾಗದ ಕಮಾನು:</strong> ಪವಿತ್ರಾ, ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Bangalore_Fort,_Front_View.JPG">ಮೂಲ</a></div>
+        <div class="rounded-2xl border border-fort/15 bg-white/50 p-5"><strong class="text-stone-ink">ಚಿತ್ರ 4 · ಕಬ್ಬಿಣದ ಮುಳ್ಳುಗಳ ಕೋಟೆ ಬಾಗಿಲು:</strong> ಅಮ್ಶುಕ್ರ್, ವಿಕಿಮೀಡಿಯ ಕಾಮನ್ಸ್, ಕ್ರಿಯೇಟಿವ್ ಕಾಮನ್ಸ್ ಅಟ್ರಿಬ್ಯೂಷನ್–ಶೇರ್ ಅಲೈಕ್ 3.0. <a class="font-bold text-fort underline" rel="external noopener" href="https://commons.wikimedia.org/wiki/File:Old_Dungeon_Fort_%26_Gates_-_Fort_Gates.JPG">ಮೂಲ</a></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

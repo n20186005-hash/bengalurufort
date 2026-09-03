@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export const prerender = true;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Cookie Settings',
+  inLanguage: 'en-IN',
+  ...(Astro.site ? { url: new URL('/en/cookies/', Astro.site).href } : {})
+};
+---
+<BaseLayout lang="en-IN" alternatePath="/cookies/" title="Cookie Settings | Bengaluru Fort Visitor Guide" description="Manage necessary, analytics, preference and marketing cookie choices for the Bengaluru Fort Visitor Guide." jsonLd={jsonLd}>
+  <section class="mx-auto max-w-5xl px-5 py-16 lg:px-8 lg:py-24">
+    <a href="/en/" class="text-sm font-bold text-fort underline">← Back to home</a>
+    <p class="section-kicker mt-10">YOUR CHOICE</p>
+    <h1 class="section-title">Cookie Settings</h1>
+    <p class="mt-3 text-sm text-stone-ink/60">Last updated: September 2026</p>
+    <p class="mt-7 max-w-3xl leading-8 text-stone-ink/70">We use the minimum local storage needed for site operation. Analytics is off by default. You can change your choice here at any time.</p>
+
+    <div class="mt-10 space-y-4" id="cookie-controls">
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between"><div><h2 class="text-lg font-extrabold">Necessary storage</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">Needed for basic site operation and to remember your cookie choice. It cannot be disabled.</p></div><span class="rounded-full bg-moss/10 px-4 py-2 text-sm font-bold text-moss">Always active</span></article>
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between"><div><h2 class="text-lg font-extrabold">Analytics · Google Analytics</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">Helps us understand aggregate site usage. The G-HXM22WWPKP script is not loaded until you opt in.</p></div><label class="inline-flex cursor-pointer items-center gap-3 font-bold"><input id="analytics-consent" type="checkbox" class="h-5 w-5 accent-[#9c5d36]" /> Enable</label></article>
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between"><div><h2 class="text-lg font-extrabold">Preference storage</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">May be used to remember choices such as language or theme. It is not required for the core visitor guide.</p></div><label class="inline-flex cursor-pointer items-center gap-3 font-bold"><input id="preference-consent" type="checkbox" class="h-5 w-5 accent-[#9c5d36]" /> Enable</label></article>
+      <article class="arch-card flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between"><div><h2 class="text-lg font-extrabold">Marketing cookies</h2><p class="mt-2 max-w-2xl text-sm leading-7 text-stone-ink/70">This site does not currently use personalised advertising or marketing tracking.</p></div><span class="rounded-full bg-stone-ink/5 px-4 py-2 text-sm font-bold text-stone-ink/60">Disabled</span></article>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3"><button id="save-consent" type="button" class="focus-ring rounded-full bg-fort px-6 py-3 font-extrabold text-white hover:bg-fort-deep">Save preferences</button><button id="reject-consent" type="button" class="focus-ring rounded-full border border-fort/35 bg-white/40 px-6 py-3 font-extrabold text-fort hover:bg-white">Reject non-essential</button></div>
+    <p id="consent-status" class="mt-4 min-h-7 text-sm font-bold text-moss" aria-live="polite"></p>
+
+    <div class="policy mt-12"><h2>Consent management</h2><p>Your choice is stored in this browser’s local storage. Removing that storage may reset the preference. Third-party embedded services, particularly Google Maps, may use their own technical storage when loaded and are governed by Google’s policies.</p><p>Turning analytics off prevents new Google Analytics loads on future page loads. If analytics was already activated in the current page session, reload the page after saving the disabled preference.</p></div>
+  </section>
+
+  <script is:inline>
+    (() => {
+      const key = 'bengaluru-fort-cookie-preferences';
+      const analytics = document.getElementById('analytics-consent');
+      const preference = document.getElementById('preference-consent');
+      const status = document.getElementById('consent-status');
+      const read = () => { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; } };
+      const current = read();
+      analytics.checked = current.analytics === true;
+      preference.checked = current.preferences === true;
+      const save = (prefs) => {
+        localStorage.setItem(key, JSON.stringify(prefs));
+        window.dispatchEvent(new CustomEvent('bengaluru-fort-consent-changed', { detail: prefs }));
+        status.textContent = 'Your cookie preferences have been saved.';
+      };
+      document.getElementById('save-consent')?.addEventListener('click', () => save({ analytics: analytics.checked, preferences: preference.checked, marketing: false }));
+      document.getElementById('reject-consent')?.addEventListener('click', () => { analytics.checked = false; preference.checked = false; save({ analytics: false, preferences: false, marketing: false }); });
+    })();
+  </script>
+</BaseLayout>

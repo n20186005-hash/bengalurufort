@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export const prerender = true;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Privacy Policy',
+  inLanguage: 'en-IN',
+  ...(Astro.site ? { url: new URL('/en/privacy/', Astro.site).href } : {})
+};
+---
+<BaseLayout lang="en-IN" alternatePath="/privacy/" title="Privacy Policy | Bengaluru Fort Visitor Guide" description="Privacy Policy for the independent Bengaluru Fort Visitor Guide, including analytics, maps, data use and user rights." jsonLd={jsonLd}>
+  <section class="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-24">
+    <a href="/en/" class="text-sm font-bold text-fort underline">← Back to home</a>
+    <p class="section-kicker mt-10">LEGAL INFORMATION</p>
+    <h1 class="section-title">Privacy Policy</h1>
+    <p class="mt-3 text-sm text-stone-ink/60">Last updated: September 2026</p>
+    <div class="policy mt-10">
+      <p>This independent visitor-information site aims to use only the minimum data needed to operate the service. There is no account, login, database or CMS.</p>
+      <h2>Information we may collect</h2>
+      <ul><li>If you consent to analytics, page visits, general browser/device information and aggregated usage patterns may be processed through Google Analytics.</li><li>Temporary security and network logs operated by hosting providers may contain connection information such as an IP address.</li><li>Information you voluntarily provide by email or another contact channel may be used to answer your request.</li></ul>
+      <h2>How we use information</h2>
+      <ul><li>To improve site content, accessibility and user experience.</li><li>To understand aggregate traffic and usage patterns only after analytics consent.</li><li>To respond to requests.</li><li>To meet security and applicable legal obligations.</li></ul>
+      <h2>Google Analytics</h2>
+      <p>Measurement ID <strong>G-HXM22WWPKP</strong> is configured for this site. Analytics is disabled by default. The Google Analytics script is loaded only after you opt in on the <a href="/en/cookies/" class="font-bold text-fort underline">Cookie Settings page</a>. Your choice is stored locally in your browser.</p>
+      <h2>Google Maps</h2>
+      <p>The main page embeds Google Maps to show the fort’s location. When the map is loaded, Google may process technical information or use its own storage under Google’s terms and privacy policy.</p>
+      <h2>Images</h2>
+      <p>Site photographs are intended to be served from this project’s local files rather than loaded from a third-party image host at runtime. Photographer and Creative Commons attribution is retained on the attraction page and in the project’s photo-source record.</p>
+      <h2>Third-party services</h2>
+      <p>The site may use Google Maps and, after your consent, Google Analytics. External links to public authorities and other sites are governed by those sites’ own privacy practices.</p>
+      <h2>Your rights</h2>
+      <p>Where applicable law, including the GDPR, applies, you may have rights to access personal data processed about you, request correction or deletion where applicable, object to processing, withdraw consent and lodge a complaint with a competent supervisory authority.</p>
+      <h2>Data retention</h2>
+      <p>We do not intend to retain personal information for longer than necessary. Retention of analytics data and technical logs may also depend on service-provider configuration and lawful requirements.</p>
+      <h2>Children’s privacy</h2>
+      <p>The site is not designed to knowingly collect personal information from children and has no registration or account system.</p>
+      <h2>Changes to this policy</h2>
+      <p>This policy may be updated when services or legal requirements change. Material changes will be published on this page.</p>
+    </div>
+  </section>
+</BaseLayout>

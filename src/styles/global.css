@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
+  --color-stone-ink: #2b241d;
+  --color-fort: #9c5d36;
+  --color-fort-deep: #633921;
+  --color-sand: #efe3cf;
+  --color-parchment: #f8f1e6;
+  --color-moss: #445238;
+}
+
+:root { color-scheme: light; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: #f8f1e6;
+  color: #2b241d;
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+::selection { background: #9c5d36; color: white; }
+a { text-underline-offset: 4px; }
+img { display: block; max-width: 100%; }
+
+.fort-texture {
+  background-image:
+    linear-gradient(rgba(43,36,29,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(43,36,29,.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.arch-card {
+  border: 1px solid rgba(99,57,33,.22);
+  border-radius: 2rem 2rem .8rem .8rem;
+  background: rgba(255,255,255,.52);
+  box-shadow: 0 18px 60px rgba(74,50,31,.08);
+}
+.section-kicker {
+  letter-spacing: .08em;
+  font-size: .78rem;
+  font-weight: 800;
+  color: #7c4b2d;
+}
+.section-title {
+  margin-top: .35rem;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.12;
+  font-weight: 850;
+}
+.prose-kannada p { line-height: 1.9; color: #51463c; }
+.policy h2 { margin-top: 2.25rem; font-size: 1.45rem; font-weight: 800; }
+.policy p, .policy li { line-height: 1.85; color: #51463c; }
+.policy ul { padding-left: 1.2rem; list-style: disc; }
+.focus-ring:focus-visible { outline: 3px solid #9c5d36; outline-offset: 3px; }

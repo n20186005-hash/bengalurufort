@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+export const prerender = true;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Terms of Service',
+  inLanguage: 'en-IN',
+  ...(Astro.site ? { url: new URL('/en/terms/', Astro.site).href } : {})
+};
+---
+<BaseLayout lang="en-IN" alternatePath="/terms/" title="Terms of Service | Bengaluru Fort Visitor Guide" description="Terms governing the independent Bengaluru Fort Visitor Guide, information accuracy, copyright, external links and liability." jsonLd={jsonLd}>
+  <section class="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-24">
+    <a href="/en/" class="text-sm font-bold text-fort underline">← Back to home</a>
+    <p class="section-kicker mt-10">LEGAL INFORMATION</p>
+    <h1 class="section-title">Terms of Service</h1>
+    <p class="mt-3 text-sm text-stone-ink/60">Last updated: September 2026</p>
+    <div class="policy mt-10">
+      <p>By accessing or using this site, you agree to these Terms of Service. This is an independent, non-profit visitor-information guide about Bengaluru Fort.</p>
+      <h2>Independent and unofficial</h2>
+      <p>This project is not an official site of the Archaeological Survey of India, Greater Bengaluru Authority, Bengaluru Urban District Administration, Karnataka Tourism, Government of India or any commercial tour operator, and it does not claim an administrative affiliation with them.</p>
+      <h2>Use of content</h2>
+      <p>Original writing, design and compiled guide content may be used for personal informational purposes. Copyright-protected original material may not be reproduced at scale, republished or used to create a misleading claim of official representation without permission.</p>
+      <h2>Accuracy of information</h2>
+      <p>We try to cross-check history and place identity against authoritative public sources. Opening hours, admission rules, roads, parking, transport and facilities can change without notice. Verify important travel information with the relevant authority or the monument notice before travelling.</p>
+      <h2>No commercial recommendation</h2>
+      <p>Nearby food and attraction sections are not paid promotions, advertising rankings or commission-based endorsements. They are included for geographic and cultural context.</p>
+      <h2>Intellectual property and image licences</h2>
+      <p>Original site design and writing are protected by copyright. Photo copyright remains with the original photographers. Wikimedia Commons images used by the project retain the photographer, source and applicable Creative Commons licence credit. Google Maps data and services are governed by Google’s applicable terms.</p>
+      <h2>External links</h2>
+      <p>We may link to official bodies and reference sources. We do not control the content, availability, security or policies of those external websites.</p>
+      <h2>Limitation of liability</h2>
+      <p>The site is provided “as is” for information purposes. To the extent allowed by law, the project is not liable for losses arising from travel decisions based on site content, including schedule changes, costs, transport delays or refusal of access.</p>
+      <h2>Changes to these terms</h2>
+      <p>These terms may be updated when the law, service or content model changes. The version published on this page is the applicable version.</p>
+    </div>
+  </section>
+</BaseLayout>

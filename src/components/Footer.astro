@@ -1,0 +1,42 @@
+---
+import Logo from './Logo.astro';
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+const root = en ? '/en/' : '/';
+---
+<footer class="border-t border-fort-deep/15 bg-[#2f2923] text-[#efe5d6]">
+  <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
+    <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+      <div>
+        <div class="inline-flex rounded-xl bg-parchment p-3 text-stone-ink"><Logo compact={true} /></div>
+        <h2 class="mt-5 text-xl font-extrabold">{en ? 'Bengaluru Fort Visitor Guide' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ'}</h2>
+        <p class="mt-3 max-w-md text-sm leading-7 text-[#cfc3b4]">{en ? 'An independent, non-profit visitor-information project. We are not affiliated with any government body, archaeological authority or official organisation.' : 'ಇದು ಸ್ವತಂತ್ರ, ಲಾಭರಹಿತ ಪ್ರವಾಸಿ ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ ಯೋಜನೆ. ಯಾವುದೇ ಸರ್ಕಾರಿ ಸಂಸ್ಥೆ, ಪುರಾತತ್ವ ಇಲಾಖೆ ಅಥವಾ ಅಧಿಕೃತ ಸಂಘಟನೆಯೊಂದಿಗೆ ನಮ್ಮಿಗೆ ಆಡಳಿತಾತ್ಮಕ ಸಂಬಂಧ ಇಲ್ಲ.'}</p>
+      </div>
+      <div class="grid gap-7 sm:grid-cols-2">
+        <div>
+          <h3 class="font-bold">{en ? 'Legal & preferences' : 'ಕಾನೂನು ಮತ್ತು ಆಯ್ಕೆಗಳು'}</h3>
+          <div class="mt-3 flex flex-col gap-2 text-sm text-[#cfc3b4]">
+            <a class="hover:text-white" href={`${root}privacy/`}>{en ? 'Privacy Policy' : 'ಗೌಪ್ಯತಾ ನೀತಿ'}</a>
+            <a class="hover:text-white" href={`${root}terms/`}>{en ? 'Terms of Service' : 'ಸೇವಾ ನಿಯಮಗಳು'}</a>
+            <a class="hover:text-white" href={`${root}cookies/`}>{en ? 'Cookie Settings' : 'ಕುಕಿ ಸೆಟ್ಟಿಂಗ್‌ಗಳು'}</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold">{en ? 'Public sources used for verification' : 'ಮಾಹಿತಿ ಪರಿಶೀಲನೆಗೆ ಬಳಸಿದ ಸಾರ್ವಜನಿಕ ಮೂಲಗಳು'}</h3>
+          <div class="mt-3 flex flex-col gap-2 text-sm text-[#cfc3b4]">
+            <a class="hover:text-white" rel="external noopener" href="https://bengaluruurban.nic.in/en/history/">{en ? 'Bengaluru Urban District Administration' : 'ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತ'}</a>
+            <a class="hover:text-white" rel="external noopener" href="https://karnatakatourism.org/en/destinations/bengaluru">{en ? 'Karnataka Tourism' : 'ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ'}</a>
+            <a class="hover:text-white" rel="external noopener" href="https://www.incredibleindia.gov.in/en/karnataka/bengaluru">{en ? 'Incredible India / Ministry of Tourism' : 'ಭಾರತ ಸರ್ಕಾರದ ಇನ್‌ಕ್ರೆಡಿಬಲ್ ಇಂಡಿಯಾ'}</a>
+            <a class="hover:text-white" rel="external noopener" href="https://asi.nic.in/admin/whatsnew/download/719">{en ? 'Archaeological Survey of India' : 'ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆ'}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-10 border-t border-white/10 pt-7 text-sm leading-7 text-[#bfb2a2]">
+      <p>{en ? 'Bengaluru Fort information is cross-checked against public material from Bengaluru Urban District Administration, Karnataka Tourism, the Archaeological Survey of India and Government of India tourism resources. This site contains no paid or commercial recommendations.' : 'ಬೆಂಗಳೂರು ಕೋಟೆಯ ಮಾಹಿತಿ ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತ, ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ, ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆ ಹಾಗೂ ಭಾರತ ಸರ್ಕಾರದ ಪ್ರವಾಸೋದ್ಯಮ ಸಾರ್ವಜನಿಕ ಮಾಹಿತಿಯನ್ನು ಪರಸ್ಪರ ಹೋಲಿಸಿ ಸಿದ್ಧಪಡಿಸಲಾಗಿದೆ. ಇಲ್ಲಿ ಯಾವುದೇ ಪಾವತಿತ ಅಥವಾ ವಾಣಿಜ್ಯ ಶಿಫಾರಸುಗಳಿಲ್ಲ.'}</p>
+      <p class="mt-2">{en ? 'Image rights: all photographs displayed on this site remain the property and copyright of their original photographers. Licence and credit details are listed on the main page.' : 'ಚಿತ್ರ ಹಕ್ಕು: ಈ ತಾಣದಲ್ಲಿ ಬಳಕೆಯಾದ ಛಾಯಾಚಿತ್ರಗಳ ಹಕ್ಕು ಮತ್ತು ಕೃತಿಸ್ವಾಮ್ಯ ಅವುಗಳ ಮೂಲ ಛಾಯಾಗ್ರಾಹಕರದ್ದೇ. ಪ್ರತಿಯೊಂದು ಚಿತ್ರದ ಪರವಾನಗಿ ಮತ್ತು ಕ್ರೆಡಿಟ್ ವಿವರಗಳು ಮುಖ್ಯ ಪುಟದ ಚಿತ್ರ ಮೂಲ ವಿಭಾಗದಲ್ಲಿ ನೀಡಲಾಗಿದೆ.'}</p>
+      <p class="mt-2">© 2026 {en ? 'Bengaluru Fort Visitor Guide. All rights reserved.' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.'}</p>
+    </div>
+  </div>
+</footer>
