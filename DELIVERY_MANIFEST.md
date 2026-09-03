@@ -68,4 +68,11 @@ Automated audit rebuilt from the compliance checklist plus pending items. Machin
 
 ## 2026-09-03 CI 构建修复（pnpm 11 ignored-builds）
 
-First CI build failed at the dependency step with `[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: esbuild@0.28.2` — pnpm 11 by default refuses postinstall scripts and the build platform treated that state as a fatal install error. Fix: approved esbuild via `package.json` → `"pnpm": { "onlyBuiltDependencies": ["esbuild"] }`, and mirrored the same value into `pnpm-lock.yaml` → `settings.onlyBuiltDependencies` so the platform’s `pnpm install --frozen-lockfile` stays in sync (no resolution change, lockfile importers untouched). Verified `package.json` parses and the field is present. Next step: re-trigger the CI build.
+First CI build failed at the dependency step with `[ERR_PNPM_IGNORED_BUILDS] Ignored build scripts: esbuild@0.28.2` — pnpm 11 by default refuses postinstall scripts and the build platform treated that state as a fatal install error. Fix, attempt 2 (final): pnpm ≥ 10 no longer reads the `"pnpm"` field in `package.json` (`The "pnpm" field in package.json is no longer read by pnpm`), so esbuild is approved via the new home for settings — `pnpm-workspace.yaml`:
+
+```yaml
+onlyBuiltDependencies:
+  - esbuild
+```
+
+The same value is mirrored in `pnpm-lock.yaml` → `settings.onlyBuiltDependencies` so the platform’s `pnpm install --frozen-lockfile` stays in sync (no resolution change, lockfile importers untouched). `package.json` was left clean (no `pnpm` key). Next step: re-trigger the CI build.
