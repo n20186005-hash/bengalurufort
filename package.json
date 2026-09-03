@@ -1,0 +1,31 @@
+{
+  "name": "bengaluru-fort-guide",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": "24.20.0",
+    "pnpm": "11.25.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro build && node scripts/verify-build.mjs",
+    "preview": "astro preview",
+    "deploy": "pnpm build && pnpm dlx wrangler@4.128.0 deploy",
+    "audit:source": "node scripts/audit-source.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.10",
+    "@astrojs/sitemap": "3.7.3",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.2.4",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "prettier": "3.9.6",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "6.0.3"
+  }
+}
