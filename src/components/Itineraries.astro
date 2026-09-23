@@ -1,0 +1,126 @@
+---
+// Visitor routes: by traveller type (family / photography / accessible) and by
+// duration (half-day / full-day). Type-neutral, non-commercial.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Plan = { icon: string; title: string; who: string; steps: string[] };
+const byType: Plan[] = en
+  ? [
+      {
+        icon: '👨‍👩‍👧‍👦',
+        title: 'Families with children',
+        who: 'Relaxed pace, shade and nearby comforts.',
+        steps: [
+          'Start at the fort gateway early, when it is cooler and less crowded.',
+          'Keep the walk short (45–60 min) and use the shaded courtyard for a break.',
+          'Move to Tipu Sultan’s Summer Palace next, then a food stop in the market area.',
+          'Carry water and snacks; public toilets are limited, so plan ahead.'
+        ]
+      },
+      {
+        icon: '📷',
+        title: 'Photography & nature',
+        who: 'Golden-hour light and architectural detail.',
+        steps: [
+          'Arrive at opening for soft morning light on the stone gateway and arch.',
+          'Frame the iron-spiked timber gate and the curved bastion from the courtyard.',
+          'Continue to the Summer Palace and Kote Venkataramana Temple for contrast.',
+          'Late afternoon light on the old walls works well for warm-toned shots.'
+        ]
+      },
+      {
+        icon: '♿',
+        title: 'Low-mobility / accessible',
+        who: 'Shorter distances, drop-off and rest points.',
+        steps: [
+          'Request a drop-off as close to the gateway as traffic allows.',
+          'The surrounding pavements are uneven — allow extra time and use a companion.',
+          'Combine the fort with the nearby palace rather than a long walking loop.',
+          'Rest in shaded areas; carry water and avoid peak heat hours.'
+        ]
+      }
+    ]
+  : [
+      {
+        icon: '👨‍👩‍👧‍👦',
+        title: 'ಮಕ್ಕಳೊಂದಿಗೆ ಕುಟುಂಬಗಳು',
+        who: 'ಸುಲಭ ಗತಿವೇಗ, ನೆರಳು ಮತ್ತು ಹತ್ತಿರದ ಸೌಲಭ್ಯಗಳು.',
+        steps: [
+          'ತಣ್ಣಗಿರುವ ಮತ್ತು ಜನಸಂದಣಿ ಕಡಿಮೆ ಇರುವಾಗ ಬೆಳಗ್ಗೆ ಕೋಟೆ ಬಾಗಿಲಿನಲ್ಲಿ ಆರಂಭಿಸಿ.',
+          'ನಡಿಗೆಯನ್ನು ಚಿಕ್ಕದಾಗಿ (45–60 ನಿಮಿಷ) ಇಟ್ಟುಕೊಂಡು ನೆರಳಿನ ಅಂಗಳದಲ್ಲಿ ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ.',
+          'ಮುಂದೆ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆಗೆ ಹೋಗಿ, ನಂತರ ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶದಲ್ಲಿ ಊಟದ ನಿಲ್ದಾಣ.',
+          'ನೀರು ಮತ್ತು ಸ್ನ್ಯಾಕ್ಸ್ ಒಯ್ಯಿರಿ; ಸಾರ್ವಜನಿಕ ಶೌಚಾಲಯ ಕಡಿಮೆ — ಮುಂಚಿತವಾಗಿ ಯೋಜಿಸಿ.'
+        ]
+      },
+      {
+        icon: '📷',
+        title: 'ಛಾಯಾಚಿತ್ರ ಮತ್ತು ನಿಸರ್ಗ',
+        who: 'ಗೋಲ್ಡನ್-ಅವರ್ ಬೆಳಕು ಮತ್ತು ವಾಸ್ತು ವಿವರಗಳು.',
+        steps: [
+          'ಕಲ್ಲಿನ ಬಾಗಿಲು ಮತ್ತು ಕಮಾನಿಗೆ ಮೃದುವಾದ ಬೆಳಗ್ಗಿನ ಬೆಳಕಿಗಾಗಿ ತೆರೆದಿರುವಾಗಲೇ ಆಗಮಿಸಿ.',
+          'ಅಂಗಳದಿಂದ ಕಬ್ಬಿಣದ ಮುಳ್ಳುಗಳ ಕಟ್ಟಿಗೆ ಮತ್ತು ವಕ್ರ ಬುರಜನ್ನು ಫ್ರೇಮ್ ಮಾಡಿ.',
+          'ವೈವಿಧ್ಯಕ್ಕಾಗಿ ಬೇಸಿಗೆ ಅರಮನೆ ಮತ್ತು ಕೋಟೆ ವೆಂಕಟರಮಣ ದೇವಾಲಯಕ್ಕೆ ಮುಂದುವರಿಯಿರಿ.',
+          'ಹಳೆಯ ಗೋಡೆಗಳ ಮೇಲೆ ಸಂಜೆಯ ಬೆಳಕು ಬಿಸಿ ಬಣ್ಣದ ಶಾಟ್‌ಗೆ ಒಳ್ಳೆಯದು.'
+        ]
+      },
+      {
+        icon: '♿',
+        title: 'ಕಡಿಮೆ ಚಲನಶೀಲತೆ / ಪ್ರವೇಶ',
+        who: 'ಚಿಕ್ಕ ದೂರಗಳು, ಇಳಿಕೆ ಮತ್ತು ವಿಶ್ರಾಂತಿ ಸ್ಥಳಗಳು.',
+        steps: [
+          'ಸಾಧ್ಯವಾದಷ್ಟು ಗೇಟ್‌ಗೆ ಹತ್ತಿರ ಇಳಿಕೆಯನ್ನು ಕೋರಿ.',
+          'ಸುತ್ತಮುತ್ತಲ ಹಾದಿಗಳು ಅಸಮವಾಗಿವೆ — ಹೆಚ್ಚು ಸಮಯ ಇಟ್ಟುಕೊಂಡು ಜೊತೆಗಾರರೊಂದಿಗೆ ಬನ್ನಿ.',
+          'ದೀರ್ಘ ನಡಿಗೆ ಬದಲಿಗೆ ಕೋಟೆಯನ್ನು ಹತ್ತಿರದ ಅರಮನೆಯೊಂದಿಗೆ ಸಂಯೋಜಿಸಿ.',
+          'ನೆರಳಿನ ಸ್ಥಳಗಳಲ್ಲಿ ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ; ನೀರು ಒಯ್ಯಿರಿ ಮತ್ತು ಬಿಸಿಲಿನ ಗರಿಷ್ಠ ಸಮಯ ತಪ್ಪಿಸಿ.'
+        ]
+      }
+    ];
+
+type Route = { title: string; body: string };
+const byDuration: Route[] = en
+  ? [
+      { title: 'Half-day (≈3–4 hours)', body: 'Fort gateway and walls (45–75 min) → Tipu Sultan’s Summer Palace (45 min) → K.R. Market walk and a food stop (60–90 min). A compact old-city heritage loop.' },
+      { title: 'Full-day (≈6–7 hours)', body: 'Add the Kote Venkataramana Temple and Lalbagh Botanical Garden to the half-day loop, with a longer market and food exploration. Pace it with a midday break during warm months.' }
+    ]
+  : [
+      { title: 'ಅರ್ಧ ದಿನ (≈3–4 ಗಂಟೆ)', body: 'ಕೋಟೆ ಬಾಗಿಲು ಮತ್ತು ಗೋಡೆಗಳು (45–75 ನಿಮಿಷ) → ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ (45 ನಿಮಿಷ) → ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ನಡಿಗೆ ಮತ್ತು ಊಟದ ನಿಲ್ದಾಣ (60–90 ನಿಮಿಷ). ಸಂಕುಚಿತ ಹಳೆಯ-ನಗರ ಪರಂಪರೆ ಲೂಪ್.' },
+      { title: 'ಪೂರ್ಣ ದಿನ (≈6–7 ಗಂಟೆ)', body: 'ಅರ್ಧ-ದಿನ ಲೂಪ್‌ಗೆ ಕೋಟೆ ವೆಂಕಟರಮಣ ದೇವಾಲಯ ಮತ್ತು ಲಾಲ್‌ಬಾಗ್ ಸಸ್ಯೋದ್ಯಾನವನ್ನು ಸೇರಿಸಿ, ದೀರ್ಘ ಮಾರುಕಟ್ಟೆ ಮತ್ತು ಊಟ ಅನ್ವೇಷಣೆಯೊಂದಿಗೆ. ಬೆಚ್ಚನೆ ತಿಂಗಳುಗಳಲ್ಲಿ ಮಧ್ಯಾಹ್ನದ ವಿರಾಮದೊಂದಿಗೆ ವೇಗವನ್ನು ನಿಭಾಯಿಸಿ.' }
+    ];
+
+const intro = en
+  ? 'Different travellers want different things. Use the routes below to match the fort and its neighbours to your group and your available time.'
+  : 'ಬೇರೆ ಬೇರೆ ಪ್ರವಾಸಿಗಳಿಗೆ ಬೇರೆ ಬೇರೆ ಅಗತ್ಯಗಳಿವೆ. ಕೋಟೆ ಮತ್ತು ಅದರ ನೆರೆಯನ್ನು ನಿಮ್ಮ ಗುಂಪು ಮತ್ತು ಲಭ್ಯ ಸಮಯಕ್ಕೆ ಹೊಂದಿಸಲು ಕೆಳಗಿನ ಮಾರ್ಗಗಳನ್ನು ಬಳಸಿ.';
+---
+<section id="itinerary" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+  <div class="max-w-3xl">
+    <p class="section-kicker">{en ? 'PLAN YOUR ROUTE' : 'ನಿಮ್ಮ ಮಾರ್ಗ ಯೋಜಿಸಿ'}</p>
+    <h2 class="section-title">{en ? 'Itineraries by traveller and time' : 'ಪ್ರವಾಸಿ ಮತ್ತು ಸಮಯದ ಪ್ರಕಾರ ಇಟಿನರರಿಗಳು'}</h2>
+    <p class="mt-4 leading-8 text-stone-ink/70">{intro}</p>
+  </div>
+
+  <div class="mt-10 grid gap-6 lg:grid-cols-3">
+    {byType.map((p) => (
+      <article class="arch-card p-7">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl" aria-hidden="true">{p.icon}</span>
+          <h3 class="text-lg font-extrabold leading-snug">{p.title}</h3>
+        </div>
+        <p class="mt-2 text-sm font-bold text-fort">{p.who}</p>
+        <ol class="mt-4 space-y-2.5 text-sm leading-7 text-stone-ink/70">
+          {p.steps.map((s) => <li class="flex gap-2"><span class="text-fort">›</span><span>{s}</span></li>)}
+        </ol>
+      </article>
+    ))}
+  </div>
+
+  <div class="mt-8 grid gap-6 md:grid-cols-2">
+    {byDuration.map((r) => (
+      <article class="rounded-3xl border border-fort/20 bg-white/55 p-7">
+        <h3 class="text-xl font-extrabold">{r.title}</h3>
+        <p class="mt-3 leading-8 text-stone-ink/70">{r.body}</p>
+      </article>
+    ))}
+  </div>
+</section>

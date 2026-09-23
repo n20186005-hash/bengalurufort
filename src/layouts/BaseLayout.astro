@@ -31,10 +31,8 @@ const metaImageAlt =
   (isEnglish
     ? 'Bengaluru Fort (ಬೆಂಗಳೂರು ಕೋಟೆ) in Bengaluru, Karnataka, India'
     : 'ಬೆಂಗಳೂರು ಕೋಟೆ (Bengaluru Fort), ಬೆಂಗಳೂರು, ಕರ್ನಾಟಕ, ಭಾರತ');
-const siteName = isEnglish ? 'Bengaluru Fort Visitor Guide' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ';
+const siteName = isEnglish ? 'Bengaluru Fort Bengaluru — Visitor Guide' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಬೆಂಗಳೂರು — ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ';
 const alternateAbsolute = alternatePath && Astro.site ? new URL(alternatePath, Astro.site).href : alternatePath;
-const currentLang = isEnglish ? 'en' : 'kn';
-const alternateLang = isEnglish ? 'kn' : 'en';
 ---
 <!doctype html>
 <html lang={lang}>
@@ -46,8 +44,9 @@ const alternateLang = isEnglish ? 'kn' : 'en';
     <meta name="robots" content={robots === 'noindex,follow' ? robots : 'index,follow,max-image-preview:large'} />
     <title>{title}</title>
     {canonical && <link rel="canonical" href={canonical} />}
-    {alternateAbsolute && <link rel="alternate" hreflang={alternateLang} href={alternateAbsolute} />}
-    {canonical && <link rel="alternate" hreflang={currentLang} href={canonical} />}
+    {canonical && <link rel="alternate" hreflang={isEnglish ? 'en-IN' : 'kn-IN'} href={canonical} />}
+    {alternateAbsolute && <link rel="alternate" hreflang={isEnglish ? 'kn-IN' : 'en-IN'} href={alternateAbsolute} />}
+    {(isEnglish ? canonical : alternateAbsolute) && <link rel="alternate" hreflang="x-default" href={isEnglish ? canonical : alternateAbsolute} />}
     <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />

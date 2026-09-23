@@ -3,6 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import StoriesSection from '../../components/StoriesSection.astro';
 import FacilitiesSection from '../../components/FacilitiesSection.astro';
 import WeatherSection from '../../components/WeatherSection.astro';
+import TransportGuide from '../../components/TransportGuide.astro';
+import SeasonalStrategy from '../../components/SeasonalStrategy.astro';
+import Itineraries from '../../components/Itineraries.astro';
+import VisitorResponsibility from '../../components/VisitorResponsibility.astro';
 export const prerender = true;
 
 const pageUrl = Astro.site ? new URL('/en/', Astro.site).href : undefined;
@@ -15,7 +19,7 @@ const attraction = {
   '@type': 'TouristAttraction',
   '@id': attractionId,
   name: 'Bengaluru Fort',
-  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
+  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bengaluru Fort', 'Bengaluru Fort, Bengaluru', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
   description: 'Comprehensive visitor guide to Bengaluru Fort in Bengaluru, Karnataka, India — the surviving centrally protected gateway and walls of Kempe Gowda I’s 1537 fort, later rebuilt in stone under Hyder Ali.',
   ...(pageUrl ? { url: pageUrl } : {}),
   image: [imageUrl],
@@ -39,7 +43,7 @@ const attraction = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.0',
-    reviewCount: '26832',
+    reviewCount: '26876',
     bestRating: '5',
     worstRating: '1'
   },
@@ -75,8 +79,8 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 <BaseLayout
   lang="en-IN"
   alternatePath="/"
-  title="Bengaluru Fort (Bengaluru, Karnataka) | Visitor Guide, Map & History"
-  description="Independent guide to Bengaluru Fort (ಬೆಂಗಳೂರು ಕೋಟೆ), the surviving gateway of Kempe Gowda's 1537 fort on Krishna Rajendra Road in Bengaluru, Karnataka 560002, India: history, visiting hours, nearby Tipu Sultan's Summer Palace & Kote Venkataramana Temple, facilities, live weather, transport and map."
+  title="Bengaluru Fort (Bangalore Fort) — Timings, Entry Fee, Map & History"
+  description="Plan your visit to Bengaluru Fort (ಬೆಂಗಳೂರು ಕೋಟೆ) on Krishna Rajendra Road, Bengaluru 560002: opening hours/timings, entry fee, nearest metro (K.R. Market), map & history of Kempe Gowda's 1537 fort."
   jsonLd={jsonLd}
 >
   <section class="relative isolate overflow-hidden bg-[#302820] text-white">
@@ -86,7 +90,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
       <div class="max-w-3xl">
         <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">Centrally protected ASI monument · N-KA-B1</p>
         <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">Bengaluru Fort<span class="mt-3 block text-2xl font-extrabold tracking-wide text-[#e9cda7] sm:text-3xl">in Bengaluru · Karnataka · India</span></h1>
-        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">From Kempe Gowda I’s 1537 mud fort to Hyder Ali’s stone defences, this surviving gateway keeps a physical link to the making of Bengaluru’s old city.</p>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">From Kempe Gowda I’s 1537 mud fort to Hyder Ali’s stone defences, this surviving gateway — also known as Bangalore Fort — keeps a physical link to the making of Bengaluru’s old city.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">Plan your visit</a>
           <a href="#map" class="focus-ring rounded-full border border-white/35 bg-white/10 px-5 py-3 font-extrabold backdrop-blur hover:bg-white/20">Open map</a>
@@ -98,7 +102,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
         <p class="mt-2 text-sm leading-7 text-white/75">Bengaluru · Karnataka 560002 · India</p>
         <div class="mt-5 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 text-sm">
           <div><span class="block text-white/60">Listed rating</span><strong class="text-lg">4.0 / 5</strong></div>
-          <div><span class="block text-white/60">Reviews</span><strong class="text-lg">26,832</strong></div>
+          <div><span class="block text-white/60">Reviews</span><strong class="text-lg">26,876</strong></div>
         </div>
       </aside>
     </div>
@@ -148,7 +152,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 
   <section id="visit" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
     <p class="section-kicker">PRACTICAL INFORMATION</p>
-    <h2 class="section-title max-w-3xl">What to know before visiting</h2>
+    <h2 class="section-title max-w-3xl">Bengaluru Fort (Bangalore Fort): timings, entry fee & how to reach</h2>
     <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       <article class="arch-card p-6"><div class="text-2xl">◷</div><h3 class="mt-4 font-extrabold">Published visiting hours</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Most current visitor listings show 8:30am–5:30pm daily. Holiday or maintenance closures can change; the notice at the monument takes precedence.</p></article>
       <article class="arch-card p-6"><div class="text-2xl">⌛</div><h3 class="mt-4 font-extrabold">Suggested duration</h3><p class="mt-2 text-sm leading-7 text-stone-ink/70">Fort only: around 45–75 minutes. Allow 3–4 hours for a broader old-city heritage walk.</p></article>
@@ -167,22 +171,13 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 
   <StoriesSection lang="en-IN" />
 
-  <section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-    <p class="section-kicker">DETAILED TRANSPORT</p>
-    <h2 class="section-title">Reaching the fort in Bengaluru’s busy old-city core</h2>
-    <div class="mt-10 grid gap-6 lg:grid-cols-3">
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Metro</h3><p class="mt-3 leading-8 text-stone-ink/70">Use the K.R. Market or Chickpet side of the Namma Metro network, then continue on foot or by short auto ride. Check the current official network map before departure.</p><a class="mt-4 inline-block text-sm font-bold text-fort underline" rel="external noopener" href="https://english.bmrc.co.in/">Namma Metro official information</a></article>
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Bus and auto-rickshaw</h3><p class="mt-3 leading-8 text-stone-ink/70">Many city bus routes serve K.R. Market, Kalasipalya and City Market. An auto is useful for the final leg; confirm the meter or app fare before travelling.</p></article>
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">Rail and airport</h3><p class="mt-3 leading-8 text-stone-ink/70">From Krantivira Sangolli Rayanna Bengaluru City station, metro, auto and taxi links are practical. From Kempegowda International Airport, use an airport bus or taxi to the city centre and continue locally.</p></article>
-    </div>
-    <div class="mt-12 grid gap-6 lg:grid-cols-2">
-      <article class="rounded-3xl bg-moss p-8 text-white"><p class="text-xs font-bold tracking-wider text-white/60">PARKING</p><h3 class="mt-2 text-2xl font-extrabold">Public transport is usually simpler than driving</h3><p class="mt-4 leading-8 text-white/75">New Tharagupet and K.R. Market carry heavy commercial traffic. Do not rely on a large dedicated tourist car park at the fort. Use a lawful paid parking facility and keep narrow approaches and emergency access clear.</p></article>
-      <article class="rounded-3xl border border-fort/20 bg-white/50 p-8"><p class="text-xs font-bold tracking-wider text-fort">WALKING PLAN</p><h3 class="mt-2 text-2xl font-extrabold">Fort first, then an old-Bengaluru heritage circuit</h3><p class="mt-4 leading-8 text-stone-ink/70">Bengaluru Fort, Tipu Sultan’s Summer Palace, Kote Venkataramana Swamy Temple and K.R. Market can be combined in the same old-city area. Footpaths are not continuous everywhere, so take care at road crossings.</p></article>
-    </div>
-  </section>
+  <TransportGuide lang="en-IN" />
 
   <FacilitiesSection lang="en-IN" />
   <WeatherSection lang="en-IN" />
+  <SeasonalStrategy lang="en-IN" />
+  <Itineraries lang="en-IN" />
+  <VisitorResponsibility lang="en-IN" />
 
   <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">

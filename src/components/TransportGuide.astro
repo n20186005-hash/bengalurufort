@@ -1,0 +1,136 @@
+---
+// Detailed, multi-mode transport guide to Bengaluru Fort (old city, K.R. Market side).
+// Non-profit and type-neutral: we describe routes and public modes, never specific
+// operators as recommendations.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Step = { t: string; d: string };
+type Mode = { icon: string; title: string; steps: Step[] };
+const modes: Mode[] = en
+  ? [
+      {
+        icon: '✈',
+        title: 'From Kempegowda International Airport (KIA)',
+        steps: [
+          { t: 'Airport to city', d: 'KIA lies about 35–40 km north of the old city. The airport shuttle (BMTC Vayu Vajra) and app-based taxis both run into the city centre; travel time is typically 60–90 minutes depending on traffic.' },
+          { t: 'Reach the old-city core', d: 'Alight near the city railway station / Majestic area, then take the Metro (K.R. Market or Chickpet side) or a short auto-rickshaw ride to the fort.' },
+          { t: 'Tip', d: 'For a midday arrival, allow extra time — the airport road and the approach to the old city get congested.' }
+        ]
+      },
+      {
+        icon: '🚆',
+        title: 'From the railway stations',
+        steps: [
+          { t: 'Krantivira Sangolli Rayanna (Bengaluru City)', d: 'The main station sits beside the Majestic interchange. From here, the Metro or a 15–25 minute auto/taxi ride reaches the fort.' },
+          { t: 'Yesvantpur / Cantonment', d: 'Both connect to the Metro network or app taxis; plan the last leg the same way as the city-station route.' }
+        ]
+      },
+      {
+        icon: '🚇',
+        title: 'By Namma Metro (recommended)',
+        steps: [
+          { t: 'Nearest stations', d: 'K.R. Market and Chickpet are the most useful stations for the fort side of the old city.' },
+          { t: 'Last stretch', d: 'From either station, the fort is a short walk or a brief auto-rickshaw ride through the market streets. Check the current official Metro map before you travel, as access points can change.' },
+          { t: 'Why it helps', d: 'Metro avoids old-city traffic and drops you within walking distance of K.R. Market, the palace and the temple cluster.' }
+        ]
+      },
+      {
+        icon: '🚌',
+        title: 'By city bus (BMTC)',
+        steps: [
+          { t: 'Key stops', d: 'Many city routes serve K.R. Market, Kalasipalya and City Market, all close to the fort.' },
+          { t: 'Practical note', d: 'Buses are inexpensive and frequent but the stops are busy; keep tickets and belongings secure.' }
+        ]
+      },
+      {
+        icon: '🛺',
+        title: 'Auto-rickshaw, taxi & ride-hailing (last mile)',
+        steps: [
+          { t: 'Use for the final leg', d: 'An auto-rickshaw or app taxi is ideal from a Metro station, bus stop or railway station to the fort gate.' },
+          { t: 'Fare', d: 'Confirm the meter or the app estimate before you start. Short old-city hops are usually modest, but agree first to avoid surprises.' },
+          { t: 'Drop-off', d: 'Ask to be set down as close to the gateway as traffic allows, then walk the last stretch on the pavement.' }
+        ]
+      }
+    ]
+  : [
+      {
+        icon: '✈',
+        title: 'ಕೆಂಪೇಗೌಡ ಅಂತರರಾಷ್ಟ್ರೀಯ ವಿಮಾನ ನಿಲ್ದಾಣ (KIA) ದಿಂದ',
+        steps: [
+          { t: 'ವಿಮಾನ ನಿಲ್ದಾಣದಿಂದ ನಗರಕ್ಕೆ', d: 'KIA ಹಳೆಯ ನಗರದಿಂದ ಸುಮಾರು 35–40 ಕಿ.ಮೀ. ಉತ್ತರಕ್ಕಿದೆ. ವಿಮಾನ ನಿಲ್ದಾಣ ಶಟಲ್ (BMTC ವಾಯು ವಜ್ರ) ಮತ್ತು ಆಪ್ ಆಧಾರಿತ ಟ್ಯಾಕ್ಸಿಗಳು ನಗರ ಕೇಂದ್ರಕ್ಕೆ ಚಲಿಸುತ್ತವೆ; ಸಾಮಾನ್ಯವಾಗಿ 60–90 ನಿಮಿಷ ಪ್ರಯಾಣ, ಸಂಚಾರ ಬದಲಾವಣೆಯಾಗುತ್ತದೆ.' },
+          { t: 'ಹಳೆಯ ನಗರ ಕೇಂದ್ರವನ್ನು ತಲುಪಿ', d: 'ನಗರ ರೈಲು ನಿಲ್ದಾಣ / ಮೆಜೆಸ್ಟಿಕ್ ಬಳಿ ಇಳಿಯಿರಿ, ನಂತರ ನಮ್ಮ ಮೆಟ್ರೋ (ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಚಿಕ್ಕಪೇಟೆ ಬಳಿ) ಅಥವಾ ಸಣ್ಣ ಆಟೋ-ರಿಕ್ಷಾ ಪ್ರಯಾಣದಲ್ಲಿ ಕೋಟೆಯನ್ನು ತಲುಪಿ.' },
+          { t: 'ಸಲಹೆ', d: 'ಮಧ್ಯಾಹ್ನ ಆಗಮಿಸಿದರೆ ಹೆಚ್ಚುವರಿ ಸಮಯ ಇಟ್ಟುಕೊಳ್ಳಿ — ವಿಮಾನ ನಿಲ್ದಾಣ ರಸ್ತೆ ಮತ್ತು ಹಳೆಯ ನಗರ ಪ್ರವೇಶ ಸಾಂದ್ರ ಸಂಚಾರದಿಂದ ತುಂಬಿರುತ್ತದೆ.' }
+        ]
+      },
+      {
+        icon: '🚆',
+        title: 'ರೈಲು ನಿಲ್ದಾಣಗಳಿಂದ',
+        steps: [
+          { t: 'ಕ್ರಾಂತಿವೀರ ಸಂಗೊಳ್ಳಿ ರಾಯಣ್ಣ (ಬೆಂಗಳೂರು ನಗರ)', d: 'ಮುಖ್ಯ ನಿಲ್ದಾಣ ಮೆಜೆಸ್ಟಿಕ್ ಇಂಟರ್‌ಚೇಂಜ್ ಬಳಿ ಇದೆ. ಇಲ್ಲಿಂದ ನಮ್ಮ ಮೆಟ್ರೋ ಅಥವಾ 15–25 ನಿಮಿಷದ ಆಟೋ/ಟ್ಯಾಕ್ಸಿ ಪ್ರಯಾಣ ಕೋಟೆಯನ್ನು ತಲುಪುತ್ತದೆ.' },
+          { t: 'ಯಶ್ವಂತಪುರ / ಕಂಟೋನ್ಮೆಂಟ್', d: 'ಎರಡೂ ನಮ್ಮ ಮೆಟ್ರೋ ಜಾಲಕ್ಕೆ ಅಥವಾ ಆಪ್ ಟ್ಯಾಕ್ಸಿಗೆ ಸಂಪರ್ಕಿಸುತ್ತವೆ; ಕೊನೆಯ ಹಂತವನ್ನು ನಗರ ನಿಲ್ದಾಣ ಮಾರ್ಗದಂತೆಯೇ ಯೋಜಿಸಿ.' }
+        ]
+      },
+      {
+        icon: '🚇',
+        title: 'ನಮ್ಮ ಮೆಟ್ರೋ ಮೂಲಕ (ಶಿಫಾರಸು)',
+        steps: [
+          { t: 'ಹತ್ತಿರದ ನಿಲ್ದಾಣಗಳು', d: 'ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಮತ್ತು ಚಿಕ್ಕಪೇಟೆ ಹಳೆಯ ನಗರದ ಕೋಟೆ ಬಳಿಯ ಅತ್ಯಂತ ಉಪಯುಕ್ತ ನಿಲ್ದಾಣಗಳು.' },
+          { t: 'ಕೊನೆಯ ಹಂತ', d: 'ಎರಡೂ ನಿಲ್ದಾಣಗಳಿಂದ ಕೋಟೆ ಸಣ್ಣ ನಡಿಗೆ ಅಥವಾ ಕೆಲವು ನಿಮಿಷಗಳ ಆಟೋ-ರಿಕ್ಷಾ ಪ್ರಯಾಣ. ಪ್ರಯಾಣಕ್ಕೂ ಮುನ್ನ ಅಧಿಕೃತ ಮೆಟ್ರೋ ನಕ್ಷೆ ಪರಿಶೀಲಿಸಿ, ಪ್ರವೇಶ ಬದಲಾವಣೆಯಾಗಬಹುದು.' },
+          { t: 'ಏಕೆ ಸಹಾಯಕ', d: 'ಮೆಟ್ರೋ ಹಳೆಯ ನಗರ ಸಂಚಾರವನ್ನು ತಪ್ಪಿಸುತ್ತದೆ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ, ಅರಮನೆ ಹಾಗೂ ದೇವಾಲಯ ಸಮೂಹದ ನಡಿಗೆ ದೂರದಲ್ಲಿ ಇಳಿಸುತ್ತದೆ.' }
+        ]
+      },
+      {
+        icon: '🚌',
+        title: 'ನಗರ ಬಸ್ (BMTC) ಮೂಲಕ',
+        steps: [
+          { t: 'ಪ್ರಮುಖ ನಿಲ್ದಾಣಗಳು', d: 'ಅನೇಕ ನಗರ ಮಾರ್ಗಗಳು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ, ಕಲಾಸಿಪಾಳ್ಯ ಮತ್ತು ಸಿಟಿ ಮಾರುಕಟ್ಟೆಯನ್ನು ಸೇವಿಸುತ್ತವೆ, ಎಲ್ಲವೂ ಕೋಟೆಗೆ ಹತ್ತಿರ.' },
+          { t: 'ಪ್ರಾಯೋಗಿಕ ಸೂಚನೆ', d: 'ಬಸ್‌ಗಳು ಕಡಿಮೆ ದರ ಮತ್ತು ಆಗಾಗ್ಗೆ ಬರುತ್ತವೆ, ಆದರೆ ನಿಲ್ದಾಣಗಳು ಗದ್ದಲದವು; ಟಿಕೆಟ್ ಮತ್ತು ವಸ್ತುಗಳನ್ನು ಭದ್ರವಾಗಿಡಿ.' }
+        ]
+      },
+      {
+        icon: '🛺',
+        title: 'ಆಟೋ-ರಿಕ್ಷಾ, ಟ್ಯಾಕ್ಸಿ ಮತ್ತು ರೈಡ್-ಹೇಲಿಂಗ್ (ಕೊನೆಯ ಹಂತ)',
+        steps: [
+          { t: 'ಕೊನೆಯ ಹಂತಕ್ಕೆ ಬಳಸಿ', d: 'ಮೆಟ್ರೋ ನಿಲ್ದಾಣ, ಬಸ್ ನಿಲ್ದಾಣ ಅಥವಾ ರೈಲು ನಿಲ್ದಾಣದಿಂದ ಕೋಟೆ ಬಾಗಿಲಿಗೆ ಆಟೋ-ರಿಕ್ಷಾ ಅಥವಾ ಆಪ್ ಟ್ಯಾಕ್ಸಿ ಸೂಕ್ತ.' },
+          { t: 'ದರ', d: 'ಪ್ರಯಾಣ ಪ್ರಾರಂಭಿಸುವ ಮೊದಲು ಮೀಟರ್ ಅಥವಾ ಆಪ್ ಅಂದಾಜನ್ನು ಖಚಿತಪಡಿಸಿ. ಹಳೆಯ ನಗರದ ಸಣ್ಣ ಪ್ರಯಾಣಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಮಿತ; ಮೊದಲೇ ಒಪ್ಪಿಕೊಳ್ಳಿ.' },
+          { t: 'ಇಳಿಕೆ', d: 'ಸಾಧ್ಯವಾದಷ್ಟು ಗೇಟ್‌ಗೆ ಹತ್ತಿರ ಇಳಿಯಲು ಕೇಳಿ, ನಂತರ ಕೊನೆಯ ಹಂತವನ್ನು ಪಾದಚಾರಿ ಹಾದಿಯಲ್ಲಿ ನಡೆಯಿರಿ.' }
+        ]
+      }
+    ];
+const intro = en
+  ? 'Reaching the fort is straightforward once you are in Bengaluru. The old city is dense, so the last mile is easiest by Metro plus a short walk or auto. Below are practical routes from the airport, the stations and within the city.'
+  : 'ಬೆಂಗಳೂರಿನಲ್ಲಿ ಇದ್ದಾಗ ಕೋಟೆಯನ್ನು ತಲುಪುವುದು ಸುಲಭ. ಹಳೆಯ ನಗರ ಸಾಂದ್ರವಾಗಿದೆ, ಆದ್ದರಿಂದ ಕೊನೆಯ ಹಂತ ಮೆಟ್ರೋ + ಸಣ್ಣ ನಡಿಗೆ ಅಥವಾ ಆಟೋದಿಂದ ಸುಲಭ. ಕೆಳಗೆ ವಿಮಾನ ನಿಲ್ದಾಣ, ರೈಲು ನಿಲ್ದಾಣ ಮತ್ತು ನಗರದೊಳಗಿನ ಪ್ರಾಯೋಗಿಕ ಮಾರ್ಗಗಳಿವೆ.';
+const tip = en
+  ? 'Travel light, keep valuables secure in crowded markets, and avoid the worst of the rush by starting early.'
+  : 'ಹಗುರವಾಗಿ ಪ್ರಯಾಣಿಸಿ, ಜನನಿಬಿಡ ಮಾರುಕಟ್ಟೆಗಳಲ್ಲಿ ಮೌಲ್ಯವಾದ ವಸ್ತುಗಳನ್ನು ಭದ್ರವಾಗಿಡಿ, ಮತ್ತು ಬೆಳಗ್ಗೆ ಆರಂಭಿಸಿ ರಭಸವನ್ನು ತಪ್ಪಿಸಿ.';
+---
+<section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+  <div class="max-w-3xl">
+    <p class="section-kicker">{en ? 'GETTING HERE' : 'ಇಲ್ಲಿಗೆ ಬರುವುದು ಹೇಗೆ'}</p>
+    <h2 class="section-title">{en ? 'Detailed transport to Bengaluru Fort' : 'ಬೆಂಗಳೂರು ಕೋಟೆಗೆ ವಿಸ್ತೃತ ಸಾರಿಗೆ'}</h2>
+    <p class="mt-4 leading-8 text-stone-ink/70">{intro}</p>
+  </div>
+
+  <div class="mt-10 grid gap-6 lg:grid-cols-2">
+    {modes.map((mode) => (
+      <article class="arch-card p-7">
+        <div class="flex items-start gap-3">
+          <span class="text-2xl" aria-hidden="true">{mode.icon}</span>
+          <h3 class="text-xl font-extrabold leading-snug">{mode.title}</h3>
+        </div>
+        <ol class="mt-4 space-y-3">
+          {mode.steps.map((s) => (
+            <li class="border-l-2 border-fort/25 pl-4">
+              <p class="text-sm font-bold text-fort">{s.t}</p>
+              <p class="mt-1 text-sm leading-7 text-stone-ink/70">{s.d}</p>
+            </li>
+          ))}
+        </ol>
+      </article>
+    ))}
+  </div>
+
+  <p class="mt-8 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70"><strong class="text-stone-ink">{en ? 'Quick tip:' : 'ಶೀಘ್ರ ಸಲಹೆ:'}</strong> {tip}</p>
+</section>

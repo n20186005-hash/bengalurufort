@@ -1,5 +1,30 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
 .astro/
+
+# Cloudflare / Wrangler
 .wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+wrangler.toml
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Editor / OS
+.vscode/
+.idea/
 .DS_Store
+Thumbs.db
+
+# Local trash / temp
+.trash/
+.tmp/
+*.tmp

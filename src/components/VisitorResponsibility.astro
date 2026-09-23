@@ -1,0 +1,49 @@
+---
+// Science outreach and visitor responsibility. Neutral, non-commercial, educational.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Item = { icon: string; title: string; body: string };
+const items: Item[] = en
+  ? [
+      { icon: '🏛', title: 'Respect a protected monument', body: 'The surviving gateway and walls are a centrally protected monument under the Archaeological Survey of India. Do not climb on, lean against or mark the masonry; follow on-site signage and barriers.' },
+      { icon: '♻', title: 'Leave no trace', body: 'Carry a refillable water bottle and take your litter with you. The old city streets are busy; keeping them clean protects both heritage and daily life.' },
+      { icon: '💧', title: 'Water mindfulness', body: 'Bengaluru’s water comes largely from the Cauvery system. Use water sparingly at public taps and facilities, and report leaks rather than wasting supply.' },
+      { icon: '🌿', title: 'Wildlife & green spaces', body: 'Nearby Lalbagh and Cubbon Park are shared urban habitats for birds and small wildlife. Observe without feeding or disturbing; stay on paths in garden areas.' },
+      { icon: '📸', title: 'Thoughtful photography', body: 'Casual visitor photography is fine. For tripods, drones or any commercial shoot, check current ASI and local rules first, and keep pavements clear for others.' },
+      { icon: '🛟', title: 'Stay safe in the old city', body: 'The market area is crowded and the pavement uneven. Watch your belongings, use safe crossings, and avoid peak heat — hydrate and rest in shade.' }
+    ]
+  : [
+      { icon: '🏛', title: 'ರಕ್ಷಿತ ಸ್ಮಾರಕವನ್ನು ಗೌರವಿಸಿ', body: 'ಉಳಿದಿರುವ ಬಾಗಿಲು ಮತ್ತು ಗೋಡೆಗಳು ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆಯ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ. ಕಲ್ಲಿನ ಮೇಲೆ ಹತ್ತಬೇಡಿ, ಆಧಾರವಾಗಿರಬೇಡಿ ಅಥವಾ ಗೀರಬೇಡಿ; ಸ್ಥಳದ ಸೂಚನೆ ಮತ್ತು ತಡೆಗಳನ್ನು ಪಾಲಿಸಿ.' },
+      { icon: '♻', title: 'ಜಾಡನ್ನು ಬಿಡಬೇಡಿ', body: 'ಮರುತುಂಬಿಸಬಹುದಾದ ನೀರಿನ ಬಾಟಲ್ ಒಯ್ಯಿರಿ ಮತ್ತು ನಿಮ್ಮ ಕಸವನ್ನು ತೆಗೆದುಕೊಂಡು ಹೋಗಿ. ಹಳೆಯ ನಗರ ರಸ್ತೆಗಳು ಗದ್ದಲದವು; ಅವನ್ನು ಸ್ವಚ್ಛವಾಗಿಡುವುದು ಪರಂಪರೆ ಮತ್ತು ದೈನಂದಿನ ಜೀವನ ಎರಡನ್ನೂ ಕಾಪಾಡುತ್ತದೆ.' },
+      { icon: '💧', title: 'ನೀರಿನ ಜಾಗರೂಕತೆ', body: 'ಬೆಂಗಳೂರಿನ ನೀರು ಹೆಚ್ಚಾಗಿ ಕಾವೇರಿ ವ್ಯವಸ್ಥೆಯಿಂದ ಬರುತ್ತದೆ. ಸಾರ್ವಜನಿಕ ನಳಿಕೆ ಮತ್ತು ಸೌಲಭ್ಯಗಳಲ್ಲಿ ನೀರನ್ನು ಮಿತವಾಗಿ ಬಳಸಿ, ಸೋರಿಕೆಯನ್ನು ವರದಿ ಮಾಡಿ ಪೂರೈಕೆ ವೃಥಾ ಮಾಡಬೇಡಿ.' },
+      { icon: '🌿', title: 'ವನ್ಯಜೀವಿ ಮತ್ತು ಹಸಿರು ಪ್ರದೇಶಗಳು', body: 'ಹತ್ತಿರದ ಲಾಲ್‌ಬಾಗ್ ಮತ್ತು ಕಬ್ಬನ್ ಪಾರ್ಕ್‌ಗಳು ಹಕ್ಕಿಗಳು ಮತ್ತು ಸಣ್ಣ ವನ್ಯಜೀವಿಗಳ ಸಾಮಾನ್ಯ ನಗರ ಆವಾಸಸ್ಥಾನಗಳು. ಆಹಾರ ನೀಡದೆ ಅಥವಾ ಕಿವುಳಿಸದೆ ವೀक್ಷಿಸಿ; ತೋಟ ಪ್ರದೇಶಗಳಲ್ಲಿ ಹಾದಿಗಳಲ್ಲೇ ಇರಿ.' },
+      { icon: '📸', title: 'ಚಿಂತನಶೀಲ ಛಾಯಾಚಿತ್ರ', body: 'ಸಾಮಾನ್ಯ ಪ್ರವಾಸಿ ಛಾಯಾಚಿತ್ರ ಸರಿಯೇ. ಟ್ರೈಪಾಡ್, ಡ್ರೋನ್ ಅಥವಾ ಯಾವುದೇ ವಾಣಿಜ್ಯ ಚಿತ್ರೀಕರಣಕ್ಕೆ ಮೊದಲು ಪ್ರಸ್ತುತ ASI ಮತ್ತು ಸ್ಥಳೀಯ ನಿಯಮಗಳನ್ನು ಪರಿಶೀಲಿಸಿ, ಪಾದಚಾರಿಗಳಿಗೆ ಹಾದಿ ಮುಕ್ತವಾಗಿಡಿ.' },
+      { icon: '🛟', title: 'ಹಳೆಯ ನಗರದಲ್ಲಿ ಸುರಕ್ಷಿತರಾಗಿರಿ', body: 'ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶ ಜನನಿಬಿಡ ಮತ್ತು ಹಾದಿ ಅಸಮ. ನಿಮ್ಮ ವಸ್ತುಗಳನ್ನು ನೋಡಿಕೊಳ್ಳಿ, ಸುರಕ್ಷಿತ ದಾಟುವಿಕೆ ಬಳಸಿ, ಗರಿಷ್ಠ ಬಿಸಿಲನ್ನು ತಪ್ಪಿಸಿ — ನೀರು ಕುಡಿಯಿರಿ ಮತ್ತು ನೆರಳಿನಲ್ಲಿ ವಿಶ್ರಾಂತಿ ಪಡೆಯಿರಿ.' }
+    ];
+
+const intro = en
+  ? 'A visit is also a small act of stewardship. These notes help keep the monument, the neighbourhood and its environment healthy for the next visitor.'
+  : 'ಭೇಟಿಯು ಸಹ ಸಣ್ಣ ಸಂಭಾಳನಾ ಕ್ರಿಯೆ. ಈ ಸೂಚನೆಗಳು ಮುಂದಿನ ಪ್ರವಾಸಿಗಾಗಿ ಸ್ಮಾರಕ, ನೆರೆಹೊರೆ ಮತ್ತು ಅದರ ಪರಿಸರವನ್ನು ಆರೋಗ್ಯಕರವಾಗಿ ಇಡಲು ಸಹಾಯಕ.';
+const titleKicker = en ? 'SCIENCE & RESPONSIBILITY' : 'ವಿಜ್ಞಾನ ಮತ್ತು ಜವಾಬ್ದಾರಿ';
+const title = en ? 'Understanding and protecting the fort' : 'ಕೋಟೆಯನ್ನು ಅರ್ಥೈಸುವುದು ಮತ್ತು ಕಾಪಾಡುವುದು';
+---
+<section id="responsibility" class="bg-[#342b24] py-20 text-white lg:py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <div class="max-w-3xl">
+      <p class="text-xs font-extrabold tracking-wider text-[#e9cda7]">{titleKicker}</p>
+      <h2 class="mt-3 text-4xl font-black sm:text-5xl">{title}</h2>
+      <p class="mt-4 leading-8 text-white/70">{intro}</p>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((it) => (
+        <article class="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div class="text-2xl" aria-hidden="true">{it.icon}</div>
+          <h3 class="mt-3 font-extrabold">{it.title}</h3>
+          <p class="mt-2 text-sm leading-7 text-white/70">{it.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

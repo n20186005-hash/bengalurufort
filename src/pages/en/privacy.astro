@@ -9,7 +9,7 @@ const jsonLd = {
   ...(Astro.site ? { url: new URL('/en/privacy/', Astro.site).href } : {})
 };
 ---
-<BaseLayout lang="en-IN" alternatePath="/privacy/" title="Privacy Policy | Bengaluru Fort Visitor Guide" description="Privacy Policy for the independent Bengaluru Fort Visitor Guide, including analytics, maps, data use and user rights." jsonLd={jsonLd}>
+<BaseLayout lang="en-IN" alternatePath="/privacy/" title="Privacy Policy | Bengaluru Fort Bengaluru — Visitor Guide" description="Privacy Policy for the independent Bengaluru Fort Bengaluru — Visitor Guide, including analytics, maps, data use and user rights." jsonLd={jsonLd}>
   <section class="mx-auto max-w-4xl px-5 py-16 lg:px-8 lg:py-24">
     <a href="/en/" class="text-sm font-bold text-fort underline">← Back to home</a>
     <p class="section-kicker mt-10">LEGAL INFORMATION</p>
@@ -26,7 +26,7 @@ const jsonLd = {
       <h2>Google Maps</h2>
       <p>The main page embeds Google Maps to show the fort’s location. When the map is loaded, Google may process technical information or use its own storage under Google’s terms and privacy policy.</p>
       <h2>Weather data</h2>
-      <p>The weather widget requests the public Open-Meteo forecast API directly from your browser using the fort’s fixed coordinates (no API key and no user location involved). A short local cache of about 30 minutes is stored in your browser, and this site never receives the request content. Open-Meteo processes requests under its own privacy policy.</p>
+      <p>The live weather panel is powered by a forecast retrieved through this site’s own server endpoint. The upstream forecast is supplied by an external meteorological service using only the fort’s fixed coordinates; no visitor location is involved. This site does not retain the forecast response — the panel refreshes automatically and relies on standard browser and edge caching. The upstream provider processes requests under its own privacy policy.</p>
       <h2>Offline caching (service worker / PWA)</h2>
       <p>This site is a progressive web app. Its service worker may keep local copies of the home page, style and icon assets and recently visited pages in your browser cache so that they can open offline. That cache stays on your device and can be cleared at any time with your browser’s “site data”/“cache” clearing options. It is unrelated to analytics cookies or online tracking.</p>
       <h2>Images</h2>

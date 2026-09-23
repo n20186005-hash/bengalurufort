@@ -3,6 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import StoriesSection from '../components/StoriesSection.astro';
 import FacilitiesSection from '../components/FacilitiesSection.astro';
 import WeatherSection from '../components/WeatherSection.astro';
+import TransportGuide from '../components/TransportGuide.astro';
+import SeasonalStrategy from '../components/SeasonalStrategy.astro';
+import Itineraries from '../components/Itineraries.astro';
+import VisitorResponsibility from '../components/VisitorResponsibility.astro';
 export const prerender = true;
 
 const siteUrl = Astro.site?.href;
@@ -16,7 +20,7 @@ const attraction = {
   '@type': 'TouristAttraction',
   '@id': attractionId,
   name: 'Bengaluru Fort',
-  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
+  alternateName: ['ಬೆಂಗಳೂರು ಕೋಟೆ', 'Bengaluru Fort', 'Bengaluru Fort, Bengaluru', 'Bangalore Fort', 'Old Dungeon Fort and Gates'],
   description: 'Kempe Gowda-era fort in Bengaluru, Karnataka, India — surviving centrally protected gateway and walls listed by the Archaeological Survey of India as “Old Dungeon Fort and Gates”.',
   ...(pageUrl ? { url: pageUrl } : {}),
   image: [imageUrl],
@@ -40,7 +44,7 @@ const attraction = {
   aggregateRating: {
     '@type': 'AggregateRating',
     ratingValue: '4.0',
-    reviewCount: '26832',
+    reviewCount: '26876',
     bestRating: '5',
     worstRating: '1'
   },
@@ -74,7 +78,7 @@ const jsonLd = [attraction, faqSchema];
 const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.626518291582!2d77.57331127700142!3d12.962801787351749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15e3043a1d57%3A0xb2a4590209bde6d7!2sBengaluru%20Fort!5e1!3m2!1skn!2sin!4v1788419693020!5m2!1skn!2sin';
 ---
 <BaseLayout
-  title="ಬೆಂಗಳೂರು ಕೋಟೆ (Bengaluru Fort) | ಇತಿಹಾಸ, ಭೇಟಿ, ನಕ್ಷೆ, ಸಾರಿಗೆ"
+  title="ಬೆಂಗಳೂರು ಕೋಟೆ ಬೆಂಗಳೂರು — ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ | ಇತಿಹಾಸ, ಭೇಟಿ, ನಕ್ಷೆ, ಸಾರಿಗೆ"
   description="ಕರ್ನಾಟಕದ ಬೆಂಗಳೂರಿನ (560002) ಕೃಷ್ಣ ರಾಜೇಂದ್ರ ರಸ್ತೆಯಲ್ಲಿರುವ ಬೆಂಗಳೂರು ಕೋಟೆಯ ಸ್ವತಂತ್ರ ಕನ್ನಡ ಮಾರ್ಗದರ್ಶಿ: ಕೆಂಪೇಗೌಡರ 1537ರ ಇತಿಹಾಸ, ಉಳಿದ ಕಲ್ಲಿನ ಬಾಗಿಲು, ಭೇಟಿ ಸಮಯ/ಶುಲ್ಕ, ಹತ್ತಿರದ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ ಹಾಗೂ ಕೋಟೆ ವೆಂಕಟರಮಣ ದೇವಾಲಯ, ಸೌಲಭ್ಯಗಳು, ಲೈವ್ ಹವಾಮಾನ, ಮೆಟ್ರೋ/ಬಸ್ ಸಾರಿಗೆ ಮತ್ತು ನಕ್ಷೆ."
   jsonLd={jsonLd}
   alternatePath="/en/"
@@ -86,7 +90,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
       <div class="max-w-3xl">
         <p class="mb-4 inline-flex rounded-full border border-white/25 bg-black/20 px-4 py-2 text-sm font-bold backdrop-blur">ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣೆಯ ಕೇಂದ್ರ ಸಂರಕ್ಷಿತ ಸ್ಮಾರಕ · ಎನ್-ಕೆಎ-ಬಿ1</p>
         <h1 class="text-5xl font-black leading-[1.05] sm:text-6xl lg:text-8xl">ಬೆಂಗಳೂರು ಕೋಟೆ<span class="mt-3 block text-2xl font-extrabold tracking-wide text-[#e9cda7] sm:text-3xl">ಬೆಂಗಳೂರು · ಕರ್ನಾಟಕ · ಭಾರತ</span></h1>
-        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಹೈದರ್ ಅಲಿಯ ಕಲ್ಲಿನ ರಕ್ಷಣಾ ಕಟ್ಟಡದವರೆಗೆ—ಬೆಂಗಳೂರು ನಗರದ ಹುಟ್ಟಿನ ಕಥೆಯನ್ನು ಇನ್ನೂ ಹಿಡಿದಿಟ್ಟಿರುವ ಹಳೆಯ ನಗರದ ಕಲ್ಲಿನ ದ್ವಾರ.</p>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-[#f4e7d4] sm:text-xl">1537ರ ಮಣ್ಣಿನ ಕೋಟೆಯಿಂದ ಹೈದರ್ ಅಲಿಯ ಕಲ್ಲಿನ ರಕ್ಷಣಾ ಕಟ್ಟಡದವರೆಗೆ—ಬೆಂಗಳೂರು ಕೋಟೆ (Bangalore Fort) ಎಂದು ಕರೆಯಲ್ಪಡುವ ಈ ಹಳೆಯ ನಗರದ ಕಲ್ಲಿನ ದ್ವಾರ ಬೆಂಗಳೂರು ನಗರದ ಹುಟ್ಟಿನ ಕಥೆಯನ್ನು ಇನ್ನೂ ಹಿಡಿದಿಟ್ಟಿದೆ.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#visit" class="focus-ring rounded-full bg-[#e9cda7] px-5 py-3 font-extrabold text-[#33261d] hover:bg-white">ಭೇಟಿ ಯೋಜಿಸಿ</a>
           <a href="#map" class="focus-ring rounded-full border border-white/35 bg-white/10 px-5 py-3 font-extrabold backdrop-blur hover:bg-white/20">ನಕ್ಷೆ ತೆರೆಯಿರಿ</a>
@@ -98,7 +102,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
         <p class="mt-2 text-sm leading-7 text-white/75">ಬೆಂಗಳೂರು · ಕರ್ನಾಟಕ 560002 · ಭಾರತ</p>
         <div class="mt-5 grid grid-cols-2 gap-3 border-t border-white/15 pt-5 text-sm">
           <div><span class="block text-white/60">ಪಟ್ಟಿಯ ರೇಟಿಂಗ್</span><strong class="text-lg">4.0 / 5</strong></div>
-          <div><span class="block text-white/60">ವಿಮರ್ಶೆಗಳು</span><strong class="text-lg">26,832</strong></div>
+          <div><span class="block text-white/60">ವಿಮರ್ಶೆಗಳು</span><strong class="text-lg">26,876</strong></div>
         </div>
       </aside>
     </div>
@@ -177,23 +181,13 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6915.62651
 
   <StoriesSection lang="kn-IN" />
 
-  <section id="transport" class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-    <p class="section-kicker">ವಿಸ್ತೃತ ಸಾರಿಗೆ</p>
-    <h2 class="section-title">ಹಳೆಯ ನಗರದ ಗದ್ದಲದೊಳಗೆ ಸರಳವಾಗಿ ತಲುಪುವ ಮಾರ್ಗ</h2>
-    <div class="mt-10 grid gap-6 lg:grid-cols-3">
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ಮೆಟ್ರೋ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಅಥವಾ ಚಿಕ್ಕಪೇಟೆ ಭಾಗದ ನಮ್ಮ ಮೆಟ್ರೋ ನಿಲ್ದಾಣವನ್ನು ಬಳಸಿ, ನಂತರ ನಡಿಗೆ/ಕಡಿಮೆ ದೂರದ ಆಟೋ ಆಯ್ಕೆ ಅನುಕೂಲ. ಸೇವಾ ಮಾರ್ಗ ಮತ್ತು ನಿಲ್ದಾಣ ಪ್ರವೇಶ ಬದಲಾವಣೆಗಾಗಿ ಹೊರಡುವ ಮೊದಲು ಅಧಿಕೃತ ನಕ್ಷೆ ಪರಿಶೀಲಿಸಿ.</p><a class="mt-4 inline-block text-sm font-bold text-fort underline" rel="external noopener" href="https://english.bmrc.co.in/">ನಮ್ಮ ಮೆಟ್ರೋ ಅಧಿಕೃತ ಮಾಹಿತಿ</a></article>
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ಬಸ್ ಮತ್ತು ಆಟೋ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ, ಕಲಾಸಿಪಾಳ್ಯ ಮತ್ತು ಸಿಟಿ ಮಾರುಕಟ್ಟೆ ಕಡೆಗೆ ಹಲವು ನಗರ ಬಸ್ ಮಾರ್ಗಗಳು ಬರುತ್ತವೆ. ಕೊನೆಯ ಭಾಗದಲ್ಲಿ ಆಟೋ ಉಪಯುಕ್ತ; ಮೀಟರ್ ಅಥವಾ ಆಪ್ ದರವನ್ನು ಪ್ರಯಾಣಕ್ಕೂ ಮುನ್ನ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.</p></article>
-      <article class="arch-card p-7"><h3 class="text-xl font-extrabold">ರೈಲು ಮತ್ತು ವಿಮಾನ</h3><p class="mt-3 leading-8 text-stone-ink/70">ಕ್ರಾಂತಿವೀರ ಸಂಗೊಳ್ಳಿ ರಾಯಣ್ಣ ಬೆಂಗಳೂರು ನಿಲ್ದಾಣದಿಂದ ಹಳೆಯ ನಗರಕ್ಕೆ ಮೆಟ್ರೋ/ಆಟೋ/ಟ್ಯಾಕ್ಸಿ ಸಂಪರ್ಕ ಸುಲಭ. ಕೆಂಪೇಗೌಡ ಅಂತರರಾಷ್ಟ್ರೀಯ ವಿಮಾನ ನಿಲ್ದಾಣದಿಂದ ನಗರಕೇಂದ್ರದವರೆಗೆ ವಿಮಾನ ನಿಲ್ದಾಣ ಬಸ್ ಅಥವಾ ಟ್ಯಾಕ್ಸಿ ಬಳಸಿ.</p></article>
-    </div>
-
-    <div class="mt-12 grid gap-6 lg:grid-cols-2">
-      <article class="rounded-3xl bg-moss p-8 text-white"><p class="text-xs font-bold tracking-wider text-white/60">ಪಾರ್ಕಿಂಗ್ ಮಾಹಿತಿ</p><h3 class="mt-2 text-2xl font-extrabold">ಖಾಸಗಿ ಕಾರಿಗಿಂತ ಸಾರ್ವಜನಿಕ ಸಾರಿಗೆ ಸರಳ</h3><p class="mt-4 leading-8 text-white/75">ನ್ಯೂ ತರಗುಪೇಟೆ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶವು ದಿನಪೂರ್ತಿ ವ್ಯಾಪಾರ ಸಂಚಾರದಿಂದ ಗದ್ದಲವಾಗಿರಬಹುದು. ಕೋಟೆಗೆ ಸ್ವಂತ ದೊಡ್ಡ ಪ್ರವಾಸಿ ಪಾರ್ಕಿಂಗ್ ಇದೆ ಎಂದು ಅವಲಂಬಿಸಬೇಡಿ. ಕಾನೂನುಬದ್ಧ ಪೇಡ್ ಪಾರ್ಕಿಂಗ್ ಕಂಡು ಕಾರು ನಿಲ್ಲಿಸಿ, ಕಿರಿದಾದ ಪ್ರವೇಶ ರಸ್ತೆ ಮತ್ತು ತುರ್ತು ಮಾರ್ಗಗಳನ್ನು ತೆರವಾಗಿಡಿ.</p></article>
-      <article class="rounded-3xl border border-fort/20 bg-white/50 p-8"><p class="text-xs font-bold tracking-wider text-fort">ಚಲನೆಯ ಸಲಹೆ</p><h3 class="mt-2 text-2xl font-extrabold">ಬೆಳಿಗ್ಗೆ ಕೋಟೆ, ನಂತರ ಕಾಲ್ನಡಿಗೆಯ ಹಳೆಯ ಬೆಂಗಳೂರು</h3><p class="mt-4 leading-8 text-stone-ink/70">ಕೋಟೆಯಿಂದ ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ, ಕೋಟೆ ವೆಂಕಟರಮಣ ಸ್ವಾಮಿ ದೇವಾಲಯ ಮತ್ತು ಕೆ.ಆರ್. ಮಾರುಕಟ್ಟೆ ಭಾಗಗಳನ್ನು ಒಂದೇ ಸ್ಥಳೀಯ ವಲಯವಾಗಿ ನೋಡಬಹುದು. ಪಾದಚಾರಿ ಮಾರ್ಗಗಳು ನಿರಂತರವಾಗಿರುವುದಿಲ್ಲ; ರಸ್ತೆ ದಾಟುವಾಗ ಎಚ್ಚರಿಕೆ ಅಗತ್ಯ.</p></article>
-    </div>
-  </section>
+  <TransportGuide lang="kn-IN" />
 
   <FacilitiesSection lang="kn-IN" />
   <WeatherSection lang="kn-IN" />
+  <SeasonalStrategy lang="kn-IN" />
+  <Itineraries lang="kn-IN" />
+  <VisitorResponsibility lang="kn-IN" />
 
   <section id="nearby" class="bg-[#eadbc3] py-20 lg:py-24">
     <div class="mx-auto max-w-7xl px-5 lg:px-8">

@@ -1,23 +1,20 @@
 ---
-// Weather module for Bengaluru Fort (lat 12.962802, lon 77.573311).
-// Data: Open-Meteo forecast API — free, no API key, non-profit friendly.
-// Because the site is fully static (Cloudflare Workers static assets), the
-// widget fetches the live forecast from the visitor's browser with a 30-minute
-// local cache, and always falls back to readable advisory cards when JS is off
-// or the request is blocked. The fetch happens client-side only; the site
-// itself stores nothing.
+// Live weather module for Bengaluru Fort (lat 12.962802, lon 77.573311).
+// The forecast is fetched server-side by the Worker at /api/weather (edge-cached),
+// so this component only ever calls the site's own endpoint. Nothing about the
+// upstream data source is exposed to visitors — they just see conditions and tips.
 interface Props { lang?: 'kn-IN' | 'en-IN'; }
 const { lang = 'kn-IN' } = Astro.props;
 const en = lang === 'en-IN';
 const seasonCards = en
   ? [
       ['Oct–Feb · Comfortable season', 'Cooler mornings and evenings suit outdoor walking. Mornings at the fort are usually calm before the market district gets busy.'],
-      ['Mar–May · Hot season', 'Midday heat is strongest. Plan for the first hour of the morning or after about 4pm; carry water, a hat and sun protection.'],
+      ['Mar–May · Warm season', 'Midday heat is strongest. Plan for the first hour of the morning or after about 4pm; carry water, a hat and sun protection.'],
       ['Jun–Sep · Monsoon', 'Bengaluru rains can arrive suddenly. Keep an umbrella or light rainwear, allow extra time for slippery, busy streets, and check the forecast each morning.']
     ]
   : [
       ['ಅಕ್ಟೋಬರ್–ಫೆಬ್ರವರಿ · ಆರಾಮದಾಯಕ ಋತು', 'ತಂಪಾದ ಮುಂಜಾನೆ ಮತ್ತು ಸಂಜೆ ಹೊರಾಂಗಣ ನಡಿಗೆಗೆ ಸೂಕ್ತ. ಮಾರುಕಟ್ಟೆ ಪ್ರದೇಶ ಗದ್ದಲವಾಗುವ ಮೊದಲು ಕೋಟೆಯ ಬೆಳಗಿನ ಹೊತ್ತು ಸಾಮಾನ್ಯವಾಗಿ ಶಾಂತ.'],
-      ['ಮಾರ್ಚ್–ಮೇ · ಬೇಸಿಗೆ ಋತು', 'ಮಧ್ಯಾಹ್ನದ ಬಿಸಿಲು ಹೆಚ್ಚು. ಮುಂಜಾನೆಯ ಮೊದಲ ಗಂಟೆ ಅಥವಾ ಸಂಜೆ 4ರ ನಂತರ ಯೋಜಿಸಿ; ನೀರು, ಟೋಪಿ ಹಾಗೂ ಸನ್‌ಕವಚ ಒಯ್ಯಿರಿ.'],
+      ['ಮಾರ್ಚ್–ಮೇ · ಬೆಚ್ಚನೆ ಋತು', 'ಮಧ್ಯಾಹ್ನದ ಬಿಸಿಲು ಹೆಚ್ಚು. ಮುಂಜಾನೆಯ ಮೊದಲ ಗಂಟೆ ಅಥವಾ ಸಂಜೆ 4ರ ನಂತರ ಯೋಜಿಸಿ; ನೀರು, ಟೋಪಿ ಹಾಗೂ ಸನ್‌ಕವಚ ಒಯ್ಯಿರಿ.'],
       ['ಜೂನ್–ಸೆಪ್ಟೆಂಬರ್ · ಮಳೆಗಾಲ', 'ಬೆಂಗಳೂರಿನಲ್ಲಿ ಮಳೆ ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಬರಬಹುದು. ಛತ್ರಿ ಅಥವಾ ಲಘು ಮಳೆರಕ್ಷೆ ಇಟ್ಟುಕೊಳ್ಳಿ, ಜಾರುವ ಮತ್ತು ಗದ್ದಲದ ರಸ್ತೆಗಳಿಗೆ ಹೆಚ್ಚು ಸಮಯ ಕಾದಿರಿಸಿ, ಪ್ರತಿ ಬೆಳಿಗ್ಗೆ ಮುನ್ನೋಟ ಪರಿಶೀಲಿಸಿ.']
   ];
 ---
@@ -27,8 +24,8 @@ const seasonCards = en
       <h2 class="section-title">{en ? 'Live weather near Bengaluru Fort' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಬಳಿಯ ಲೈವ್ ಹವಾಮಾನ'}</h2>
       <p class="mt-4 leading-8 text-stone-ink/70">
         {en
-          ? 'The fort is an open-air site, so the weather shapes your visit. The widget below shows current conditions plus a seven-day forecast supplied by Open-Meteo (a free, keyless forecast service); it refreshes automatically.'
-          : 'ಕೋಟೆ ಮುಕ್ತ ಹೊರಾಂಗಣ ಸ್ಥಳ ಆಗಿರುವುದರಿಂದ ಹವಾಮಾನ ಭೇಟಿಯನ್ನು ರೂಪಿಸುತ್ತದೆ. ಕೆಳಗಿನ ವಿಜೆಟ್ Open-Meteo (ಉಚಿತ, ಕೀ ಇಲ್ಲದ ಮುನ್ನೋಟ ಸೇವೆ) ಒದಗಿಸುವ ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ ಮತ್ತು ಏಳು ದಿನದ ಮುನ್ನೋಟವನ್ನು ತೋರಿಸುತ್ತದೆ; ಇದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರಿಫ್ರೆಶ್ ಆಗುತ್ತದೆ.'}
+          ? 'The fort is an open-air site, so the weather shapes your visit. The panel below shows current conditions and a seven-day outlook that refreshes automatically — and turns the forecast into plain advice: do you need an umbrella today?'
+          : 'ಕೋಟೆ ಮುಕ್ತ ಹೊರಾಂಗಣ ಸ್ಥಳ ಆಗಿರುವುದರಿಂದ ಹವಾಮಾನ ಭೇಟಿಯನ್ನು ರೂಪಿಸುತ್ತದೆ. ಕೆಳಗಿನ ಪ್ಯಾನಲ್ ಪ್ರಸ್ತುತ ಸ್ಥಿತಿ ಮತ್ತು ಏಳು ದಿನದ ಮುನ್ನೋಟವನ್ನು ತೋರಿಸುತ್ತದೆ, ಇದು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ನವೀಕರಣವಾಗುತ್ತದೆ — ಮತ್ತು ಮುನ್ನೋಟವನ್ನು ಸರಳ ಸಲಹೆಯಾಗಿ ಪರಿವರ್ತಿಸುತ್ತದೆ: ಇಂದು ಛತ್ರಿ ಬೇಕೇ?'}
       </p>
     </div>
 
@@ -49,40 +46,39 @@ const seasonCards = en
         </div>
       </article>
       <article class="arch-card flex flex-col p-7">
-        <p class="text-xs font-extrabold tracking-wider text-fort">{en ? '7-DAY FORECAST' : '7 ದಿನದ ಮುನ್ನೋಟ'}</p>
+        <p class="text-xs font-extrabold tracking-wider text-fort">{en ? '7-DAY OUTLOOK' : '7 ದಿನದ ಮುನ್ನೋಟ'}</p>
         <ol id="wx-daily" class="mt-4 flex flex-1 flex-col justify-center divide-y divide-fort/10 text-stone-ink/70">
           <li class="py-2 text-center text-sm">{en ? 'Forecast loads here automatically…' : 'ಮುನ್ನೋಟ ಇಲ್ಲಿ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಲೋಡ್ ಆಗುತ್ತದೆ…'}</li>
         </ol>
       </article>
     </div>
+
+    <div id="wx-advice" class="mt-5 hidden"></div>
+
     <noscript>
       <p class="mt-5 rounded-2xl border border-fort/20 bg-white/55 p-5 text-sm leading-7 text-stone-ink/70">
         {en
-          ? 'JavaScript is disabled, so the live widget cannot load. The season cards above still give planning guidance; also check a national or regional forecast source before travelling.'
-          : 'ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರಿಂದ ಲೈವ್ ವಿಜೆಟ್ ಲೋಡ್ ಆಗುವುದಿಲ್ಲ. ಮೇಲಿನ ಋತು ಕಾರ್ಡ್‌ಗಳು ಯೋಜನೆಗೆ ಸಹಾಯಕ; ಪ್ರಯಾಣಿಸುವ ಮೊದಲು ರಾಷ್ಟ್ರೀಯ ಅಥವಾ ಪ್ರಾದೇಶಿಕ ಮುನ್ನೋಟ ಮೂಲ ಪರಿಶೀಲಿಸಿ.'}
+          ? 'JavaScript is disabled, so the live panel cannot load. The season cards above still give planning guidance; also check a national or regional forecast source before travelling.'
+          : 'ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ನಿಷ್ಕ್ರಿಯವಾಗಿದ್ದರಿಂದ ಲೈವ್ ಪ್ಯಾನಲ್ ಲೋಡ್ ಆಗುವುದಿಲ್ಲ. ಮೇಲಿನ ಋತು ಕಾರ್ಡ್‌ಗಳು ಯೋಜನೆಗೆ ಸಹಾಯಕ; ಪ್ರಯಾಣಿಸುವ ಮೊದಲು ರಾಷ್ಟ್ರೀಯ ಅಥವಾ ಪ್ರಾದೇಶಿಕ ಮುನ್ನೋಟ ಮೂಲ ಪರಿಶೀಲಿಸಿ.'}
       </p>
     </noscript>
     <p class="mt-5 text-xs leading-6 text-stone-ink/55">
       {en
-        ? 'Weather source: Open-Meteo (open-meteo.com) — free forecast API, cached locally for about 30 minutes. Forecasts can differ from official guidance; for warnings check the India Meteorological Department.'
-        : 'ಹವಾಮಾನ ಮೂಲ: Open-Meteo (open-meteo.com) — ಉಚಿತ ಮುನ್ನೋಟ API, ಸುಮಾರು 30 ನಿಮಿಷ ಸ್ಥಳೀಯವಾಗಿ ಕ್ಯಾಶ್ ಆಗುತ್ತದೆ. ಮುನ್ನೋಟ ಅಧಿಕೃತ ಮಾರ್ಗದರ್ಶನಕ್ಕಿಂತ ಭಿನ್ನವಾಗಬಹುದು; ಎಚ್ಚರಿಕೆಗಳಿಗಾಗಿ ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.'}
+        ? 'Forecasts are indicative and can differ from official advisories. For warnings and alerts, consult the India Meteorological Department.'
+        : 'ಮುನ್ನೋಟಗಳು ಸೂಚಕ ಮಾತ್ರ; ಅವು ಅಧಿಕೃತ ಮಾರ್ಗದರ್ಶನಕ್ಕಿಂತ ಭಿನ್ನವಾಗಬಹುದು. ಎಚ್ಚರಿಕೆಗಳಿಗಾಗಿ ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆಯನ್ನು (IMD) ಪರಿಶೀಲಿಸಿ.'}
     </p>
 </section>
 
 <script>
-  const LAT = 12.962802;
-  const LON = 77.573311;
   const TIMEZONE = 'Asia/Kolkata';
-  const CACHE_KEY = 'bengaluru-fort-weather-v1';
-  const CACHE_TTL_MS = 30 * 60 * 1000;
-
   const root = document.getElementById('bengaluru-weather');
   const currentEl = document.getElementById('wx-current');
   const dailyEl = document.getElementById('wx-daily');
+  const adviceBox = document.getElementById('wx-advice');
   const lang = root ? root.dataset.lang : 'en';
   const kn = lang !== 'en';
 
-  // WMO weather code -> { group, en, kn }
+  // WMO weather code -> { group, label }
   const WMO = {
     0: ['sun', 'Clear sky', 'ಸ್ಪಷ್ಟ ಆಕಾಶ'],
     1: ['sun', 'Mostly clear', 'ಬಹುತೇಕ ಸ್ಪಷ್ಟ'],
@@ -113,6 +109,9 @@ const seasonCards = en
     96: ['storm', 'Thunderstorm with hail', 'ಗುಡುಗು–ಆಲಿಕಲ್ಲು'],
     99: ['storm', 'Severe thunderstorm with hail', 'ತೀವ್ರ ಗುಡುಗು–ಆಲಿಕಲ್ಲು']
   };
+  const RAIN = [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82];
+  const STORM = [95, 96, 99];
+  const HEAVY = [65, 66, 67, 80, 81, 82];
 
   const fmt = (v, unit, digits = 0) => (v == null ? '—' : v.toFixed(digits) + ' ' + unit);
   const label = (code) => {
@@ -120,8 +119,14 @@ const seasonCards = en
     if (!e) return kn ? 'ಹವಾಮಾನ' : 'Weather';
     return kn ? e[2] : e[1];
   };
+  // km/h -> Beaufort scale (used for wind-based advice)
+  function kmhToBeaufort(kmh) {
+    const s = [0.3, 1.6, 3.4, 5.5, 8, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7, 37, 41.5, 46.2, 51];
+    let b = 0;
+    for (let i = 0; i < s.length; i++) if (kmh >= s[i]) b = i + 1;
+    return b;
+  }
 
-  // Minimal inline weather glyphs (stroke icons, currentColor).
   const C = 'fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;';
   const svg = (inner) => `<svg viewBox="0 0 24 24" style="${C}" class="h-10 w-10" aria-hidden="true">${inner}</svg>`;
   const iconFor = (group) => {
@@ -146,41 +151,135 @@ const seasonCards = en
     }
   };
 
-  function buildUrl() {
-    const p = new URLSearchParams({
-      latitude: String(LAT),
-      longitude: String(LON),
-      current: 'temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m',
-      daily: 'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',
-      timezone: TIMEZONE,
-      forecast_days: '7'
-    });
-    return 'https://api.open-meteo.com/v1/forecast?' + p.toString();
-  }
+  // ---- Visitor advice engine -------------------------------------------------
+  // Returns four arrays: risk (red, derived only — never a fabricated official
+  // alert), outfit ("出行穿搭"), plan ("游玩安排"), items ("随身物品").
+  // Entries are only added when their condition is met, so the UI stays minimal.
+  function buildAdvice(c, d) {
+    const outfit = [], plan = [], items = [], risk = [];
+    const code = c && c.weather_code;
+    const popArr = (d && d.precipitation_probability_max) || [];
+    const pop = Math.max(0, ...popArr.map((v) => v || 0));
+    const popToday = popArr.length && popArr[0] != null ? popArr[0] : 0;
+    const tmaxArr = (d && d.temperature_2m_max) || [];
+    const tminArr = (d && d.temperature_2m_min) || [];
+    const tmax = tmaxArr.length ? Math.max(...tmaxArr) : null;
+    const tmin = tminArr.length ? Math.min(...tminArr) : null;
+    const uvArr = (d && d.uv_index_max) || [];
+    const uv = uvArr.length ? Math.max(0, ...uvArr.map((v) => v || 0)) : 0;
+    const feels = c && c.apparent_temperature;
+    const wind = c && c.wind_speed_10m;
+    const bf = wind != null ? kmhToBeaufort(wind) : 0;
+    const isRain = code != null && RAIN.includes(code);
+    const isStorm = code != null && STORM.includes(code);
+    const isFog = code === 45 || code === 48;
+    const isHeavy = (code != null && HEAVY.includes(code)) || pop >= 80;
 
-  function readCache() {
-    try {
-      const raw = localStorage.getItem(CACHE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || parsed.lang !== lang || Date.now() - parsed.t > CACHE_TTL_MS) return null;
-      return parsed.data;
-    } catch {
-      return null;
+    // Rain / storm / fog
+    if (isStorm) {
+      risk.push(kn ? '⚠️ ಗುಡುಗು ಮಿಂಚಿನ ಸಾಧ್ಯತೆ — ಮುಕ್ತ ಗೋಡೆಗಳ ಮೇಲೆ ಅಥವಾ ಮರದ ನೆರಳಿನಲ್ಲಿ ನಿಲ್ಲಬೇಡಿ; ಕೆಳಗಿನ ಪ್ರದೇಶಗಳಿಂದ ದೂರವಿರಿ.' : '⚠️ Thunderstorm likely — avoid standing on open walls or under trees, and keep clear of low ground.');
+      plan.push(kn ? 'ಗುಡುಗು ಮಿಂಚಿನ ಸಮಯದಲ್ಲಿ ಒಳಾಂಗಣ ಸ್ಥಳಗಳಿಗೆ (ಟಿಪ್ಪು ಸುಲ್ತಾನರ ಬೇಸಿಗೆ ಅರಮನೆ ಮೊದಲಾದ) ಹೋಗಿ, ವಾತಾವರಣ ಸರಿಯಾದ ನಂತರ ಕೋಟೆಗೆ ಮರಳಿ.' : 'During thunderstorms head to indoor spots (e.g. Tipu Sultan’s Summer Palace) and return to the fort once it eases.');
+      items.push(kn ? 'ಮಡಿಕೆ ಅಥವಾ ಛತ್ರಿ; ವಿದ್ಯುತ್ ಅಪಾಯ ಎಚ್ಚರಿಕೆ.' : 'Raincoat or umbrella; mind the lightning risk.');
+    } else if (isHeavy) {
+      risk.push(kn ? '⚠️ ಮಳೆ ಬಲವಾಗಿದೆ — ನೀರು ತುಂಬಿದ ರಸ್ತೆಗಳನ್ನು ತಪ್ಪಿಸಿ; ಹಡಗು / ರಜ್ಜುರಸ್ತೆ ಸೇವೆಗಳು ನಿಂತಿರಬಹುದು.' : '⚠️ Heavy rain — avoid waterlogged streets; boat / cable-car style services may be suspended.');
+      plan.push(kn ? 'ದೀರ್ಘ ಹೊರಾಂಗಣ ಭೇಟಿಗೆ ಸಲಹೆ ಇಲ್ಲ; ಒಳಾಂಗಣ ಸ್ಥಳಗಳಿಗೆ ಆದ್ಯತೆ ನೀಡಿ.' : 'Skip long outdoor stretches; prefer indoor attractions.');
+      items.push(kn ? 'ಮಳೆರಕ್ಷೆ (ಗಾಳಿಯಲ್ಲಿ ಉದ್ದ ಛತ್ರಿ ಅನುಕೂಲವಲ್ಲ).' : 'Rainwear (a long umbrella is awkward in wind).');
+    } else if (isRain || pop >= 60) {
+      outfit.push(kn ? 'ಸ್ವಲ್ಪ ಮಳೆ / ಮಳೆ ಸಾಧ್ಯತೆ ಇದೆ — ನೀರು ತಡೆಯುವ ಜಾಕೆಟ್ ಅಥವಾ ಛತ್ರಿ ಒಯ್ಯಿರಿ.' : 'Light rain or high chance — a waterproof jacket or umbrella helps.');
+      plan.push(kn ? 'ನೆಲ ಜಾರುವಂತಿರಬಹುದು, ನಡಿಗೆಯಲ್ಲಿ ಎಚ್ಚರಿಕೆ; ತೆರೆದ ವೇದಿಕೆಗಳು ಕಡಿಮೆ ಆನಂದದಾಯಕ.' : 'Pavements may be slippery — step carefully; open decks are less pleasant.');
+      items.push(kn ? 'ಮಡಿಕೆ ಛತ್ರಿ.' : 'Foldable umbrella.');
+    } else if (pop >= 40) {
+      items.push(kn ? 'ಮಳೆ ಸಾಧ್ಯತೆ ಮಧ್ಯಮ — ಬ್ಯಾಕಪ್ ಛತ್ರಿ ಇಟ್ಟುಕೊಳ್ಳಿ.' : 'Moderate rain chance — keep a backup umbrella handy.');
     }
-  }
-  function writeCache(data) {
-    try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), lang, data }));
-    } catch {}
+
+    if (isFog) {
+      risk.push(kn ? '⚠️ ಮಂಜು — ಗೋಚರತೆ ಕಡಿಮೆ, ಹಳೆಯ ನಗರ ರಸ್ತೆಗಳು ಸಾಂದ್ರ; ನೆಮ್ಮದಿಯಾಗಿ ಚಲಿಸಿ.' : '⚠️ Fog — low visibility and busy old-city streets; move slowly.');
+      items.push(kn ? 'ಮಾಸ್ಕ್ (ಮಂಜಿನ ಗಾಳಿ).' : 'A mask (hazy air in fog).');
+    }
+
+    // Heat / UV
+    const hot = (feels != null && feels >= 32) || (tmax != null && tmax >= 34);
+    if (hot) {
+      outfit.push(kn ? 'ಬಿಸಿಲು ಹೆಚ್ಚು — ಹಗುರ, ಗಾಳಿ ಬೀಸುವ ಬಟ್ಟೆ ಧರಿಸಿ.' : 'Hot and bright — wear light, breathable clothing.');
+      plan.push(kn ? 'ಮಧ್ಯಾಹ್ನ (ಸುಮಾರು 11–15 ಗಂ) ಹೊರಾಂಗಣವನ್ನು ತಪ್ಪಿಸಿ; ಬಿಸಿಲು ಸಮಯವನ್ನು ಕಡಿಮೆ ಮಾಡಿ.' : 'Avoid the midday hours (about 11–15h) outdoors and shorten sun exposure.');
+      items.push(kn ? 'ಸನ್‌ಕ್ರೀಂ, ಕನ್ನಡಕ, ಟೋಪಿ, ಸಾಕಷ್ಟು ನೀರು.' : 'Sunscreen, shades, a hat and plenty of water.');
+    }
+    if (uv >= 5) {
+      items.push(kn ? 'ಅತಿನೇರಳೆ ಬಲವಾಗಿದೆ — ಸನ್‌ಕ್ರೀಂ, ಕನ್ನಡಕ, ಟೋಪಿ ಒಯ್ಯಿರಿ.' : 'UV is strong — sunscreen, sunglasses and a hat.');
+    } else if (uv >= 3) {
+      items.push(kn ? 'ಸೌಮ್ಯ ಅತಿನೇರಳೆ — ದೀರ್ಘ ಹೊರಾಂಗಣದಲ್ಲಿ ಟೋಪಿ ಸಹಾಯಕ.' : 'Mild UV — a hat helps for long outdoor time.');
+    }
+
+    // Cold
+    if (feels != null && feels < 18) {
+      outfit.push(kn ? 'ಬೆಳಗ್ಗೆ / ಸಂಜೆ ತಂಪಾಗಿರಬಹುದು — ಹಗುರ ಜಾಕೆಟ್ ಒಯ್ಯಿರಿ.' : 'Cool mornings/evenings — a light jacket is handy.');
+    }
+    if (tmin != null && tmin <= 10) {
+      outfit.push(kn ? 'ರಾತ್ರಿ ತಂಪಾಗಿರಬಹುದು — ದಟ್ಟ ಜಾಕೆಟ್, ಸ್ಕಾರ್ಫ್.' : 'Chilly low — a warmer jacket and scarf.');
+    }
+    if (tmax != null && tmin != null && tmax - tmin > 8) {
+      outfit.push(kn ? 'ದಿನ-ರಾತ್ರಿ ತಾಪಮಾನ ವ್ಯತ್ಯಾಸ ಹೆಚ್ಚು — ಪದರ ಪದರವಾಗಿ ಬಟ್ಟೆ ಧರಿಸಿ, ಜಾಕೆಟ್ ಇಟ್ಟುಕೊಳ್ಳಿ.' : 'Big day-night swing — dress in layers and keep a jacket.');
+    }
+
+    // Wind
+    if (bf >= 7) {
+      risk.push(kn ? '⚠️ ಗಾಳಿ ಬಲವಾಗಿದೆ — ಹೋರ್ಡಿಂಗ್‌ಗಳು, ತಾತ್ಕಾಲಿಕ ರಚನೆಗಳಿಂದ ದೂರವಿರಿ; ಮುಕ್ತ ಎತ್ತರದ ಸ್ಥಳಗಳನ್ನು ತಪ್ಪಿಸಿ.' : '⚠️ Strong wind — keep away from hoardings and temporary structures; avoid open high spots.');
+    } else if (bf >= 5) {
+      plan.push(kn ? 'ಗಾಳಿ ಬಲವಾಗಿದೆ — ಮುಕ್ತ ವೇದಿಕೆಗಳು / ಎತ್ತರದ ಸ್ಥಳಗಳು ಅಲ್ಲಾಡಬಹುದು.' : 'Breezy — open decks and high points may feel exposed.');
+      items.push(kn ? 'ಟೋಪಿ ಹಾರಾಡಬಹುದು — ಚಪ್ಪಟೆ ಟೋಪಿ ಬಳಸಿ, ಸಡಲ ಉಡುಪು ತಪ್ಪಿಸಿ.' : 'Hats can blow off — use a snug cap; avoid loose clothing.');
+    }
+
+    // Clear / cloudy — positive, only when no adverse weather
+    if (!isStorm && !isHeavy && !isRain && !isFog && (code === 0 || code === 1)) {
+      plan.push(kn ? 'ಹವಾಮಾನ ಒಳ್ಳೆಯದು — ಹೊರಾಂಗಣ ಪರಿಶೀಲನೆಗೆ ಸೂಕ್ತ; ಬೆಳಗ್ಗೆ / ಸಂಜೆ ಬೆಳಕು ಚೆನ್ನಾಗಿರುತ್ತದೆ.' : 'Good weather for outdoor touring and photos; early/late light is lovely.');
+    } else if (!isStorm && !isHeavy && !isRain && !isFog && (code === 2 || code === 3)) {
+      plan.push(kn ? 'ಬೆಳಕು ಮೃದುವಾಗಿದೆ — ಛಾಯಾಚಿತ್ರಕ್ಕೆ ಉತ್ತಮ; ಬಿಸಿಲು ಇಲ್ಲದೆ ದೀರ್ಘ ನಡಿಗೆಗೆ ಅನುಕೂಲ.' : 'Soft light is great for photos; no harsh sun for long walks.');
+    }
+
+    return { outfit, plan, items, risk };
   }
 
-  function renderCurrent(c) {
+  function renderAdvice(a) {
+    const blocks = [
+      { title: kn ? 'ಹೊರಡುವ ಉಡುಪು' : '出行穿搭', items: a.outfit },
+      { title: kn ? 'ಭೇಟಿಯ ವ್ಯವಸ್ಥೆ' : '游玩安排', items: a.plan },
+      { title: kn ? 'ಜೊತೆಗೆ ತೆಗೆದುಕೊಳ್ಳುವುದು' : '随身物品', items: a.items }
+    ];
+    const active = blocks.filter((b) => b.items.length);
+    let html = `<p class="text-xs font-extrabold tracking-wider text-fort">${kn ? 'ನಿಮ್ಮ ಭೇಟಿಗೆ ಸಲಹೆಗಳು' : 'QUICK TIPS FOR YOUR VISIT'}</p>`;
+    if (a.risk.length) {
+      html += `<div class="mt-3 rounded-2xl border border-red-300 bg-red-50 p-4 text-sm leading-7 text-red-700">
+        <p class="font-extrabold">${kn ? '⚠️ ಹವಾಮಾನ ಎಚ್ಚರಿಕೆ' : '⚠️ WEATHER CAUTION'}</p>
+        ${a.risk.map((t) => `<p class="mt-1">${t}</p>`).join('')}
+      </div>`;
+    }
+    if (active.length) {
+      html += active
+        .map(
+          (b) => `<div class="mt-3">
+            <p class="text-xs font-bold tracking-wide text-stone-ink/55">${b.title}</p>
+            <ul class="mt-1.5 space-y-1 text-sm leading-7 text-stone-ink/75">
+              ${b.items.map((t) => `<li class="flex gap-2"><span class="text-fort">›</span><span>${t}</span></li>`).join('')}
+            </ul>
+          </div>`
+        )
+        .join('');
+    } else if (!a.risk.length) {
+      html += `<p class="mt-3 text-sm leading-7 text-stone-ink/70">${kn ? 'ಹವಾಮಾನ ಸಾಮಾನ್ಯ — ಸಾಮಾನ್ಯ ಪ್ರವಾಸ ವಸ್ತುಗಳೇ ಸಾಕು.' : 'Conditions look settled — usual travel basics are enough.'}</p>`;
+    }
+    adviceBox.innerHTML = html;
+    adviceBox.classList.remove('hidden');
+  }
+
+  function renderCurrent(c, d) {
     const temp = fmt(c.temperature_2m, '°C');
     const feels = fmt(c.apparent_temperature, '°C');
     const hum = fmt(c.relative_humidity_2m, '%');
     const wind = fmt(c.wind_speed_10m, ' km/h');
     const rain = c.precipitation == null ? '—' : c.precipitation + ' mm';
+    const popToday = (d && d.precipitation_probability_max && d.precipitation_probability_max[0] != null)
+      ? d.precipitation_probability_max[0] + '%'
+      : '—';
     currentEl.innerHTML = `
       <div class="text-5xl leading-none">${iconFor((WMO[c.weather_code] || ['cloud'])[0])}</div>
       <div class="mt-4 text-4xl font-black text-stone-ink">${temp}</div>
@@ -189,6 +288,7 @@ const seasonCards = en
         <div class="flex justify-between gap-3"><dt>${kn ? 'ಅನುಭವ' : 'Feels'}</dt><dd class="font-bold">${feels}</dd></div>
         <div class="flex justify-between gap-3"><dt>${kn ? 'ಆರ್ದ್ರತೆ' : 'Humidity'}</dt><dd class="font-bold">${hum}</dd></div>
         <div class="flex justify-between gap-3"><dt>${kn ? 'ಗಾಳಿ' : 'Wind'}</dt><dd class="font-bold">${wind}</dd></div>
+        <div class="flex justify-between gap-3"><dt>${kn ? 'ಮಳೆ ಸಾಧ್ಯತೆ' : 'Rain chance'}</dt><dd class="font-bold">${popToday}</dd></div>
         <div class="flex justify-between gap-3"><dt>${kn ? 'ಮಳೆ' : 'Rain'}</dt><dd class="font-bold">${rain}</dd></div>
       </dl>`;
   }
@@ -225,19 +325,14 @@ const seasonCards = en
 
   async function refresh() {
     try {
-      const cached = readCache();
-      if (cached) {
-        renderCurrent(cached.current);
-        renderDaily(cached.daily);
-        return;
-      }
-      const res = await fetch(buildUrl(), { signal: AbortSignal.timeout(15000) });
+      const res = await fetch('/api/weather', { signal: AbortSignal.timeout(15000) });
       if (!res.ok) throw new Error('http ' + res.status);
       const j = await res.json();
       if (!j || !j.current || !j.daily) throw new Error('bad payload');
-      writeCache(j);
-      renderCurrent(j.current);
-      renderDaily(j.daily);
+      const c = j.current, d = j.daily;
+      renderCurrent(c, d);
+      renderDaily(d);
+      renderAdvice(buildAdvice(c, d));
     } catch (e) {
       fallback(
         kn

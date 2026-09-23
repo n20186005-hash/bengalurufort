@@ -1,0 +1,69 @@
+---
+// Seasonal travel-strategy table plus a climate / water / wildlife overview.
+// For Bengaluru we reference the India Meteorological Department (IMD) long-period
+// climate normals, NOT foreign agencies — keeping the science locally accurate.
+interface Props { lang?: 'kn-IN' | 'en-IN'; }
+const { lang = 'kn-IN' } = Astro.props;
+const en = lang === 'en-IN';
+
+type Row = { season: string; weather: string; best: string; carry: string; note: string };
+const rows: Row[] = en
+  ? [
+      { season: 'Dec–Feb · Cool, pleasant', weather: 'Mild days (≈20–28°C), cool mornings and evenings.', best: 'The most comfortable window for walking the old city and photography.', carry: 'A light layer for early morning; water.', note: 'Clearest light and the calmest streets before the market wakes.' },
+      { season: 'Mar–May · Warm', weather: 'Hot afternoons (≈24–35°C), occasional pre-monsoon showers.', best: 'Early-morning visits; indoor palace and temple stops at midday.', carry: 'Water, hat, sun protection.', note: 'Heat builds after 11am — plan the fort for the first hour of daylight.' },
+      { season: 'Jun–Sep · Monsoon', weather: 'Frequent showers (≈20–28°C), humid, sudden rain.', best: 'Short, flexible visits; green surroundings at Lalbagh.', carry: 'Umbrella / rainwear; slip-resistant shoes.', note: 'Old-city pavements get wet and busy — allow extra time.' },
+      { season: 'Oct–Nov · Post-monsoon', weather: 'Settling weather (≈21–30°C), festive season.', best: 'Strong all-round window; combine with city festivals.', carry: 'Light daypack; water.', note: 'Dasara and Diwali periods bring crowds and closures — check locally.' }
+    ]
+  : [
+      { season: 'ಡಿಸೆಂಬರ್–ಫೆಬ್ರವರಿ · ತಂಪು, ಆರಾಮದಾಯಕ', weather: 'ಸೌಮ್ಯ ಹಗಲು (≈20–28°C), ತಂಪಾದ ಬೆಳಗ್ಗೆ ಮತ್ತು ಸಂಜೆ.', best: 'ಹಳೆಯ ನಗರ ನಡಿಗೆ ಮತ್ತು ಛಾಯಾಚಿತ್ರಕ್ಕೆ ಅತ್ಯಂತ ಆರಾಮದಾಯಕ ಕಾಲಾವಧಿ.', carry: 'ಬೆಳಗ್ಗಿನ ಹಗುರ ಲೇಯರ್; ನೀರು.', note: 'ಮಾರುಕಟ್ಟೆ ಎಚ್ಚರವಾಗುವ ಮೊದಲು ಸ್ಪಷ್ಟ ಬೆಳಕು ಮತ್ತು ಶಾಂತ ರಸ್ತೆಗಳು.' },
+      { season: 'ಮಾರ್ಚ್–ಮೇ · ಬೆಚ್ಚನೆ', weather: 'ಬಿಸಿಲಿನ ಮಧ್ಯಾಹ್ನ (≈24–35°C), ಕೆಲವೊಮ್ಮೆ ಮುಂಗಾರಪೂರ್ವ ಮಳೆ.', best: 'ಬೆಳಗ್ಗಿನ ಭೇಟಿ; ಮಧ್ಯಾಹ್ನದಲ್ಲಿ ಒಳಾಂಗಣ ಅರಮನೆ ಹಾಗೂ ದೇವಾಲಯ ನಿಲುಗಡೆಗಳು.', carry: 'ನೀರು, ಟೋಪಿ, ಸನ್‌ಕವಚ.', note: 'ಮಧ್ಯಾಹ್ನ 11 ನಂತರ ಬಿಸಿಲು ಹೆಚ್ಚುತ್ತದೆ — ಕೋಟೆಯನ್ನು ಹಗಲಿನ ಮೊದಲ ಗಂಟೆಗೆ ಯೋಜಿಸಿ.' },
+      { season: 'ಜೂನ್–ಸೆಪ್ಟೆಂಬರ್ · ಮಳೆಗಾಲ', weather: 'ಆಗಾಗ್ಗೆ ಮಳೆ (≈20–28°C), ಆರ್ದ್ರತೆ, ಇದ್ದಕ್ಕಿದ್ದಂತೆ ಮಳೆ.', best: 'ಸಣ್ಣ, ಹೊಂದಾಣಿಕೆಯ ಭೇಟಿಗಳು; ಲಾಲ್‌ಬಾಗ್‌ನ ಹಸಿರು ಸುತ್ತಮುತ್ತಲು.', carry: 'ಛತ್ರಿ / ಮಳೆರಕ್ಷೆ; ಜಾರದ ಷೂಸ್.', note: 'ಹಳೆಯ ನಗರ ಹಾದಿಗಳು ನೆನೆದು ಗದ್ದಲವಾಗುತ್ತವೆ — ಹೆಚ್ಚುವರಿ ಸಮಯ ಇಟ್ಟುಕೊಳ್ಳಿ.' },
+      { season: 'ಅಕ್ಟೋಬರ್–ನವೆಂಬರ್ · ಮುಂಗಾರಾನಂತರ', weather: 'ಸ್ಥಿರವಾದ ಹವಾಮಾನ (≈21–30°C), ಹಬ್ಬದ ಕಾಲ.', best: 'ಸಮಗ್ರವಾದ ಉತ್ತಮ ಕಾಲಾವಧಿ; ನಗರ ಹಬ್ಬಗಳೊಂದಿಗೆ ಸಂಯೋಜಿಸಿ.', carry: 'ಹಗುರ ಡೇಪ್ಯಾಕ್; ನೀರು.', note: 'ದಸರಾ ಮತ್ತು ದೀಪಾವಳಿ ಸಮಯದಲ್ಲಿ ಜನಸಂದಣಿ ಮತ್ತು ಮುಚ್ಚುವಿಕೆಗಳು — ಸ್ಥಳದಲ್ಲೇ ಪರಿಶೀಲಿಸಿ.' }
+    ];
+
+const intro = en
+  ? 'Bengaluru sits at about 900 m elevation, which keeps its climate milder than most Indian cities at this latitude. The table below summarises a typical year so you can time your visit and pack sensibly.'
+  : 'ಬೆಂಗಳೂರು ಸುಮಾರು 900 ಮೀಟರ್ ಎತ್ತರದಲ್ಲಿದೆ, ಇದು ಈ ಅಕ್ಷಾಂಶದ ಹೆಚ್ಚಿನ ಭಾರತೀಯ ನಗರಗಳಿಗಿಂತ ಸೌಮ್ಯ ಹವಾಮಾನವನ್ನು ಕಾಯ್ದಿರಿಸುತ್ತದೆ. ಕೆಳಗಿನ ಕೋಷ್ಟಕ ಸಾಮಾನ್ಯ ವರ್ಷವನ್ನು ಸಾರಾಂಶಗೊಳಿಸುತ್ತದೆ, ಆಗ ನೀವು ಭೇಟಿಯ ಸಮಯ ಮತ್ತು ಸಾಮಾನು ಯೋಜಿಸಬಹುದು.';
+
+const climateTitle = en ? 'Climate, water and wildlife in context' : 'ಸಂದರ್ಭದಲ್ಲಿ ಹವಾಮಾನ, ನೀರು ಮತ್ತು ವನ್ಯಜೀವಿ';
+const climateBody = en
+  ? 'Long-period (30-year) climate normals for Bengaluru are compiled by the India Meteorological Department (IMD). The city receives most of its rain from the south-west monsoon (roughly June to September); the cool, dry months are generally the most comfortable for heritage walking. Bengaluru’s drinking water is drawn largely from the Cauvery river system, so mindful use matters even in a busy tourist district. Green lungs such as Lalbagh Botanical Garden and Cubbon Park, both begun in the 18th century, support birds and urban biodiversity; the fort itself is an urban monument, so expect city life rather than wilderness. We present this as general background, not as an official forecast — always check current conditions before you travel.'
+  : 'ಬೆಂಗಳೂರಿನ ದೀರ್ಘಾವಧಿಯ (30 ವರ್ಷ) ಹವಾಮಾನ ಸಾಮಾನ್ಯ ಸ್ಥಿತಿಯನ್ನು ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆ (IMD) ಸಂಕಲಿಸುತ್ತದೆ. ನಗರದ ಮಳೆಯಲ್ಲಿ ಹೆಚ್ಚಿನದು ನೈಋತ್ಯ ಮುಂಗಾರದಿಂದ (ಸುಮಾರು ಜೂನ್‌ನಿಂದ ಸೆಪ್ಟೆಂಬರ್ ವರೆಗೆ); ತಂಪಾದ, ಒಣ ತಿಂಗಳುಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಪರಂಪರೆ ನಡಿಗೆಗೆ ಅತ್ಯಂತ ಆರಾಮದಾಯಕ. ಬೆಂಗಳೂರಿನ ಕುಡಿಯುವ ನೀರು ಹೆಚ್ಚಾಗಿ ಕಾವೇರಿ ನದಿ ವ್ಯವಸ್ಥೆಯಿಂದ ಬರುತ್ತದೆ, ಆದ್ದರಿಂದ ಜನನಿಬಿಡ ಪ್ರವಾಸಿ ಜಿಲ್ಲೆಯಲ್ಲೂ ಜಾಗರೂಕ ಬಳಕೆ ಮುಖ್ಯ. 18ನೇ ಶತಮಾನದಲ್ಲಿ ಆರಂಭವಾದ ಲಾಲ್‌ಬಾಗ್ ಸಸ್ಯೋದ್ಯಾನ ಮತ್ತು ಕಬ್ಬನ್ ಪಾರ್ಕ್‌ನಂತಹ ಹಸಿರು ಪ್ರದೇಶಗಳು ಹಕ್ಕಿಗಳು ಮತ್ತು ನಗರ ಜೈವವೈವಿಧ್ಯವನ್ನು ಬೆಂಬಲಿಸುತ್ತವೆ; ಕೋಟೆ ಸ್ವತಃ ನಗರ ಸ್ಮಾರಕವಾಗಿದೆ, ಆದ್ದರಿಂದ ಅರಣ್ಯದ ಬದಲು ನಗರ ಜೀವನವನ್ನು ನಿರೀಕ್ಷಿಸಿ. ಇದನ್ನು ಸಾಮಾನ್ಯ ಹಿನ್ನೆಲೆಯಾಗಿ ಮಾತ್ರ ನೀಡಿದ್ದೇವೆ, ಅಧಿಕೃತ ಮುನ್ನೋಟವಲ್ಲ — ಪ್ರಯಾಣಿಸುವ ಮೊದಲು ಪ್ರಸ್ತುತ ಸ್ಥಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ.';
+---
+<section id="season" class="bg-[#e8d8bf] py-20 lg:py-24">
+  <div class="mx-auto max-w-7xl px-5 lg:px-8">
+    <p class="section-kicker">{en ? 'WHEN TO VISIT' : 'ಯಾವಾಗ ಭೇಟಿ ನೀಡುವುದು'}</p>
+    <h2 class="section-title">{en ? 'Seasonal travel strategy for Bengaluru Fort' : 'ಬೆಂಗಳೂರು ಕೋಟೆಗೆ ಋತು ಪ್ರಯಾಣ ವ್ಯೂಹ'}</h2>
+    <p class="mt-4 max-w-3xl leading-8 text-stone-ink/70">{intro}</p>
+
+    <div class="mt-10 overflow-hidden rounded-[2rem_2rem_1rem_1rem] border border-fort/20 bg-white/70 shadow-xl shadow-fort/5">
+      <table class="w-full border-collapse text-left text-sm">
+        <thead class="bg-fort/10 text-stone-ink">
+          <tr>
+            <th class="px-5 py-3 font-extrabold">{en ? 'Season' : 'ಋತು'}</th>
+            <th class="px-5 py-3 font-extrabold">{en ? 'Typical weather' : 'ಸಾಮಾನ್ಯ ಹವಾಮಾನ'}</th>
+            <th class="px-5 py-3 font-extrabold">{en ? 'Best for' : 'ಇದಕ್ಕೆ ಉತ್ತಮ'}</th>
+            <th class="px-5 py-3 font-extrabold">{en ? 'What to carry' : 'ಏನು ಒಯ್ಯಬೇಕು'}</th>
+            <th class="px-5 py-3 font-extrabold">{en ? 'Note' : 'ಸೂಚನೆ'}</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-fort/10">
+          {rows.map((r) => (
+            <tr class="align-top">
+              <td class="px-5 py-4 font-bold text-fort whitespace-nowrap">{r.season}</td>
+              <td class="px-5 py-4 text-stone-ink/75">{r.weather}</td>
+              <td class="px-5 py-4 text-stone-ink/75">{r.best}</td>
+              <td class="px-5 py-4 text-stone-ink/75">{r.carry}</td>
+              <td class="px-5 py-4 text-stone-ink/75">{r.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-10 grid gap-6 lg:grid-cols-[.4fr_.6fr] lg:items-start">
+      <h3 class="text-2xl font-extrabold">{climateTitle}</h3>
+      <p class="leading-8 text-stone-ink/70">{climateBody}</p>
+    </div>
+  </div>
+</section>
