@@ -1,2 +1,4 @@
+packages:
+  - '.'
 allowBuilds:
-  esbuild: true
+  esbuild@0.28.2: true

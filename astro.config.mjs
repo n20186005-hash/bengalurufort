@@ -9,7 +9,7 @@ const SITE = 'https://bengalurufort.com';
 export default defineConfig({
   site: SITE || undefined,
   output: 'static',
-  integrations: SITE ? [sitemap()] : [],
+  integrations: SITE ? [sitemap({filter:page=>!new URL(page).pathname.match(/(?:^|\/)404(?:\/|\.html|$)/)})] : [],
   vite: {
     plugins: [tailwindcss()]
   }

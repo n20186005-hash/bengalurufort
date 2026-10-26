@@ -9,9 +9,9 @@ const root = en ? '/en/' : '/';
   <div class="mx-auto max-w-7xl px-5 py-12 lg:px-8">
     <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
       <div>
-        <div class="inline-flex rounded-xl bg-parchment p-3 text-stone-ink"><Logo compact={true} /></div>
+        <div class="inline-flex rounded-xl bg-parchment p-3 text-stone-ink"><Logo compact={true} lang={lang} /></div>
         <h2 class="mt-5 text-xl font-extrabold">{en ? 'Bengaluru Fort Bengaluru — Visitor Guide' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಬೆಂಗಳೂರು — ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ'}</h2>
-        <p class="mt-3 max-w-md text-sm leading-7 text-[#cfc3b4]">{en ? 'An independent, non-profit visitor-information project. We are not affiliated with any government body, archaeological authority or official organisation.' : 'ಇದು ಸ್ವತಂತ್ರ, ಲಾಭರಹಿತ ಪ್ರವಾಸಿ ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ ಯೋಜನೆ. ಯಾವುದೇ ಸರ್ಕಾರಿ ಸಂಸ್ಥೆ, ಪುರಾತತ್ವ ಇಲಾಖೆ ಅಥವಾ ಅಧಿಕೃತ ಸಂಘಟನೆಯೊಂದಿಗೆ ನಮ್ಮಿಗೆ ಆಡಳಿತಾತ್ಮಕ ಸಂಬಂಧ ಇಲ್ಲ.'}</p>
+        <p class="mt-3 max-w-md text-sm leading-7 text-[#cfc3b4]">{en ? 'An independent visitor-information project. We are not affiliated with any government body, archaeological authority or official organisation.' : 'ಇದು ಸ್ವತಂತ್ರ ಪ್ರವಾಸಿ ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶಿ ಯೋಜನೆ. ಯಾವುದೇ ಸರ್ಕಾರಿ ಸಂಸ್ಥೆ, ಪುರಾತತ್ವ ಇಲಾಖೆ ಅಥವಾ ಅಧಿಕೃತ ಸಂಘಟನೆಯೊಂದಿಗೆ ನಮ್ಮಿಗೆ ಆಡಳಿತಾತ್ಮಕ ಸಂಬಂಧ ಇಲ್ಲ.'}</p>
       </div>
       <div class="grid gap-7 sm:grid-cols-2">
         <div>
@@ -36,7 +36,7 @@ const root = en ? '/en/' : '/';
     <div class="mt-10 border-t border-white/10 pt-7 text-sm leading-7 text-[#bfb2a2]">
       <p>{en ? 'Bengaluru Fort information is cross-checked against public material from Bengaluru Urban District Administration, Karnataka Tourism, the Archaeological Survey of India and Government of India tourism resources. This site contains no paid or commercial recommendations.' : 'ಬೆಂಗಳೂರು ಕೋಟೆಯ ಮಾಹಿತಿ ಬೆಂಗಳೂರು ನಗರ ಜಿಲ್ಲಾಡಳಿತ, ಕರ್ನಾಟಕ ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ, ಭಾರತೀಯ ಪುರಾತತ್ವ ಸರ್ವೇಕ್ಷಣಾ ಇಲಾಖೆ ಹಾಗೂ ಭಾರತ ಸರ್ಕಾರದ ಪ್ರವಾಸೋದ್ಯಮ ಸಾರ್ವಜನಿಕ ಮಾಹಿತಿಯನ್ನು ಪರಸ್ಪರ ಹೋಲಿಸಿ ಸಿದ್ಧಪಡಿಸಲಾಗಿದೆ. ಇಲ್ಲಿ ಯಾವುದೇ ಪಾವತಿತ ಅಥವಾ ವಾಣಿಜ್ಯ ಶಿಫಾರಸುಗಳಿಲ್ಲ.'}</p>
       <p class="mt-2">{en ? 'Image rights: all photographs displayed on this site remain the property and copyright of their original photographers. Licence and credit details are listed on the main page.' : 'ಚಿತ್ರ ಹಕ್ಕು: ಈ ತಾಣದಲ್ಲಿ ಬಳಕೆಯಾದ ಛಾಯಾಚಿತ್ರಗಳ ಹಕ್ಕು ಮತ್ತು ಕೃತಿಸ್ವಾಮ್ಯ ಅವುಗಳ ಮೂಲ ಛಾಯಾಗ್ರಾಹಕರದ್ದೇ. ಪ್ರತಿಯೊಂದು ಚಿತ್ರದ ಪರವಾನಗಿ ಮತ್ತು ಕ್ರೆಡಿಟ್ ವಿವರಗಳು ಮುಖ್ಯ ಪುಟದ ಚಿತ್ರ ಮೂಲ ವಿಭಾಗದಲ್ಲಿ ನೀಡಲಾಗಿದೆ.'}</p>
-      <p class="mt-2">{en ? 'Last content review: 3 September 2026.' : 'ಕೊನೆಯ ವಿಷಯ ಪರಿಶೀಲನೆ: ಸೆಪ್ಟೆಂಬರ್ 3, 2026.'}</p>
+      <p class="mt-2">{en ? 'Last content review: 25 October 2026.' : 'ಕೊನೆಯ ವಿಷಯ ಪರಿಶೀಲನೆ: ಅಕ್ಟೋಬರ್ 25, 2026.'}</p>
       <p class="mt-2">© 2026 {en ? 'Bengaluru Fort Bengaluru — Visitor Guide. All rights reserved.' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಬೆಂಗಳೂರು — ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ. ಎಲ್ಲಾ ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.'}</p>
     </div>
   </div>

@@ -1,6 +1,6 @@
 # Bengaluru Fort Visitor Guide / ಬೆಂಗಳೂರು ಕೋಟೆ ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ
 
-ಸ್ವತಂತ್ರ, ಲಾಭರಹಿತ Bengaluru Fort visitor-information project. Default interface language is Kannada (`/`); English is available at `/en/`. Both languages share the same locally served assets and Cookie consent preference.
+ಸ್ವತಂತ್ರ Bengaluru Fort visitor-information project. Default interface language is Kannada (`/`); English is available at `/en/`. Both languages share the same locally served assets and Cookie consent preference.
 
 ## Technology
 
@@ -27,7 +27,7 @@ Production origin: **`https://bengalurufort.com`** (set 2026-09-03 in `astro.con
 
 ## PWA
 
-The site is installable: `public/manifest.webmanifest` (Kannada default UI, start URL `/`, theme colour `#9c5d36`) + `public/sw.js` (offline-first caching: network-first navigations with a cached-home fallback, stale-while-revalidate for same-origin assets; versioned cache `bengalurufort-v2026-09-03`). Icons live in `public/icons/` (SVG, 16/32 px PNG, apple-touch 180 px, generated 192/512 px and maskable 512 px). The service worker is registered from `BaseLayout.astro` only outside localhost, and the privacy pages explain the browser-side cache.
+The site is installable: `public/manifest.webmanifest` (Kannada default UI, start URL `/`, theme colour `#9c5d36`) + `public/sw.js` (offline-first caching: network-first navigations with a cached-home fallback, stale-while-revalidate for same-origin assets; versioned cache `bengalurufort-v2026-09-03`). Icons live in `public/icons/` (SVG, 16/32 px PNG, apple-touch 180 px, generated 192/512 px and maskable 512 px). The service worker is registered from `BaseLayout.astro` only outside the local development origin, and the privacy pages explain the browser-side cache.
 
 ## Verification commands
 
@@ -61,7 +61,7 @@ pnpm optimize:images   # sharp-based; needs a local sharp install (pnpm add -D s
 
 ## Weather module
 
-The `#weather` section (WeatherSection.astro) is bilingual and shows three season advisory cards plus a live widget (current conditions + seven-day forecast). Because the site is a fully static Cloudflare deployment, the widget fetches the free, keyless Open-Meteo API from the visitor’s browser (fort coordinates only, 30-minute local cache, graceful fallback, `<noscript>` note). No server, key or cookies are involved. See the privacy pages for the user-facing disclosure.
+The bilingual panel requests the existing native `/api/weather` endpoint when a page opens. The Worker fetches Open-Meteo at fixed fort coordinates, validates current and seven-day data and caches successful responses for ten minutes. Failed responses are not cached. The model timestamp and provider are displayed; forecasts do not determine access or local warnings.
 
 ## GA4 and consent
 

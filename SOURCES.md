@@ -9,3 +9,8 @@
 - Google Maps entity: https://maps.app.goo.gl/YQMDNDs39ST6udZd6
 
 ತಾಣವು ಅಧಿಕೃತವಲ್ಲ; ಪ್ರಯಾಣದ ದಿನ ಪ್ರವೇಶ ಸಮಯ, ಶುಲ್ಕ ಮತ್ತು ಸ್ಥಳೀಯ ನಿರ್ಬಂಧಗಳನ್ನು ಸ್ಥಳದಲ್ಲಿರುವ ಸೂಚನೆ ಅಥವಾ ಸಂಬಂಧಿತ ಅಧಿಕೃತ ಮೂಲದಲ್ಲಿ ಮರುಪರಿಶೀಲಿಸುವಂತೆ ವಿಷಯದಲ್ಲಿ ಸೂಚಿಸಲಾಗಿದೆ.
+
+- Historical status: Ministry of Culture list (2011), Old Dungeon Fort & Gates, Bangalore: https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=76471
+- Siege date: Royal Collection Trust, RCIN 735001: https://col-militarymaps-frontend.rct.uk/other-18th/19th-century-conflicts-7
+
+District history supports the 1537 foundation. The district tourism page combines Tipu Palace and Fort; its 1791 palace completion is not the fort construction date. Maps hours and ratings are attributed snapshots, not a current operational undertaking by the monument authority.

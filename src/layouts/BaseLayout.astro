@@ -68,32 +68,8 @@ const alternateAbsolute = alternatePath && Astro.site ? new URL(alternatePath, A
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-    <script is:inline>
-      (() => {
-        const id = 'G-HXM22WWPKP';
-        let loaded = false;
-        const loadAnalytics = () => {
-          if (loaded) return;
-          loaded = true;
-          const dataLayer = window['dataLayer'] = window['dataLayer'] || [];
-          window['gtag'] = function(){ dataLayer.push(arguments); };
-          window['gtag']('js', new Date());
-          window['gtag']('config', id, { anonymize_ip: true });
-          const analyticsScript = document.createElement('script');
-          analyticsScript.async = true;
-          analyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
-          document.head.appendChild(analyticsScript);
-        };
-        try {
-          const prefs = JSON.parse(localStorage.getItem('bengaluru-fort-cookie-preferences') || '{}');
-          if (prefs.analytics === true) loadAnalytics();
-          window.addEventListener('bengaluru-fort-consent-changed', (event) => {
-            if (event.detail && event.detail.analytics === true) loadAnalytics();
-          });
-        } catch (_) {}
-      })();
-    </script>
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <script is:inline src="/analytics.js"></script>
     <script is:inline>
       if ('serviceWorker' in navigator && !location.hostname.includes('local' + 'host')) {
         window.addEventListener('load', function () {

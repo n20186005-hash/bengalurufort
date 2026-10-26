@@ -4,11 +4,11 @@ interface Props { lang?: 'kn-IN' | 'en-IN'; }
 const { lang = 'kn-IN' } = Astro.props;
 const en = lang === 'en-IN';
 const root = en ? '/en/' : '/';
-const switchHref = en ? '/' : '/en/';
+const topic=Astro.url.pathname.replace(/^\/en(?=\/)/,''); const switchHref = en ? topic : '/en'+(topic==='/'?'/':topic);
 ---
 <header class="sticky top-0 z-40 border-b border-fort-deep/10 bg-parchment/92 backdrop-blur">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 lg:px-8">
-    <a href={root} aria-label={en ? 'Bengaluru Fort home' : 'ಬೆಂಗಳೂರು ಕೋಟೆ ಮುಖಪುಟ'}><Logo /></a>
+    <Logo lang={lang} />
     <nav aria-label={en ? 'Main navigation' : 'ಮುಖ್ಯ ನ್ಯಾವಿಗೇಶನ್'} class="hidden items-center gap-5 text-sm font-semibold lg:flex">
       <a class="focus-ring rounded hover:text-fort" href={`${root}#history`}>{en ? 'History' : 'ಇತಿಹಾಸ'}</a>
       <a class="focus-ring rounded hover:text-fort" href={`${root}#stories`}>{en ? 'Stories' : 'ಕಥೆಗಳು'}</a>

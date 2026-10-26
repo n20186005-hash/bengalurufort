@@ -1,6 +1,6 @@
 // Bengaluru Fort Visitor Guide – service worker
 // Version bump whenever the app shell changes.
-const VERSION = 'bengalurufort-v2026-09-03';
+const VERSION = 'bengalurufort-v2026-10-25';
 const CORE = ['/', '/manifest.webmanifest', '/icons/favicon.svg', '/icons/icon-192.png'];
 
 self.addEventListener('install', (event) => {
@@ -25,7 +25,7 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin) return;
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/api/')) return;
 
   // Navigation: network first, offline fallback to the cached start page.
   if (request.mode === 'navigate') {
@@ -33,10 +33,10 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           const copy = response.clone();
-          caches.open(VERSION).then((cache) => cache.put(request, copy));
+          if(response.status===200)caches.open(VERSION).then((cache) => cache.put(request, copy));
           return response;
         })
-        .catch(() => caches.match(request).then((hit) => hit || caches.match('/')))
+        .catch(() => caches.match(request).then((hit) => hit || new Response('Offline — reconnect to open this page.',{status:503,headers:{'content-type':'text/plain; charset=utf-8'}})))
     );
     return;
   }
@@ -48,7 +48,7 @@ self.addEventListener('fetch', (event) => {
         .then((response) => {
           if (response && response.status === 200) {
             const copy = response.clone();
-            caches.open(VERSION).then((cache) => cache.put(request, copy));
+            if(response.status===200)caches.open(VERSION).then((cache) => cache.put(request, copy));
           }
           return response;
         })
